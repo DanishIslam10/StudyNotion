@@ -1,0 +1,3 @@
+[build]
+  command = "unset CI && npm run build"
+  publish = "build"  # Specify the directory where the built files are located

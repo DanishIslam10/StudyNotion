@@ -1,0 +1,44 @@
+|-- .env
+|-- .gitignore
+|-- config
+    |-- cloudinary.js
+    |-- database.js
+    |-- razorpay.js
+|-- controllers
+    |-- Auth.js
+    |-- Category.js
+    |-- ContactUs.js
+    |-- Course.js
+    |-- Payment.js
+    |-- Profile.js
+    |-- RatingAndReview.js
+    |-- ResetPassword.js
+    |-- Section.js
+    |-- SubSection.js
+|-- index.js
+|-- mail
+    |-- templates
+        |-- contactFormEmail.js
+        |-- courseEnrollmentEmail.js
+|-- middlewares
+    |-- auth.js
+|-- model
+    |-- Category.js
+    |-- Course.js
+    |-- CourseProgress.js
+    |-- OTP.js
+    |-- Profile.js
+    |-- RatingAndReview.js
+    |-- Section.js
+    |-- SubSection.js
+    |-- User.js
+|-- package-lock.json
+|-- package.json
+|-- routes
+    |-- Course.js
+    |-- Payment.js
+    |-- Profile.js
+    |-- User.js
+|-- utils
+    |-- mailSender.js
+    |-- mediaUploader.js
