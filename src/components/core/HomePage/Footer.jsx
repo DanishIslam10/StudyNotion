@@ -11,7 +11,7 @@ const Footer = (props) => {
 
             <div className="w-[100%] sm:flex sm:flex-nowrap flex-wrap py-5 sm:px-10">
                 <div className="w-full flex flex-col h-min flex-wrap sm:m-0 mt-10 p-4">
-                    <div className="flex justify-center sm:justify-start">
+                    <div className="flex justify-center sm:justify-start mb-5">
                         <img src={Logo}></img>
                     </div>
                     <div className="flex h-min gap-8 ml-2 flex-wrap sm:m-0 mt-10">

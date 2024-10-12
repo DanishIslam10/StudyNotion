@@ -9,9 +9,8 @@ import { useLogOutHook } from "../../../services/operations/operations";
 const ProfileDropDown = (props) => {
 
   const logOut = useLogOutHook()
-  const {user} = useSelector((state) => state.profile)
+  const { user } = useSelector((state) => state.profile)
   const imageUrl = user.image
-  console.log("Image url is: ",imageUrl)
 
   function logOutHandler() {
     logOut()
@@ -20,18 +19,20 @@ const ProfileDropDown = (props) => {
   return (
     <div className="group relative">
       <div className="flex items-center gap-1 ">
-        <img className="w-7 rounded-full" src={imageUrl}></img>
-        <IoMdArrowDropdown  />
+        <div className="bg-[black] rounded-full">
+          <img className="w-[2rem] h-[2rem] object-cover object-top rounded-full " src={user?.image} alt="profile picture" />
+        </div>
+        <IoMdArrowDropdown />
       </div>
-      <div className="absolute flex flex-col gap-1 bg-[#1e1d1d] rounded-sm right-0 top-9 invisible 
-       transition-all duration-100 group-hover:visible">
-        <Link to={"/dashboard"} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
-        <MdDashboard/>
-        Dashsboard
+      <div className="invisible absolute flex flex-col gap-1 bg-[#1e1d1d] rounded-sm right-0 top-9
+       transition-all duration-200 group-hover:visible">
+        <Link to={"/profile/my-profile"} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
+          <MdDashboard />
+          Dashboard
         </Link>
-        <Link  onClick={logOutHandler} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
-        <IoLogOutSharp/>
-        Logout
+        <Link onClick={logOutHandler} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
+          <IoLogOutSharp />
+          Logout
         </Link>
       </div>
     </div>

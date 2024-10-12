@@ -24,9 +24,9 @@ const ExploreMore = (props) => {
                     <p className="text-[rgba(131,136,148,1)] text-sm font-[500] text-center ">Learn to Build Anything You Can Imagine</p>
                     <div className=" flex flex-wrap gap-4 justify-center items-center bg-[rgba(22,29,41,1)] py-2 sm:px-4 sm:rounded-full rounded-md">
                     {
-                        HomePageExplore.map((item) => {
+                        HomePageExplore.map((item,index) => {
                             return (
-                                <p className={`py-1 px-2 sm:rounded-full rounded-sm w-fit cursor-pointer
+                                <p key={index} className={`py-1 px-2 sm:rounded-full rounded-sm w-fit cursor-pointer
                                 ${currentTab === item.tag ? "bg-[rgba(0,8,20,1)] text-white" : "text-[rgba(131,136,148,1)] "} `}
                                 onClick={() => setMyCards(item.tag)} >
                                     {item.tag}

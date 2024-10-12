@@ -16,7 +16,6 @@ const Navbar = (props) => {
   const { user } = useSelector((state) => state.profile);
   const { token } = useSelector((state) => state.auth);
   const { totalItems } = useSelector((state) => state.cart);
-
   const [catalogLinks, setCatalogLinks] = useState([]);
 
   const getAllCategories = useGetAllCategoriesHook()

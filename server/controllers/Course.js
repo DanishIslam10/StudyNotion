@@ -208,3 +208,74 @@ exports.getCourseDetails = async (req, res) => {
         })
     }
 }
+
+//get user enrolled courses
+exports.getEnrolledCourses = async (req,res) => {
+    try {
+        const {id} = req.user
+        const user = await User.findById(id).populate("courses").exec()
+        if(!id || !user) {
+            res.status(404).json({
+                success:false,
+                message:"user not found"
+            })
+        }
+        const enrolledCourses = user.courses
+        res.status(200).json({
+            success:true,
+            data:enrolledCourses,
+            message:"user enrolled courses fetched successfully"
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success:false,
+            message:"server error: cannot fetch user enrolled courses"
+        })
+    }
+}
+
+//get instructor courses
+exports.getInstructorCourses = async(req,res) => {
+    try {
+        const {id} = req.user
+        const user = await User.findById(id)
+        .populate(
+            {
+                path:"courses",
+                populate:{
+                    path:"courseContent",
+                    populate: {
+                        path:"subSection"
+                    }
+                }
+            }
+        )
+        .exec()
+        if(!id || !user) {
+            return res.status(404).json({
+                success:false,
+                message:"user not found"
+            })
+        }
+        if(!user.accountType === "Instructor") {
+            return res.status(402).json({
+                success:false,
+                message:"This is protected route for Instructor"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            data:user.courses,
+            message:"Instructor courses fetched succesfully"
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success:false,
+            message:"server error: cant fetch instructor courses."
+        })
+
+    }
+}

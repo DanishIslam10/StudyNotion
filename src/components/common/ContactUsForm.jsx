@@ -52,7 +52,7 @@ const ContactUsForm = (props) => {
                 loading ? (<div className="w-[50%] h-[90vh] flex justify-center items-center ">
                     <Spinner />
                 </div>) : (<div>
-                    <form onSubmit={handleSubmit(submitContactForm)} autoComplete="off" className="contact-us-form flex flex-col justify-center gap-4 text-[white] my-8 p-4">
+                    <form onSubmit={handleSubmit(submitContactForm)} autoComplete="off" className="contact-us-form flex flex-col justify-center gap-4 text-[white]  p-4">
                         <div className="flex gap-2 w-full">
                             <div className="flex flex-col gap-1 w-full">
                                 <label htmlFor="firstName" >First name</label>

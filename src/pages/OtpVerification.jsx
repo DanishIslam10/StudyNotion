@@ -19,11 +19,11 @@ const OtpVerification = (props) => {
 
     function formSubmitHandler(event) {
         event.preventDefault()
-        const {firstName,lastName,email,accountType,password,confirmPassword} = signUpData
-        console.log("All sign Data : ",
-            firstName,lastName,email,accountType,password,confirmPassword,otp
-        )
-        signUp({firstName,lastName,email,accountType,password,confirmPassword,otp})
+        const {firstName,lastName,email,dateOfBirth,gender,accountType,password,confirmPassword} = signUpData
+        // console.log("All sign Data : ",
+        //     firstName,lastName,email,accountType,password,confirmPassword,otp
+        // )
+        signUp({firstName,lastName,email,dateOfBirth,gender,accountType,password,confirmPassword,otp})
     }
 
     return (

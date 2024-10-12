@@ -88,15 +88,19 @@ exports.signUp = async (req, res) => {
             firstName,
             lastName,
             email,
+            dateOfBirth,
+            gender,
             password,
             confirmPassword,
             accountType,
             otp
         } = req.body
 
+        console.log("user sign up data in the backend: ",req.body)
+
         //apply validation
         //account type isliye add nahi kiya bcz uski kuch na kch default value hogi hi 
-        const requiredFields = { firstName, lastName, email, password, confirmPassword, otp };
+        const requiredFields = { firstName, lastName, email,dateOfBirth,gender, password, confirmPassword, otp };
 
         for (const [field, value] of Object.entries(requiredFields)) {
             if (!value) {
@@ -150,9 +154,9 @@ exports.signUp = async (req, res) => {
         //save user entry in db
 
         const profileDetails = await Profile.create({
-            //initially, fill all the details as null
-            gender: null,
-            dateOfBirth: null,
+            //initially, fill all the details
+            gender: gender,
+            dateOfBirth: dateOfBirth,
             about: null,
             contactNumber: null,
         })
@@ -200,7 +204,7 @@ exports.login = async (req, res) => {
             }
         }
         //check if user does not exists
-        const user = await User.findOne({ email,accountType })
+        const user = await User.findOne({ email,accountType }).populate("additionalDetails").exec()
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -219,7 +223,6 @@ exports.login = async (req, res) => {
             const token = jwt.sign(payload, process.env.JWT_SECRET, {
                 expiresIn: "2h",
             })
-            user.token = token
             user.password = undefined
             //create cookie and send success response
             const options = {

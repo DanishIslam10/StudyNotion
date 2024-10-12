@@ -18,6 +18,14 @@ html,body {
     color: white;
 }
 
+.edit-profile-details-form input,.new-course-information-form input,textarea,select, .course-builder-form input{
+    width: 100%;
+    background-color: #2C333F;
+    padding: 0.6rem 0.4rem;
+    border-radius: 0.3rem;
+    color: white;
+}
+
 .sign-up-form select,.contact-us-form select{
     display: flex;
     width: 4rem;
@@ -33,7 +41,28 @@ html,body {
     color: rgb(206, 206, 206);
 }
 
+.edit-profile-details-form p,.new-course-information-form p,.course-builder-form p{
+    color:#F1F2FF;
+    font-size:0.8rem;
+    font-weight: 400;
+}
+
 .contact-us-form span{
     
    color: rgb(245, 105, 105);
 }
+
+.sidebar .nav-links:hover{
+   color:white
+}
+.sidebar .active{
+    color: rgba(255,214,10,1);
+    background-color: #3D2A01;
+    border-left: 3px solid rgba(255,214,10,1);
+}
+
+.sidebar .active:hover{
+    color: rgba(255,214,10,1);
+}
+
+

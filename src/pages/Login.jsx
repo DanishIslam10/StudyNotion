@@ -12,11 +12,6 @@ const Login = (props) => {
     password: "",
   })
 
-  const {token} = useSelector((state) => state.auth)
-  const {user} = useSelector((state) => state.profile)
-  console.log("Token is: ",token)
-  console.log("User is: ",user)
-
   const login = useLoginHook()
 
   const [accountType, setAccountType] = useState("Student")
@@ -33,7 +28,6 @@ const Login = (props) => {
 
   function formSubmitHandler(event) {
     event.preventDefault()
-    console.log("Login Form Data: ", {...formData,accountType})
     login({...formData,accountType})
   }
 

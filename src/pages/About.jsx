@@ -120,7 +120,7 @@ const About = (props) => {
                 }
             </div>
              {/* Section 6 (form) */}
-             <div className="flex flex-col justify-between items-center">
+             <div className="flex flex-col justify-between gap-5 items-center my-5">
                 <div className="flex flex-col gap-2">
                     <p className="text-4xl font-[600] text-[rgba(241,242,255,1)] text-center ">Get in Touch</p>
                     <p className="text-base font-[500] text-[rgba(131,136,148,1)]  text-center">We'd love to here for you, Please fill out this form.</p>

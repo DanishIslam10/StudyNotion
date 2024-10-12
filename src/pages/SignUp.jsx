@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSignUpData } from "../slices/authSlice";
 import {useSendSignUpOtpHook} from "../services/operations/operations"
 import Spinner from "../components/common/Spinner"
+import DobInput from "../components/common/DobInput";
+import GenderInput from "../components/common/GenderInput"
+import dayjs from "dayjs";
 
 const SignUp = (props) => {
 
@@ -18,6 +21,8 @@ const SignUp = (props) => {
     firstName: "",
     lastName: "",
     email: "",
+    dateOfBirth:"",
+    gender:"",
     password: "",
     confirmPassword: "",
     accountType: "Student", // Move the accountType here
@@ -38,6 +43,7 @@ const SignUp = (props) => {
   function formSubmitHandler(event) {
     event.preventDefault();
     dispatch(setSignUpData(formData));
+    console.log("sign up form Data",formData)
     sendSignUpOtp(formData);
   }
 
@@ -119,6 +125,8 @@ const SignUp = (props) => {
                 required
               />
             </div>
+            <DobInput name={"dateOfBirth"} value={formData.dateOfBirth} onChange={formDataChangeHandler}/>
+            <GenderInput name={"gender"} value={formData.gender} onChange={formDataChangeHandler} />
             <div className="flex gap-2">
               <div className="w-full">
                 <label>Create Password</label>

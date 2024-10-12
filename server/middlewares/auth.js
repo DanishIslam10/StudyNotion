@@ -5,9 +5,12 @@ const User = require('../model/User')
 // the main aim of this auth middleware is to fetch and decode the token by which it can check the role of the user
 exports.auth = async (req, res, next) => {
     try {
-        const token = req.cookies.token || req.header("Authorization").replace("Bearer ", "");
+        const token = req.cookies.token 
+
+        console.log("Cookie ka Token: ", req.cookies.token)
+
         if (!token) {
-            return res.status(401).json({ 
+            return res.status(401).json({
                 success: false,
                 message: "Token is missing",
             });

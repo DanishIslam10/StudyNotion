@@ -107,13 +107,37 @@
             |-- Logo4.svg
     |-- components
         |-- common
+            |-- Btn.jsx
             |-- ContactUsForm.jsx
+            |-- CourseTips.jsx
+            |-- DobInput.jsx
+            |-- GenderInput.jsx
             |-- Navbar.jsx
+            |-- PhoneNumberInput.jsx
+            |-- Sidebar.jsx
             |-- Spinner.css
             |-- Spinner.jsx
         |-- core
             |-- Auth
                 |-- ProfileDropDown.jsx
+            |-- Dashboard
+                |-- Create New Course
+                    |-- CourseBuilder.jsx
+                    |-- CourseInformation.jsx
+                |-- EnrolledCourses.jsx
+                |-- Header.jsx
+                |-- InstructorCourseCard.jsx
+                |-- InstructorCourses.jsx
+                |-- Modals
+                    |-- changeDpModal.jsx
+                    |-- DeleteAccountModal.jsx
+                    |-- LogoutModal.jsx
+                    |-- RemoveDpModal.jsx
+                |-- PersonalDetailsCard.jsx
+                |-- Profile.jsx
+                |-- PurchaseHistory.jsx
+                |-- Setting.jsx
+                |-- Wishlist.jsx
             |-- HomePage
                 |-- Card.jsx
                 |-- CTAButton.jsx
@@ -137,6 +161,8 @@
     |-- output.css
     |-- pages
         |-- About.jsx
+        |-- ContactUs.jsx
+        |-- Dashboard.jsx
         |-- Home.jsx
         |-- Login.jsx
         |-- OtpVerification.jsx
@@ -155,5 +181,7 @@
     |-- slices
         |-- authSlice.js
         |-- cartSlice.js
+        |-- instructorCourses.js
+        |-- newCourseSlice.js
         |-- profileSlice.js
 |-- tailwind.config.js

@@ -1,44 +1,43 @@
-import { ACCOUNT_TYPE } from "../utils/constants";
+import { FaRegUser } from "react-icons/fa6";
+import { GoStack } from "react-icons/go";
+import { IoCartOutline } from "react-icons/io5";
+import { LuBookmark } from "react-icons/lu";
+import { MdLaptopChromebook } from "react-icons/md";
+
 export const sidebarLinks = [
   {
     id: 1,
     name: "My Profile",
-    path: "/dashboard/my-profile",
-    icon: "VscAccount",
+    path: "/profile/my-profile",
+    type: ["Student", "Instructor"],
+    icon: <FaRegUser />
   },
   {
     id: 2,
-    name: "Dashboard",
-    path: "/dashboard/instructor",
-    type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscDashboard",
+    name: "Enrolled Courses",
+    path: "/profile/enrolled-courses",
+    type: ["Student"],
+    icon: <GoStack />
   },
   {
     id: 3,
-    name: "My Courses",
-    path: "/dashboard/my-courses",
-    type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscVm",
+    name: "Wishlist",
+    path: "/profile/wishlist",
+    type: ["Student"],
+    icon: <LuBookmark />
   },
   {
     id: 4,
-    name: "Add Course",
-    path: "/dashboard/add-course",
-    type: ACCOUNT_TYPE.INSTRUCTOR,
-    icon: "VscAdd",
+    name: "Purchase History",
+    path: "/profile/purchase-history",
+    type: ["Student"],
+    icon: <IoCartOutline />
   },
   {
     id: 5,
-    name: "Enrolled Courses",
-    path: "/dashboard/enrolled-courses",
-    type: ACCOUNT_TYPE.STUDENT,
-    icon: "VscMortarBoard",
-  },
-  {
-    id: 6,
-    name: "Your Cart",
-    path: "/dashboard/cart",
-    type: ACCOUNT_TYPE.STUDENT,
-    icon: "VscHistory",
+    name: "My Courses",
+    path: "/profile/instructor-courses",
+    type: ["Instructor"],
+    icon: <MdLaptopChromebook />
   },
 ];

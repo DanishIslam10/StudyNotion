@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 //course controller
-const {createCourse,showAllCourses,getCourseDetails} = require('../controllers/Course')
+const {createCourse,showAllCourses,getCourseDetails,getEnrolledCourses,getInstructorCourses} = require('../controllers/Course')
 
 //course content controller (section)
 const {createSection,updateSection,deleteSection} = require('../controllers/Section')
@@ -26,8 +26,10 @@ const {auth,isStudent,isInstructor,isAdmin} = require('../middlewares/auth')
 
 //course can only be created by instructor
 router.post("/createCourse",auth,isInstructor,createCourse)
-router.get("/showAllCourses",auth,isInstructor,showAllCourses)
-router.post("/getCourseDetails",auth,isInstructor,getCourseDetails)
+router.get("/getEnrolledCourses",auth,isStudent,getEnrolledCourses)
+router.get("/getInstructorCourses",auth,isInstructor,getInstructorCourses)
+router.get("/showAllCourses",auth,showAllCourses)
+router.post("/getCourseDetails",auth,getCourseDetails)
 
 router.post("/createSection",auth,isInstructor,createSection)
 router.put("/updateSection",auth,isInstructor,updateSection)
