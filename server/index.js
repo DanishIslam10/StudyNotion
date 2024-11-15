@@ -7,9 +7,7 @@ require("dotenv").config();
 
 // CORS configuration to allow multiple origins
 const allowedOrigins = [
-    'https://study-notion-re5n84rg5-danthebests-projects.vercel.app', // your frontend URL
-    'https://study-notion-1sxu6u68q-danthebests-projects.vercel.app', // another frontend URL (if any)
-    // Add more URLs here if you have multiple frontends
+    'https://study-notion-a7ilayiw7-danthebests-projects.vercel.app'
 ];
 
 //middlewares
