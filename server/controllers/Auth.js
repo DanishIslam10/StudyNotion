@@ -16,7 +16,7 @@ exports.sendOTP = async (req, res) => {
         const { email } = req.body
 
         //check if user already exists
-        const user = await User.findOne({email:email})
+        const user = await User.findOne({ email: email })
 
         //if user exists,return a response
         if (user) {
@@ -27,12 +27,12 @@ exports.sendOTP = async (req, res) => {
         }
 
         //Domain validation (restrict to some valid domains like gmail.com ,yahoo.com)
-        const allowedDomains = ["gmail.com","yahoo.com"]
+        const allowedDomains = ["gmail.com", "yahoo.com"]
         const emailDomain = email.split("@")[1]
-        if(!allowedDomains.includes(emailDomain)) {
+        if (!allowedDomains.includes(emailDomain)) {
             return res.status(402).json({
-                success:false,
-                message:"Enter a valid domain in email"
+                success: false,
+                message: "Enter a valid domain in email"
             })
         }
 
@@ -65,7 +65,7 @@ exports.sendOTP = async (req, res) => {
         // store otp in db
         const otpDoc = await OTP.create(otpPayload)
 
-        console.log("OTP Doc: ",otpDoc)
+        console.log("OTP Doc: ", otpDoc)
 
         res.status(200).json({
             success: true,
@@ -96,11 +96,11 @@ exports.signUp = async (req, res) => {
             otp
         } = req.body
 
-        console.log("user sign up data in the backend: ",req.body)
+        console.log("user sign up data in the backend: ", req.body)
 
         //apply validation
         //account type isliye add nahi kiya bcz uski kuch na kch default value hogi hi 
-        const requiredFields = { firstName, lastName, email,dateOfBirth,gender, password, confirmPassword, otp };
+        const requiredFields = { firstName, lastName, email, dateOfBirth, gender, password, confirmPassword, otp };
 
         for (const [field, value] of Object.entries(requiredFields)) {
             if (!value) {
@@ -118,7 +118,7 @@ exports.signUp = async (req, res) => {
             })
         }
         //check if user already exists
-        const userAlreadyExists = await User.findOne({email:email})
+        const userAlreadyExists = await User.findOne({ email: email })
 
         if (userAlreadyExists) {
             return res.status(400).json({
@@ -128,9 +128,9 @@ exports.signUp = async (req, res) => {
         }
 
         //find most recent otp stored for the user
-        const recentOtp = await OTP.findOne({ email:email }).sort({ createdAt: -1 }).limit(1) //go to imp notes
-        console.log("Recent OTP: ",recentOtp)
-        console.log("input OTP: ",otp)
+        const recentOtp = await OTP.findOne({ email: email }).sort({ createdAt: -1 }).limit(1) //go to imp notes
+        console.log("Recent OTP: ", recentOtp)
+        console.log("input OTP: ", otp)
 
         //validate otp
         if (recentOtp.length === 0) {
@@ -190,21 +190,21 @@ exports.signUp = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         //fetch data
-        const { email, password,accountType } = req.body
+        const { email, password, accountType } = req.body
 
-        const requiredFields = {email,password,accountType}
+        const requiredFields = { email, password, accountType }
 
         //apply validation
-        for(const [key,value] of Object.entries(requiredFields)) {
-            if(!value) {
+        for (const [key, value] of Object.entries(requiredFields)) {
+            if (!value) {
                 return res.status(400).json({
-                    success:false,
-                    message:`${key} is required`
+                    success: false,
+                    message: `${key} is required`
                 })
             }
         }
         //check if user does not exists
-        const user = await User.findOne({ email,accountType }).populate("additionalDetails").exec()
+        const user = await User.findOne({ email, accountType }).populate("additionalDetails").exec()
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -228,6 +228,7 @@ exports.login = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
                 httpOnly: true,
+                sameSite: "None"
             }
             res.cookie("token", token, options).status(200).json({
                 success: true,
