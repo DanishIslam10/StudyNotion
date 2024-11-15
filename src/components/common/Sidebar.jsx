@@ -11,7 +11,7 @@ const Sidebar = (props) => {
   const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.profile)
-  const accountType = user.accountType
+  const accountType = user?.accountType
 
   return (
     <div className="flex flex-col">

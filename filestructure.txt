@@ -122,9 +122,25 @@
                 |-- ProfileDropDown.jsx
             |-- Dashboard
                 |-- Create New Course
-                    |-- CourseBuilder.jsx
-                    |-- CourseInformation.jsx
-                |-- EnrolledCourses.jsx
+                    |-- CourseBuilderForm.jsx
+                    |-- CourseInformationForm.jsx
+                    |-- CourseThumbnail.jsx
+                    |-- CreateNewCourse.jsx
+                    |-- modals
+                        |-- CreateSubSection.jsx
+                        |-- EditSubSection.jsx
+                        |-- ViewSubSection.jsx
+                    |-- NestedView.jsx
+                    |-- PublishCourse.jsx
+                    |-- RenderSteps.jsx
+                    |-- SectionEntry.jsx
+                    |-- VideoUpload.jsx
+                |-- EnrolledCourse.jsx
+                    |-- EnrolledCourseCard.jsx
+                    |-- EnrolledCourses.jsx
+                    |-- Section.jsx
+                    |-- SubSection.jsx
+                    |-- ViewEnrolledCourse.jsx
                 |-- Header.jsx
                 |-- InstructorCourseCard.jsx
                 |-- InstructorCourses.jsx
@@ -133,11 +149,14 @@
                     |-- DeleteAccountModal.jsx
                     |-- LogoutModal.jsx
                     |-- RemoveDpModal.jsx
+                    |-- UpdatePasswordModal.jsx
                 |-- PersonalDetailsCard.jsx
                 |-- Profile.jsx
                 |-- PurchaseHistory.jsx
                 |-- Setting.jsx
-                |-- Wishlist.jsx
+                |-- Wishlist
+                    |-- Wishlist.jsx
+                    |-- WishlistItem.jsx
             |-- HomePage
                 |-- Card.jsx
                 |-- CTAButton.jsx
@@ -161,6 +180,14 @@
     |-- output.css
     |-- pages
         |-- About.jsx
+        |-- Catelog
+            |-- AlreadyEnrolled.jsx
+            |-- Catalog.jsx
+            |-- CourseCard.jsx
+            |-- CourseContent.jsx
+            |-- CourseDetails.jsx
+            |-- ProcedeToBuy.jsx
+            |-- SubSection.jsx
         |-- ContactUs.jsx
         |-- Dashboard.jsx
         |-- Home.jsx
@@ -181,6 +208,8 @@
     |-- slices
         |-- authSlice.js
         |-- cartSlice.js
+        |-- catalogSlice.js
+        |-- enrolledCourses.js
         |-- instructorCourses.js
         |-- newCourseSlice.js
         |-- profileSlice.js

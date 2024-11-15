@@ -5,16 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import Btn from "../../common/Btn";
 import PhoneNumberInput from '../../common/PhoneNumberInput';
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { setDeleteAccountModal, setDpModal, setRemoveDpModal } from '../../../slices/profileSlice';
+import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal } from '../../../slices/profileSlice';
 import { useUpdatePasswordHook, useUpdateProfileInformationHook } from '../../../services/operations/operations';
+import toast from 'react-hot-toast';
+import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "react-icons/io5";
 
 const Setting = (props) => {
 
   const { user } = useSelector((state) => state.profile)
-  const { logoutModal, dpModal, removeDpModal,deleteAccountModal } = useSelector((state) => state.profile)
+  const { logoutModal, dpModal, removeDpModal, deleteAccountModal } = useSelector((state) => state.profile)
   const dispatch = useDispatch()
   const updateProfileInformation = useUpdateProfileInformationHook()
-  const updatePassword = useUpdatePasswordHook()
+  const { updatePasswordInformation } = useSelector((state) => state.profile)
+  const [seeCurrentPassword, setSeeCurrentPassword] = useState(false)
+  const [seeNewPassword, setSeeNewPassword] = useState(false)
+  const [seeConfirmNewPassword, setSeeConfirmNewPassword] = useState(false)
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -55,10 +61,19 @@ const Setting = (props) => {
     updateProfileInformation(formData)
   }
 
-  function updatePasswordHandler(event) {
-    event.preventDefault()
-    // console.log("update password data: ",updatePasswordData)
-    updatePassword(updatePasswordData)
+  function updateOnClickHandler(e) {
+    e.preventDefault()
+    if (updatePasswordData.newPassword !== updatePasswordData.confirmNewPassword) {
+      toast.error("Password do not match")
+      return
+    }
+    dispatch(setUpdatePasswordInformation(updatePasswordData))
+    dispatch(setUpdatePasswordModal(true))
+    setUpdatePasswordData({
+      oldPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    })
   }
 
   return (
@@ -169,7 +184,7 @@ const Setting = (props) => {
         </form>
 
         {/* change password */}
-        <form onSubmit={updatePasswordHandler} className='edit-profile-details-form w-full flex flex-col gap-4 text-[white] bg-[#161D29] rounded-md p-5'>
+        <form onSubmit={updateOnClickHandler} className='edit-profile-details-form w-full flex flex-col gap-4 text-[white] bg-[#161D29] rounded-md p-5'>
           <div className='flex w-full justify-between'>
             <span className="text-lg font-[600] text-[#F1F2FF] " >Change Password</span>
             <Btn
@@ -182,36 +197,81 @@ const Setting = (props) => {
           <div className='flex md:flex-row flex-col gap-4'>
             <div className='w-full flex flex-col'>
               <p>Current Password</p>
-              <input
-                className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
-                type='password'
-                required={true}
-                name='oldPassword'
-                value={updatePasswordData?.password}
-                onChange={updatePasswordDataHandler}
-              />
+              <div className='relative flex items-center' >
+                <input
+                  className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
+                  type={seeCurrentPassword ? 'text' : 'password'}
+                  required={true}
+                  name='oldPassword'
+                  value={updatePasswordData?.oldPassword}
+                  onChange={updatePasswordDataHandler}
+                />
+                <div className='absolute right-2 text-lg' >
+                  {
+                    seeCurrentPassword ? (
+                      (
+                        <IoEyeOutline
+                          onClick={() => setSeeCurrentPassword((prev) => !prev)} />
+                      )
+                    ) : (
+                      <IoEyeOffOutline
+                        onClick={() => setSeeCurrentPassword((prev) => !prev)} />
+                    )
+                  }
+                </div>
+              </div>
             </div>
             <div className='w-full flex flex-col'>
               <p>New Password</p>
-              <input
-                className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
-                type='password'
-                required={true}
-                name='newPassword'
-                value={updatePasswordData?.newPassword}
-                onChange={updatePasswordDataHandler}
-              />
+              <div className='relative flex items-center' >
+                <input
+                  className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
+                  type={seeNewPassword ? 'text' : 'password'}
+                  required={true}
+                  name='newPassword'
+                  value={updatePasswordData?.newPassword}
+                  onChange={updatePasswordDataHandler}
+                />
+                <div className='absolute right-2 text-lg' >
+                  {
+                    seeNewPassword ? (
+                      (
+                        <IoEyeOutline
+                          onClick={() => setSeeNewPassword((prev) => !prev)} />
+                      )
+                    ) : (
+                      <IoEyeOffOutline
+                        onClick={() => setSeeNewPassword((prev) => !prev)} />
+                    )
+                  }
+                </div>
+              </div>
             </div>
             <div className='w-full flex flex-col'>
               <p>Confirm New Password</p>
-              <input
-                className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
-                type='password'
-                required={true}
-                name='confirmNewPassword'
-                value={updatePasswordData?.confirmNewPassword}
-                onChange={updatePasswordDataHandler}
-              />
+              <div className='relative flex items-center' >
+                <input
+                  className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
+                  type={seeConfirmNewPassword ? 'text' : 'password'}
+                  required={true}
+                  name='confirmNewPassword'
+                  value={updatePasswordData?.confirmNewPassword}
+                  onChange={updatePasswordDataHandler}
+                />
+                <div className='absolute right-2 text-lg' >
+                  {
+                    seeConfirmNewPassword ? (
+                      (
+                        <IoEyeOutline
+                          onClick={() => setSeeConfirmNewPassword((prev) => !prev)} />
+                      )
+                    ) : (
+                      <IoEyeOffOutline
+                        onClick={() => setSeeConfirmNewPassword((prev) => !prev)} />
+                    )
+                  }
+                </div>
+              </div>
             </div>
           </div>
         </form>

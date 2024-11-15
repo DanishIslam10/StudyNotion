@@ -76,12 +76,6 @@ exports.changePassword = async (req, res) => {
                 message: "fill the required fields"
             })
         }
-        if (newPassword !== confirmNewPassword) {
-            return res.status(400).json({
-                success: false,
-                message: "new password and confrim new password field do not match"
-            })
-        }
         //fetch token
         const { token } = req.cookies
         console.log(token)
@@ -105,6 +99,19 @@ exports.changePassword = async (req, res) => {
         //fetch id from decode
         const { id } = decode
         console.log(id)
+        const user = await User.findById(id)
+        if(!await bcrypt.compare(oldPassword, user.password)){
+           return res.status(402).json({
+            success:false,
+            message:"Current Password is wrong"
+           })
+        }
+        if (newPassword !== confirmNewPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "new password and confrim new password field do not match"
+            })
+        }
         //hash the new password
         const hashedNewPassword = await bcrypt.hash(newPassword, 10)
         //update the password in db

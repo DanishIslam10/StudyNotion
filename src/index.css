@@ -10,7 +10,9 @@ html,body {
     color: rgba(255,214,10,1);
 }
 
-.sign-up-form input,.login-form input,.contact-us-form input{
+.sign-up-form input,
+.login-form input,
+.contact-us-form input{
     width: 100%;
     background-color: rgba(22,29,41,1);
     padding: 0.6rem 0.4rem;
@@ -18,15 +20,27 @@ html,body {
     color: white;
 }
 
-.edit-profile-details-form input,.new-course-information-form input,textarea,select, .course-builder-form input{
+.edit-profile-details-form input,
+.new-course-info-form input,
+.new-course-info-form select,
+.new-course-info-form textarea,
+.course-builder-form input,
+.sub-section-form input,
+.sub-section-form textarea,
+.view-subsection-modal input,
+.view-subsection-modal textarea,
+.payment-details-form input{
     width: 100%;
     background-color: #2C333F;
+
     padding: 0.6rem 0.4rem;
     border-radius: 0.3rem;
     color: white;
 }
 
-.sign-up-form select,.contact-us-form select{
+.sign-up-form select,
+
+.contact-us-form select{
     display: flex;
     width: 4rem;
     background-color: rgba(22,29,41,1);
@@ -34,21 +48,30 @@ html,body {
     border-radius: 0.3rem;
 }
 
-.sign-up-form label,.login-form label,.contact-us-form label{
+.sign-up-form label,
+.login-form label,
+.contact-us-form label,
+.new-course-info-form label,
+.sub-section-form label,
+.view-subsection-modal label,
+.payment-details-form label{
     font-size: 0.8rem;
     font-weight: 400;
     padding-bottom: 0.2rem;
     color: rgb(206, 206, 206);
 }
 
-.edit-profile-details-form p,.new-course-information-form p,.course-builder-form p{
+.edit-profile-details-form p{
     color:#F1F2FF;
     font-size:0.8rem;
     font-weight: 400;
 }
 
-.contact-us-form span{
-    
+.contact-us-form span,
+.new-course-info-form span,
+.course-builder-form span,
+.payment-details-form span{
+   font-size: 12px;
    color: rgb(245, 105, 105);
 }
 

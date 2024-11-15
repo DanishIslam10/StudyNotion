@@ -40,7 +40,7 @@ exports.auth = async (req, res, next) => {
 exports.isStudent = async (req, res, next) => {
     try {
         if (req.user.accountType !== "Student") {
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: "Access Denied ! this is protected route for students"
             })
@@ -49,7 +49,7 @@ exports.isStudent = async (req, res, next) => {
         next()
 
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             success: false,
             message: "error in user role matching"
         })
@@ -60,7 +60,7 @@ exports.isStudent = async (req, res, next) => {
 exports.isInstructor = async (req, res, next) => {
     try {
         if (req.user.accountType !== "Instructor") {
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: "Access Denied ! this is protected route for Instructor"
             })
@@ -69,7 +69,7 @@ exports.isInstructor = async (req, res, next) => {
         next()
 
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             success: false,
             message: "error in user role matching"
         })
@@ -79,7 +79,7 @@ exports.isInstructor = async (req, res, next) => {
 exports.isAdmin = async (req, res, next) => {
     try {
         if (req.user.accountType !== "Admin") {
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: "Access Denied ! this is protected route for admin"
             })
@@ -88,7 +88,7 @@ exports.isAdmin = async (req, res, next) => {
         next()
 
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             success: false,
             message: "error in user role matching"
         })

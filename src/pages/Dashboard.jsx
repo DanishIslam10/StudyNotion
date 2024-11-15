@@ -6,10 +6,11 @@ import LogoutModal from "../components/core/Dashboard/Modals/LogoutModal";
 import ChangeDpModal from "../components/core/Dashboard/Modals/changeDpModal";
 import RemoveDpModal from "../components/core/Dashboard/Modals/RemoveDpModal";
 import DeleteAccountModal from "../components/core/Dashboard/Modals/DeleteAccountModal";
+import UpdatePasswordModal from "../components/core/Dashboard/Modals/UpdatePasswordModal";
 
 const Dashboard = (props) => {
 
-  const { logoutModal, dpModal, removeDpModal, deleteAccountModal } = useSelector((state) => state.profile)
+  const { logoutModal, dpModal, removeDpModal, deleteAccountModal, updatePasswordModal } = useSelector((state) => state.profile)
 
   return (
     <div className="w-full flex">
@@ -39,6 +40,10 @@ const Dashboard = (props) => {
         {
           deleteAccountModal &&
           <DeleteAccountModal />
+        }
+        {
+          updatePasswordModal &&
+          <UpdatePasswordModal/>
         }
       </div>
     </div>

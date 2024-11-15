@@ -30,7 +30,7 @@ const ProfileDropDown = (props) => {
           <MdDashboard />
           Dashboard
         </Link>
-        <Link onClick={logOutHandler} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
+        <Link to={"/"}  onClick={logOutHandler} className="flex items-center gap-1 hover:bg-[#343434] py-1 px-2" >
           <IoLogOutSharp />
           Logout
         </Link>

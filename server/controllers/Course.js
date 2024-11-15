@@ -1,25 +1,27 @@
 const Course = require('../model/Course')
 const Category = require('../model/Category')
 const User = require('../model/User')
+const Section = require("../model/Section")
+const SubSection = require("../model/SubSection")
 const {uploadMediaToCloudinary} = require('../utils/mediaUploader')
-const { default: mongoose } = require('mongoose')
+const { default: mongoose } = require('mongoose') 
 require('dotenv').config()
 
 //course can only be created by user type 'Instructor' so will add a middleware of 'isInstructor' in route
 exports.createCourse = async (req, res) => {
     try {
         //fetch data
-        const { courseName, courseDescription, whatWillYouLearn, price, category, tag } = req.body
+        const { courseName, courseDescription, whatWillYouLearn, price, category, tag, status = "Pending" } = req.body
         console.log("Request Body:",req.body)
         //fetch thumbnail image
         const { thumbnail } = req.files
         //apply validation
-        const requiredValues = [thumbnail,courseName, courseDescription, whatWillYouLearn, price, category, tag]
+        const requiredValues = [thumbnail,courseName, courseDescription, whatWillYouLearn, price, category, tag, status]
         for (const [field, value] of Object.entries(requiredValues)) {
             if (!value) {
                 return res.status(404).json({
                     success: false,
-                    message: "All fields are required"
+                    message: ` ${field} is required`
                 })
             }
         }
@@ -71,7 +73,16 @@ exports.createCourse = async (req, res) => {
             price,
             tag,
             category:categoryDetails._id,
-            thumbnail: thumbnailImageDetails.secure_url
+            thumbnail: thumbnailImageDetails.secure_url,
+            status,
+        })
+
+        const populatedCourse = await Course.findById(newCourse._id)
+        .populate({
+            path:"courseContent",
+            populate: {
+                path:"subSection"
+            }
         })
 
         //add the new course in the user schema of instructor inside the 'courses' array
@@ -91,7 +102,7 @@ exports.createCourse = async (req, res) => {
         //return success response
         res.status(200).json({
             success: true,
-            data: newCourse,
+            data: populatedCourse,
             message: "Course created successfully"
         })
 
@@ -99,7 +110,78 @@ exports.createCourse = async (req, res) => {
         console.log(error)
         return res.status(500).json({
             success: false,
-            message: "Failed to create new course"
+            message: "Failed to create new course" 
+        })
+    }
+}
+
+//publish course api
+exports.setCourseStatus = async (req,res) => {
+    try {
+
+        const {courseId,status} = req.body
+
+        if(!courseId) {
+            return res.status(402).json({
+                success:false,
+                message:"course id not found"
+            })
+        }
+
+        const course = await Course.findByIdAndUpdate(
+            courseId,
+            {$set:{status:status}},
+            {new:true}
+        )
+        .populate({
+            path:"courseContent",
+            populate:{
+                path:"subSection"
+            }
+        })
+
+        return res.status(200).json({
+            success:true,
+            data:course,
+            message: status === "Published" ? ("Course Published") : ("Course Saved As Draft")  
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success:false,
+            message:"Error in Publishing Course"
+        })
+    }
+}
+
+//delete course api
+exports.deleteCourse = async (req,res) => {
+    try {
+        const {courseId} = req.body
+        if(!courseId) {
+            return res.status(402).json({
+                success:false,
+                message:"Course id is missing"
+            })
+        }
+        //delete course from db
+        await Course.findByIdAndDelete(courseId)
+        //delete corresponding sections
+        await Section.deleteMany({course:courseId})
+        //delete corresponding sub sections
+        await SubSection.deleteMany({course:courseId})
+
+        return res.status(200).json({
+            success:true,
+            message:"Course Deleted"
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success:false,
+            message:"Cannot Delete Course , please try again"
         })
     }
 }
@@ -107,17 +189,7 @@ exports.createCourse = async (req, res) => {
 //create get all courses api
 exports.showAllCourses = async (req, res) => {
     try {
-        const allCourses = await Course.find(
-            {},
-            {
-                courseName: true,
-                price: true,
-                thumbnail: true,
-                instructor: true,
-                ratingAndReviews: true,
-                studentsEnrolled: true,
-            }
-        )
+        const allCourses = await Course.find({})
             .populate("instructor")
             .exec()
 
@@ -212,24 +284,32 @@ exports.getCourseDetails = async (req, res) => {
 //get user enrolled courses
 exports.getEnrolledCourses = async (req,res) => {
     try {
-        const {id} = req.user
-        const user = await User.findById(id).populate("courses").exec()
-        if(!id || !user) {
-            res.status(404).json({
+        const userId = req.user.id
+        if(!userId) {
+            return res.status(404).json({
                 success:false,
-                message:"user not found"
+                message:"user id not found"
             })
         }
-        const enrolledCourses = user.courses
-        res.status(200).json({
+        const user = await User.findById(userId)
+        .populate({
+            path:"courses",
+            populate:{
+                path:"courseContent",
+                populate:{
+                    path:"subSection"
+                }
+            }
+        })
+        return res.status(200).json({
             success:true,
-            data:enrolledCourses,
+            data:user.courses,
             message:"user enrolled courses fetched successfully"
         })
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({
+        return res.status(500).json({
             success:false,
             message:"server error: cannot fetch user enrolled courses"
         })

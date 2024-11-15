@@ -1,12 +1,15 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
-import { courseEndpoints, instructorEndpoints, profileEndpoints, resetPassword, resetPasswordUrl, sendOTP, signUpEndPoint, userEndPoints } from "../apis"
+import { courseEndpoints, paymentEndpoints, profileEndpoints, userEndPoints } from "../apis"
 import { useDispatch, useSelector } from "react-redux"
-import { setLoading, setSignUpData, setToken } from "../../slices/authSlice"
+import { setLoading, setToken } from "../../slices/authSlice"
 import { useNavigate } from "react-router"
-import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUser } from "../../slices/profileSlice"
-import { FaBedPulse } from "react-icons/fa6"
+import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal, setUser } from "../../slices/profileSlice"
 import { setInstructorCourses } from "../../slices/instructorCourses"
+import { setCourse, setEditCourse, setStep } from "../../slices/newCourseSlice"
+import { setCourseDetails } from "../../slices/catalogSlice"
+import { setEnrolledCourses } from "../../slices/enrolledCourses"
+import rzpLogo from "../../assets/Logo/rzp_logo.png"
 
 export const useGetAllCategoriesHook = () => {
     const getAllCategories = async () => {
@@ -70,14 +73,14 @@ export const useLoginHook = () => {
     const login = async (formData) => {
         try {
             const response = await apiConnector("POST", userEndPoints.LOGIN_API, formData)
-            console.log("Log in response: ", response)
+            // console.log("Log in response: ", response)
             // store the values in redux store
             dispatch(setToken(response.data.token))
             dispatch(setUser(response.data.user))
             //store the values in browser's local storage
             localStorage.setItem("Token", JSON.stringify(response.data.token))
             localStorage.setItem("User", JSON.stringify(response.data.user))
-            console.log("Login Successfull")
+            // console.log("Login Successfull")
             toast.success("Login Successfull")
             navigate("/")
         } catch (error) {
@@ -95,8 +98,9 @@ export const useLogOutHook = () => {
     const logOut = () => {
         dispatch(setToken(null))
         dispatch(setUser(null))
-        localStorage.removeItem("Token")
-        localStorage.removeItem("User")
+        // localStorage.removeItem("Token")
+        // localStorage.removeItem("User")
+        localStorage.clear()
         console.log("logout successfull")
         toast.success("Logged Out")
         navigate("/")
@@ -301,17 +305,21 @@ export const useUpdateProfileInformationHook = () => {
 
 //update password
 export const useUpdatePasswordHook = () => {
+    const dispatch = useDispatch()
     const updatePassword = async (formData) => {
-        if (formData.newPassword !== formData.confirmNewPassword) {
-            toast.error("Passwords do not match")
-            return;
-        }
         try {
+            dispatch(setLoading(true))
             const response = await apiConnector("PUT", profileEndpoints.UPDATE_PASSWORD_API, formData)
+            dispatch(setLoading(false))
+            dispatch(setUpdatePasswordModal(false))
             toast.success(response.data.message)
+            dispatch(setUpdatePasswordInformation(null))
             console.log("password updated successfully")
             console.log("update password response: ", response)
         } catch (error) {
+            dispatch(setLoading(false))
+            dispatch(setUpdatePasswordModal(false))
+            toast.error(error.response.data.message)
             console.log(error)
             console.log("cant update password")
         }
@@ -347,17 +355,23 @@ export const useDeleteAccountHook = () => {
 }
 
 //get user enrolled courses
-export const getEnrolledCourses = async () => {
-    try {
-        const response = await apiConnector("GET",courseEndpoints.GET_USER_ENROLLED_COURSES)
-        console.log("user enrolled courses fetched successfully")
-        console.log("user enrolled courses response: ",response)
-        return response
-    } catch (error) {
-        console.log(error)
-        console.log("cant fetch user enrolled courses")
-        return error
+export const useGetEnrolledCourses = () => {
+    const dispatch = useDispatch()
+    const getEnrolledCourses = async () => {
+        try {
+            const response = await apiConnector("GET", courseEndpoints.GET_USER_ENROLLED_COURSES)
+            // console.log("user enrolled courses fetched successfully")
+            // console.log("user enrolled courses response: ", response)
+            localStorage.setItem("enrolledCourses", JSON.stringify(response?.data?.data))
+            dispatch(setEnrolledCourses(response?.data?.data))
+        } catch (error) {
+            console.log(error)
+            // console.log("cant fetch user enrolled courses")
+            dispatch(setEnrolledCourses(null))
+            return
+        }
     }
+    return getEnrolledCourses
 }
 
 //get instructor courses
@@ -365,7 +379,7 @@ export const useGetInstructorCoursesHook = () => {
     const dispatch = useDispatch()
     const getInstructorCourses = async () => {
         try {
-            const response = await apiConnector("GET",courseEndpoints.GET_INSTRUCTOR_COURSES_API)
+            const response = await apiConnector("GET", courseEndpoints.GET_INSTRUCTOR_COURSES_API)
             // console.log("instructor courses fetched successfully")
             // console.log("instructor courses response: ",response)
             dispatch(setInstructorCourses(response.data.data))
@@ -375,4 +389,353 @@ export const useGetInstructorCoursesHook = () => {
         }
     }
     return getInstructorCourses
+}
+
+//create new course information api
+export const useCreateNewCourseInformation = () => {
+    const dispatch = useDispatch();
+
+    const createNewCourseInformation = async (formData) => {
+        const data = new FormData();
+        data.append("courseName", formData.courseName);
+        data.append("courseDescription", formData.courseDescription);
+        data.append("thumbnail", formData.thumbnail);
+        data.append("category", formData.category);
+        data.append("price", formData.price);
+        data.append("tag", formData.tag);
+        data.append("whatWillYouLearn", formData.whatWillYouLearn);
+
+        const toastId = toast.loading("Creating course...");
+
+        try {
+            const response = await apiConnector("POST", courseEndpoints.CREATE_COURSE_INFORMATION_API, data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+            });
+            dispatch(setStep(2));
+            dispatch(setCourse(response.data.data));
+
+            // Update toast to success
+            toast.success("Course created successfully!", { id: toastId });
+        } catch (error) {
+            dispatch(setCourse(null));
+            dispatch(setStep(1));
+            console.error(error);
+
+            // Update toast to error
+            toast.error("Failed to create course. Please try again.", { id: toastId });
+        }
+    };
+
+    return createNewCourseInformation;
+};
+
+//create new course section
+export const useCreateSection = () => {
+    const dispatch = useDispatch()
+    const createSection = async (data) => {
+        try {
+            const response = await apiConnector("POST", courseEndpoints.CREATE_NEW_SECTION_API, data)
+            // console.log("section created successfully")
+            console.log("new section api response: ", response)
+            dispatch(setCourse(response.data.data))
+            toast.success(response.data.message)
+        } catch (error) {
+            dispatch(setCourse(null))
+            dispatch(setStep(1))
+            console.log(error)
+            // console.log("cannot create new section")
+            toast.error(error.data.message)
+        }
+    }
+    return createSection
+}
+
+//create new sub section
+export const useCreateSubSection = () => {
+    const dispatch = useDispatch()
+    const createSubSection = async (data) => {
+
+        const formData = new FormData()
+        formData.append("sectionId", data.sectionId)
+        formData.append("title", data.title)
+        formData.append("description", data.description)
+        formData.append("videoFile", data.videoFile)
+
+        const toastId = toast.loading("Creating Lecture...")
+
+        try {
+            const response = await apiConnector("POST", courseEndpoints.CREATE_NEW_SUBSECTION_API, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+            })
+            // console.log("sub section is created successfully")
+            console.log("sub section api response: ", response)
+            dispatch(setCourse(response.data.data))
+            toast.success(response.data.message, { id: toastId })
+
+        } catch (error) {
+            console.log(error)
+            // console.log("cant create sub section")
+            toast.error(error.data.message, { id: toastId })
+        }
+    }
+    return createSubSection
+}
+
+//update section name
+export const useUpdateSection = () => {
+    const dispatch = useDispatch()
+    const updateSection = async (data) => {
+        try {
+            const response = await apiConnector("PUT", courseEndpoints.UPDATE_SECTION_API, data)
+            // console.log("section updated successfully")
+            // console.log("update section response: ", response)
+            dispatch(setCourse(response.data.data))
+            toast.success(response.data.message)
+        } catch (error) {
+            console.log(error)
+            // console.log("cant update section")
+            toast.error(error.data.message)
+        }
+    }
+    return updateSection
+}
+
+//delete section 
+export const useDeleteSection = () => {
+    const dispatch = useDispatch()
+    const deleteSection = async (sectionId) => {
+        try {
+            const response = await apiConnector("DELETE", courseEndpoints.DELETE_SECTION_API, { sectionId })
+            // console.log("section deleted successfully")
+            // console.log("delete section api response: ", response)
+            dispatch(setCourse(response.data.data))
+        } catch (error) {
+            console.log(error)
+            // console.log("cant delete section")
+        }
+    }
+    return deleteSection
+}
+
+//delete sub section
+export const useDeleteSubSection = () => {
+    const dispatch = useDispatch()
+    const deleteSubSection = async (subSectionId) => {
+        try {
+            const response = await apiConnector("DELETE", courseEndpoints.DELETE_SUBSECTION_API, { subSectionId })
+            // console.log("sub section deleted successfully")
+            // console.log("delete sub section api response: ", response)
+            dispatch(setCourse(response.data.data))
+        } catch (error) {
+            console.log(error)
+            // console.log("cant delete sub section")
+        }
+    }
+    return deleteSubSection
+}
+
+//update sub section 
+export const useUpdateSubSection = () => {
+
+    const dispatch = useDispatch()
+
+    const updateSubSection = async (data) => {
+
+        const formData = new FormData()
+
+        if (data?.subSectionId) formData.append("subSectionId", data.subSectionId);
+        if (data?.title) formData.append("title", data.title);
+        if (data?.description) formData.append("description", data.description);
+        if (data?.videoFile) formData.append("videoFile", data.videoFile);
+
+        try {
+            const response = await apiConnector("PUT", courseEndpoints.UPDATE_SUBSECTION_API, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+            })
+            // console.log("sub section is updated successfully")
+            // console.log("sub section updation api response: ", response)
+            dispatch(setCourse(response.data.data))
+            toast.success(response.data.message)
+
+        } catch (error) {
+            console.log(error)
+            // console.log("cant update sub section")
+            console.log(error.data.message)
+        }
+    }
+    return updateSubSection
+}
+
+//publish course
+export const useSetCourseStatus = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const setCourseStatus = async (courseId, status) => {
+        try {
+            const response = await apiConnector("PUT", courseEndpoints.SET_COURSE_STATUS_API, { courseId, status })
+            // console.log("course status is set successfully")
+            // console.log("set course status api response: ", response)
+            toast.success(response.data.message)
+            dispatch(setCourse(null))
+            dispatch(setStep(1))
+            navigate("/profile/instructor-courses")
+        } catch (error) {
+            console.log(error)
+            // console.log("cant publish course")
+            toast.error(error.data.message)
+            dispatch(setCourse(null))
+            dispatch(setStep(1))
+        }
+    }
+    return setCourseStatus
+}
+
+//delete course
+export const useDeleteCourse = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const deleteCourse = async (courseId) => {
+        const toastId = toast.loading("Deleting course...")
+        try {
+            const response = await apiConnector("DELETE", courseEndpoints.DELETE_COURSE_API, { courseId })
+            // console.log("course deleted successfully")
+            // console.log("course deletion api response: ",response)
+            toast.success(response?.data?.message, { id: toastId })
+            dispatch(setEditCourse(false))
+            dispatch(setCourse(null))
+            navigate("/profile/instructor-courses")
+        } catch (error) {
+            toast.error(error.data.message, { id: toastId })
+            console.log(error)
+            // console.log("cant delete course")
+            toast.error(error.data.message)
+            dispatch(setCourse(null))
+        }
+    }
+    return deleteCourse
+}
+
+//get all courses
+export const useGetAllCourses = () => {
+    const getAllCourses = async () => {
+        try {
+            const response = await apiConnector("GET", courseEndpoints.GET_ALL_COURSES_API)
+            // console.log("all courses are fetched successfully")
+            // console.log("get all courses api response : ", response)
+            return response
+        } catch (error) {
+            console.log(error)
+            // console.log("cant fetch all the courses")
+        }
+    }
+    return getAllCourses
+}
+
+//get course details
+export const useGetCourseDetails = () => {
+    const dispatch = useDispatch()
+    const getCourseDetails = async (courseId) => {
+        try {
+            const response = await apiConnector("POST", courseEndpoints.GET_COURSE_DETAILS_API, { courseId })
+            // console.log("course details are fetched successfully")
+            // console.log("course details api response: ", response)
+            localStorage.setItem("courseDetails", JSON.stringify(response.data.data))
+            dispatch(setCourseDetails(response?.data?.data))
+        } catch (error) {
+            console.log(error)
+            // console.log("cant fetch course details")
+        }
+    }
+    return getCourseDetails
+}
+
+//buy course
+//load script function needed to initiate the order
+function loadScript(src) {
+    return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = src;
+
+        script.onload = () => {
+            resolve(true);
+        }
+        script.onerror = () => {
+            resolve(false);
+        }
+        document.body.appendChild(script);
+    })
+}
+
+//initiate the order
+export async function buyCourse(courses, userDetails,token) {
+    const toastId = toast.loading("Loading...");
+    try {
+        //load the script
+        const scriptResponse = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+        if (!scriptResponse) {
+            toast.error("RazorPay SDK failed to load");
+            return;
+        }
+
+        //initiate the order
+        const orderResponse = await apiConnector("POST", paymentEndpoints.CAPTURE_PAYMENT_API, { courses })
+        console.log("PRINTING orderResponse", orderResponse);
+        // options
+        const options = {
+            key: process.env.RAZORPAY_KEY,
+            currency: orderResponse.data.data.currency,
+            amount: `${orderResponse.data.data.amount}`,
+            order_id: orderResponse.data.data.id,
+            name: "StudyNotion",
+            description: "Thank You for Purchasing the Course",
+            image: rzpLogo,
+            prefill: {
+                name: `${userDetails.firstName}`,
+                email: userDetails.email
+            },
+            handler: function (response) {
+
+                //verifyPayment
+                verifyPayment({ ...response, courses }, token);
+            }
+        }
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+        paymentObject.on("payment.failed", function (response) {
+            toast.error("oops, payment failed");
+            console.log(response.error);
+        })
+
+    }
+    catch (error) {
+        console.log("PAYMENT API ERROR.....", error);
+        toast.error("Could not make Payment");
+    }
+    toast.dismiss(toastId);
+}
+
+//verify payment
+const verifyPayment = async (bodyData) => {
+    const toastId = toast.loading("Verifying Payment....");
+    try {
+        const response = await apiConnector("POST", paymentEndpoints.VERIFY_PAYMENT_API, bodyData)
+        if (!response.data.success) {
+            throw new Error(response.data.message)
+        }
+        toast.success("payment Successful, Course Added", { id: toastId });
+    } catch (error) {
+        console.log("PAYMENT VERIFY ERROR....", error);
+        toast.error("Could not verify Payment", { id: toastId });
+    }
 }

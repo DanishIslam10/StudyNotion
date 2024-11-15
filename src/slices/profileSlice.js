@@ -7,6 +7,8 @@ const initialState = {
     dpModal:false,
     removeDpModal:false,
     deleteAccountModal:false,
+    updatePasswordModal:false,
+    updatePasswordInformation:null,
 }
 
 const profileSlice = createSlice({
@@ -28,8 +30,16 @@ const profileSlice = createSlice({
        setDeleteAccountModal(state,action) {
         state.deleteAccountModal = action.payload
        },
+       setUpdatePasswordModal(state,action) {
+        state.updatePasswordModal = action.payload
+       },
+       setUpdatePasswordInformation(state,action) {
+        state.updatePasswordInformation = action.payload
+       },
     }
 })
 
-export const {setUser,setLogoutModal,setDpModal,setRemoveDpModal,setDeleteAccountModal} = profileSlice.actions
+export const {
+    setUser,setLogoutModal,setDpModal,setRemoveDpModal,setDeleteAccountModal,setUpdatePasswordModal,setUpdatePasswordInformation
+} = profileSlice.actions
 export default profileSlice.reducer

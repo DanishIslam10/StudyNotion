@@ -8,6 +8,7 @@ const Btn = ({
   linkTo,
   color,
   children,
+  disabled,
   onClickFunction,
   type = "button",
   style = {}, // Default style prop to an empty object
@@ -33,6 +34,7 @@ const Btn = ({
       onClick={onClickFunction}
       sx={buttonStyles}
       type={type}
+      disabled={disabled}
     >
       {children}
     </Button>

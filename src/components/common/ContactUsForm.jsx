@@ -8,7 +8,7 @@ import Spinner from "../common/Spinner"
 
 const ContactUsForm = (props) => {
 
-    const [loading, setLoading] = useState()
+    const [loading, setLoading] = useState(false)
 
     const {
         register,

@@ -14,4 +14,4 @@ exports.connectDB = () => {
             console.log(error)
             process.exit(1)
         })
-}
+} 

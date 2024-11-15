@@ -18,12 +18,12 @@ import { useSelector } from "react-redux";
 
 const Home = (props) => {
 
-    
+    const {token} = useSelector((state) => state.auth)
 
     return (
         <div className="flex flex-col items-center justify-center text-white">
             <div className="flex flex-col items-center lg:w-[50vw] w-[80vw] gap-9 mt-10">
-                <Link to={"/signup"}>
+                <Link to={`${token ? ("/profile/my-profile") : ("/signup")}`}>
                     <div className="flex justify-center items-center">
                         <div className="flex justify-center items-center gap-2 bg-[#161D29] shadow-md shadow-[#FFFFFF2E] py-2 px-6 
                         rounded-full text-[#999DAA] cursor-pointer transition-all duration-200 hover:scale-105

@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import loginImage from "../assets/Images/login.webp"
 import signUpImageFrame from "../assets/Images/frame.png"
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLoginHook } from "../services/operations/operations";
-import { useSelector } from "react-redux";
+import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "react-icons/io5";
 
 const Login = (props) => {
 
@@ -11,6 +12,8 @@ const Login = (props) => {
     email: "",
     password: "",
   })
+
+  const [seePassword,setSeePassword] = useState(false)
 
   const login = useLoginHook()
 
@@ -28,7 +31,7 @@ const Login = (props) => {
 
   function formSubmitHandler(event) {
     event.preventDefault()
-    login({...formData,accountType})
+    login({ ...formData, accountType })
   }
 
   return (
@@ -61,19 +64,35 @@ const Login = (props) => {
                 name="email"
                 value={formData.email}
                 onChange={formDataChangeHandler}
-                required = {true}
+                required={true}
               />
             </div>
             <div className="w-full">
-              <label>Enter Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                value={formData.password}
-                onChange={formDataChangeHandler}
-                required = {true}
-              />
+              <label>Password</label>
+              <div className='relative flex items-center' >
+                <input
+                  className='bg-[#2C333F]  py-[0.6rem] px-[0.4rem] rounded-md '
+                  type={seePassword ? 'text' : 'password'}
+                  placeholder="Enter Password"
+                  required={true}
+                  name='password'
+                  value={formData?.password}
+                  onChange={formDataChangeHandler}
+                />
+                <div className='absolute right-2 text-lg text-white ' >
+                  {
+                    seePassword ? (
+                      (
+                        <IoEyeOffOutline
+                        onClick={() => setSeePassword((prev) => !prev)} />
+                      )
+                    ) : (
+                      <IoEyeOutline
+                        onClick={() => setSeePassword((prev) => !prev)} />
+                    )
+                  }
+                </div>
+              </div>
               <div className="flex justify-end my-2">
                 <Link to={"/reset-password"}>
                   <p className="text-[rgba(71,165,197,1)] text-xs hover:text-[#4dd1fd]"> Forget Password </p>

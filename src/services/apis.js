@@ -6,8 +6,37 @@ export const courseEndpoints = {
 
     GET_USER_ENROLLED_COURSES: BASE_URL + "/course/getEnrolledCourses",
 
-    GET_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourses"
+    GET_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourses",
+
+    CREATE_COURSE_INFORMATION_API: BASE_URL + "/course/createCourse",
+
+    CREATE_NEW_SECTION_API: BASE_URL + "/course/createSection",
+
+    CREATE_NEW_SUBSECTION_API: BASE_URL + "/course/createSubSection",
+
+    UPDATE_SECTION_API: BASE_URL + "/course/updateSection",
+
+    DELETE_SECTION_API: BASE_URL + "/course/deleteSection",
+
+    DELETE_SUBSECTION_API: BASE_URL + "/course/deleteSubSection",
+
+    UPDATE_SUBSECTION_API: BASE_URL + "/course/updateSubSection",
+
+    SET_COURSE_STATUS_API: BASE_URL + "/course/setCourseStatus",
+
+    DELETE_COURSE_API: BASE_URL + "/course/deleteCourse",
+
+    GET_ALL_COURSES_API: BASE_URL + "/course/showAllcourses",
+
+    GET_COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
+
 };
+
+export const paymentEndpoints = {
+    CAPTURE_PAYMENT_API: BASE_URL + "/payment/capturePayment",
+
+    VERIFY_PAYMENT_API: BASE_URL + "/payment/verifyPayment"
+}
 
 export const userEndPoints = {
 

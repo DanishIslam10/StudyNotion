@@ -34,8 +34,8 @@ const InstructorCourses = (props) => {
                     </div>
                 </div>
                 <div className="p-2">
-                    <Btn textColor="black" color="#FFD60A" linkTo={"/profile/instructor-courses/create-new-course/course-information"}>
-                        <CiCirclePlus />
+                    <Btn textColor="black" color="#FFD60A" linkTo={"/profile/instructor-courses/create-new-course"}>
+                        <CiCirclePlus className="mr-1 text-xl " />
                         <p>New</p>
                     </Btn>
                 </div>
@@ -49,12 +49,10 @@ const InstructorCourses = (props) => {
                 <div className="w-full border-[1px] border-[#161D29] " ></div>
                 <div>
                     {
-                        instructorCourses.map((course, index) => (
-                            <InstructorCourseCard key={index}
-                                thumbnail={course.thumbnail}
-                                name={course.courseName}
-                                description={course.courseDescription}
-                                price={course.price}
+                        instructorCourses?.map((course, index) => (
+                            <InstructorCourseCard 
+                            key={index}
+                            course = {course}    
                             />
                         ))
                     }
