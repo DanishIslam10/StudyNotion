@@ -7,7 +7,7 @@ require("dotenv").config();
 
 // CORS configuration to allow multiple origins
 const allowedOrigins = [
-    'https://study-notion-a7ilayiw7-danthebests-projects.vercel.app'
+    process.env.FRONT_END_URL,  // Automatically use the updated URL
 ];
 
 //middlewares
@@ -16,13 +16,13 @@ app.use(express.json());
 app.use(
     cors({
         origin: (origin, callback) => {
-            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-                callback(null, true); // Allow the origin
+            if (allowedOrigins.includes(origin) || !origin) {
+                callback(null, true);  // Allow the origin
             } else {
-                callback(new Error('Not allowed by CORS')); // Reject the origin
+                callback(new Error('Not allowed by CORS'));
             }
         },
-        credentials: true, // Important for handling cookies and authentication
+        credentials: true, // Important for cookies and authentication
     })
 );
 
