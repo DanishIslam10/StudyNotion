@@ -96,6 +96,13 @@ export const useLogOutHook = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const logOut = () => {
+        try {
+            const response = apiConnector("POST",userEndPoints.LOG_OUT_API)
+            console.log("log out api response: ",response)
+        } catch (error) {
+            console.log(error)
+            console.log("error in logout api")
+        }
         dispatch(setToken(null))
         dispatch(setUser(null))
         // localStorage.removeItem("Token")
@@ -630,7 +637,7 @@ export const useGetAllCourses = () => {
         try {
             const response = await apiConnector("GET", courseEndpoints.GET_ALL_COURSES_API)
             // console.log("all courses are fetched successfully")
-            // console.log("get all courses api response : ", response)
+            console.log("get all courses api response : ", response)
             return response
         } catch (error) {
             console.log(error)

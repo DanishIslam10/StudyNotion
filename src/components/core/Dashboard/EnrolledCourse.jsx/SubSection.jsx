@@ -3,13 +3,17 @@ import { IoIosTv } from "react-icons/io";
 import { FaPlay } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
-const SubSection = ({ subSection,getViewingLectureData }) => {
+const SubSection = ({ subSection, getViewingLectureDataForLg, getViewingLectureDataForSm }) => {
 
     const dispatch = useDispatch()
 
-    function playLectureHandler() {
-    //    dispatch(setViewinglectureData(subSection))
-          getViewingLectureData(subSection)
+    function playLectureHandlerForLg() {
+        //    dispatch(setViewinglectureData(subSection))
+        getViewingLectureDataForLg(subSection)
+    }
+    function playLectureHandlerForSm() {
+        //    dispatch(setViewinglectureData(subSection))
+        getViewingLectureDataForSm(subSection)
     }
 
     return (
@@ -19,9 +23,14 @@ const SubSection = ({ subSection,getViewingLectureData }) => {
                     <IoIosTv className="text-[#C5C7D4] text-sm" />
                     <p className="text-[#47A5C5]"> {subSection.title} </p>
                 </div>
-                <FaPlay 
-                onClick={playLectureHandler}
-                className="text-[#47A5C5] ml-2 text-sm cursor-pointer hover:scale-110 hover:text-[#FFD60A] " />
+
+                <FaPlay
+                    onClick={playLectureHandlerForLg}
+                    className="text-[#47A5C5] hidden sm:block ml-2 text-sm cursor-pointer hover:scale-110 hover:text-[#FFD60A] " />
+
+                <FaPlay
+                    onClick={playLectureHandlerForSm}
+                    className="sm:hidden text-[#dfe1e1] ml-2 text-sm cursor-pointer hover:scale-110 hover:text-[#FFD60A] " />
             </div>
         </div>
     )

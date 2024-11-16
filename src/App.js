@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
@@ -35,7 +34,7 @@ function App() {
       {
         showSideBar &&
         <div 
-        className="absolute left-0 top-0 sidebar min-h-[100vh] h-full sm:hidden lg:w-[15%] w-[45%]
+        className="absolute left-0 top-0 sidebar min-h-[100vh] h-full md:hidden lg:w-[15%] w-[45%]
          text-[#838894] text-sm bg-[#161D29] z-50 ">
           <Sidebar/>
         </div>

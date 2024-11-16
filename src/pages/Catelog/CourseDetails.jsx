@@ -15,8 +15,8 @@ const CourseDetails = () => {
     const [lectureCount, setLectureCount] = useState(0)
     const [courseDuration, setCourseDuration] = useState(0)
     const [readMore, setReadMore] = useState(false)
-    console.log("already enrolled in details:", alReadyEnrolled)
-    console.log("course details: ", courseDetails)
+    // console.log("already enrolled in details:", alReadyEnrolled)
+    // console.log("course details: ", courseDetails)
 
     const enrolledCourses = JSON.parse(localStorage.getItem("enrolledCourses"))
 

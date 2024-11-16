@@ -254,3 +254,28 @@ exports.login = async (req, res) => {
     }
 }
 
+exports.logout = async (req, res) => {
+    try {
+        // Clear the cookie by setting the same options as when it was created
+        res.clearCookie("token", {
+            httpOnly: true, 
+            secure: true,
+            sameSite: "None",
+            expires: new Date(0) // Expiring the cookie immediately
+        });
+
+        // Send a success response
+        res.status(200).json({
+            success: true,
+            message: "Logged out successfully"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Logout failure, please try again"
+        });
+    }
+};
+
+

@@ -50,6 +50,8 @@ export const userEndPoints = {
 
     SIGNUP_API: BASE_URL + "/auth/user/signup",
 
+    LOG_OUT_API: BASE_URL + "/auth/user/logout",
+
 }
 
 export const profileEndpoints = {

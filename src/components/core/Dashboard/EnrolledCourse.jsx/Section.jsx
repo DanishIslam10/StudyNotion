@@ -3,7 +3,7 @@ import moment from "moment";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import SubSection from "./SubSection";
 
-const Section = ({ section,getViewingLectureData }) => {
+const Section = ({ section,getViewingLectureDataForLg,getViewingLectureDataForSm }) => {
 
     const [viewSubSections, setViewSubSections] = useState(false)
     
@@ -39,7 +39,8 @@ const Section = ({ section,getViewingLectureData }) => {
                             <SubSection 
                             key={index} 
                             subSection={subSection}
-                            getViewingLectureData = {getViewingLectureData}
+                            getViewingLectureDataForLg = {getViewingLectureDataForLg}
+                            getViewingLectureDataForSm = {getViewingLectureDataForSm}
                             />
                         ))
                     }

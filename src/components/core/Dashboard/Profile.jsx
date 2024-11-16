@@ -47,7 +47,7 @@ const Profile = (props) => {
               <p className="text-sm font-[400] text-[#838894]"> {user.email} </p>
             </div>
           </div>
-          <div className="p-2">
+          <div>
             <Btn color={"#FFD60A"} linkTo={"/profile/setting"} textColor={"#000814"}>
               <div className="flex items-center gap-1">
                 <FiEdit />

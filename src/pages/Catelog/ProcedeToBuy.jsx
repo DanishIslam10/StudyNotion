@@ -5,18 +5,27 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addToCart, removeFromCart } from "../../slices/cartSlice";
+import { useNavigate } from "react-router";
 
 const ProcedeToBuy = ({ courseDetails }) => {
 
   const { user } = useSelector((state) => state.profile)
+  // console.log("user is: ",user)
   const { cart } = useSelector((state) => state.cart)
+  const { token } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
   const [added, setAdded] = useState(false)
-  console.log("cart data: ", cart)
-  console.log("added in cart : ")
+  // console.log("cart data: ", cart)
+  // console.log("added in cart : ")
 
   const dispatch = useDispatch()
 
   function addToCartHandler() {
+    if (!token) {
+      toast("❗ Please login")
+      navigate("/login")
+      return
+    }
     dispatch(addToCart(courseDetails));
     toast.success("Item added to cart!");
     setAdded(true)
@@ -45,13 +54,12 @@ const ProcedeToBuy = ({ courseDetails }) => {
           added ? (
             <Btn onClickFunction={removeFromCartHandler} children="Remove Item" color="#EF476F" textColor="#340019" />
           ) : (
-            user?.accountType === "Student" &&
-
+            (user?.accountType === "Student" || !token) &&
             <Btn onClickFunction={addToCartHandler} children="Add To Cart" color="#FFD60A" textColor="#000814" />
           )
         }
         {
-          user?.accountType === "Student" &&
+          user?.accountType === "Student" || !token &&
           <p className="text-sm font-[400] text-[#DBDDEA] text-center">30-Day Money-Back Guarantee</p>
         }
       </div>

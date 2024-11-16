@@ -176,7 +176,6 @@
         |-- navbar-links.js
     |-- index.css
     |-- index.js
-    |-- logo.svg
     |-- output.css
     |-- pages
         |-- About.jsx

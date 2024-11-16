@@ -121,7 +121,7 @@ const Setting = (props) => {
           </div>
         </div>
 
-        <form onSubmit={updateInformation} className="edit-profile-details-form w-full flex flex-col gap-4 bg-[#161D29] p-5 rounded-md">
+        <form onSubmit={updateInformation} className="edit-profile-details-form w-full flex flex-col gap-4 bg-[#161D29] px-2 py-4 sm:p-5 rounded-md">
           <div className='flex w-full justify-between'>
             <span className="text-lg font-[600] text-[#F1F2FF] ">Edit Profile Information</span>
             <Btn
@@ -184,7 +184,7 @@ const Setting = (props) => {
         </form>
 
         {/* change password */}
-        <form onSubmit={updateOnClickHandler} className='edit-profile-details-form w-full flex flex-col gap-4 text-[white] bg-[#161D29] rounded-md p-5'>
+        <form onSubmit={updateOnClickHandler} className='edit-profile-details-form w-full flex flex-col gap-4 text-[white] bg-[#161D29] rounded-md px-2 py-4 sm:p-5'>
           <div className='flex w-full justify-between'>
             <span className="text-lg font-[600] text-[#F1F2FF] " >Change Password</span>
             <Btn
