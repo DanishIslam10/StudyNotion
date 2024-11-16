@@ -22,14 +22,24 @@ import Catelog from './pages/Catelog/Catalog';
 import CourseDetails from './pages/Catelog/CourseDetails';
 import ViewEnrolledCourse from './components/core/Dashboard/EnrolledCourse.jsx/ViewEnrolledCourse';
 import { useSelector } from 'react-redux';
+import Sidebar from './components/common/Sidebar';
 
 function App() {
 
   const { token } = useSelector((state) => state.auth)
+  const { showSideBar } = useSelector((state) => state.profile)
 
   return (
-    <div className='flex flex-col bg-[#000814] min-h-screen font-inter'>
+    <div className='relative flex flex-col bg-[#000814] min-h-screen font-inter'>
       <Navbar />
+      {
+        showSideBar &&
+        <div 
+        className="absolute left-0 top-0 sidebar min-h-[100vh] h-full sm:hidden lg:w-[15%] w-[25%]
+         text-[#838894] text-sm bg-[#161D29] z-50 ">
+          <Sidebar/>
+        </div>
+      }
       <Routes>
         <Route path='/' element={<Home />} ></Route>
         <Route path='/about' element={<About />} ></Route>

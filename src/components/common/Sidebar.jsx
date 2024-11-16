@@ -2,9 +2,10 @@ import React from "react"
 import { sidebarLinks } from "../../data/dashboard-links";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogoutModal } from "../../slices/profileSlice";
+import { setLogoutModal, setShowSideBar } from "../../slices/profileSlice";
 import { IoSettings } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
+import { CiSquareRemove } from "react-icons/ci";
 
 const Sidebar = (props) => {
 
@@ -12,9 +13,17 @@ const Sidebar = (props) => {
 
   const { user } = useSelector((state) => state.profile)
   const accountType = user?.accountType
+  const {showSideBar} = useSelector((state) => state.profile)
+  function closeSideBarHandler() {
+    dispatch(setShowSideBar(!showSideBar))
+  }
 
   return (
-    <div className="flex flex-col">
+    <div className={`z-50 flex flex-col`}>
+      <CiSquareRemove 
+      className="text-3xl absolute right-0 m-2 sm:hidden "
+      onClick={closeSideBarHandler}
+      />
       <div className="flex flex-col justify-start my-2">
         {
           accountType === "Instructor" &&

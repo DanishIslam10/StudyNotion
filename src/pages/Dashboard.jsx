@@ -10,10 +10,10 @@ import UpdatePasswordModal from "../components/core/Dashboard/Modals/UpdatePassw
 
 const Dashboard = (props) => {
 
-  const { logoutModal, dpModal, removeDpModal, deleteAccountModal, updatePasswordModal } = useSelector((state) => state.profile)
+  const { logoutModal, dpModal, removeDpModal, deleteAccountModal, updatePasswordModal,showSideBar } = useSelector((state) => state.profile)
 
   return (
-    <div className="w-full flex">
+    <div className={`${showSideBar && "blur-sm"} w-full flex`}>
       <div className="sidebar min-h-[100vh] hidden sm:block lg:w-[15%] w-[25%] text-[#838894] text-sm bg-[#161D29]">
         <Sidebar />
       </div>

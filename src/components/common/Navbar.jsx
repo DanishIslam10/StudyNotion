@@ -4,20 +4,34 @@ import { Link, NavLink } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
 import { IoSearch } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileDropDown from "../core/Auth/ProfileDropDown";
+import { RxHamburgerMenu } from "react-icons/rx";
+import Sidebar from "./Sidebar";
+import { setShowSideBar } from "../../slices/profileSlice";
 
 const Navbar = (props) => {
   const { user } = useSelector((state) => state.profile);
   const { token } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  const {showSideBar} = useSelector((state) => state.profile)
+  console.log("sidebar:",showSideBar)
+
+  function showSideBarHandler() {
+    dispatch(setShowSideBar(!showSideBar))
+  }
 
   return (
     <div
       className="w-full flex justify-center items-center shadow-[0px_0px_5px_0px_rgba(255,255,255,1)] py-4 
-    sm:shadow-[0px_0px_1px_0px_rgba(255,255,255,1)] z-50 "
+    sm:shadow-[0px_0px_1px_0px_rgba(255,255,255,1)] z-30 "
     >
-      <div className="sm:w-[80%] flex sm:justify-between items-center gap-5">
+      <div className="w-[80%] flex justify-between items-center gap-5">
+        <RxHamburgerMenu
+          onClick={showSideBarHandler}
+          className="text-[white] text-2xl sm:hidden cursor-pointer 
+        transition-all duration-150 hover:scale-110 " />
         <Link to={"/"}>
           <img src={Logo} className="w-36"></img>
         </Link>
