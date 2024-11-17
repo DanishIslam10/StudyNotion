@@ -27,7 +27,7 @@ const WishlistItem = ({ course }) => {
         <div className="w-fit flex gap-4 ">
             <div className="relative w-fit flex gap-2 py-2 ">
 
-                <div className="w-[25%] flex items-start " >
+                <div className="w-[25%] sm:w-[50%] flex items-start " >
                     <img src={course?.thumbnail} className="object-contain rounded-md " />
                 </div>
 
