@@ -26,9 +26,11 @@ const WishlistItem = ({ course }) => {
     return (
         <div className="w-fit flex gap-4 ">
             <div className="relative w-fit flex gap-2 py-2 ">
-                
-                    <img src={course?.thumbnail} className="w-[25%] md:w-[40%] lg::w-[50%] object-contain align-top h-fit rounded-md " />
-                
+
+                <div className="w-[25%] flex items-start " >
+                    <img src={course?.thumbnail} className="object-contain rounded-md " />
+                </div>
+
                 <div className="w-[70%] flex flex-col justify-between sm:px-2 ">
                     <div className="flex flex-col sm:gap-2 gap-1 " >
                         <div className="flex justify-between ">

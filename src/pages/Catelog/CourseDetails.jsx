@@ -62,7 +62,9 @@ const CourseDetails = () => {
                         <div className="flex justify-center sm:flex-row flex-col gap-4 py-5 px-3 sm:px-5 md:px-6 lg:px-8">
                             <div className="sm:w-[65%] flex flex-col gap-5">
                                 <div className="flex gap-2 bg-[#161D29] h-fit sm:p-5 p-3 rounded-md">
-                                    <img className="sm:hidden w-[40%] rounded-md object-contain h-fit " src={courseDetails?.thumbnail || "default-image.jpg"} alt="Course Thumbnail" />
+                                    <div className="flex w-[45%] items-start ">
+                                        <img className="sm:hidden rounded-md object-contain" src={courseDetails?.thumbnail || "default-image.jpg"} alt="Course Thumbnail" />
+                                    </div>
                                     <div className="flex flex-col justify-between gap-1 md:w-[80%] sm:pt-2 sm:p-0">
                                         <div className="flex flex-col sm:gap-2 gap-1">
                                             <p className="sm:text-3xl text-sm font-[500] text-[#F1F2FF]">
