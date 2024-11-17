@@ -26,13 +26,15 @@ const WishlistItem = ({ course }) => {
     return (
         <div className="w-fit flex gap-4 ">
             <div className="relative w-fit flex gap-2 py-2 ">
-                <img src={course?.thumbnail} className="w-[28%] object-fill rounded-md " />
+                
+                    <img src={course?.thumbnail} className="w-[25%] md:w-[40%] lg::w-[50%] object-contain align-top h-fit rounded-md " />
+                
                 <div className="w-[70%] flex flex-col justify-between sm:px-2 ">
                     <div className="flex flex-col sm:gap-2 gap-1 " >
                         <div className="flex justify-between ">
-                            <p 
-                            // onClick={seeDetails}
-                            className="sm:text-lg text-base font-[600] text-[#F1F2FF] cursor-pointer hover:underline">
+                            <p
+                                // onClick={seeDetails}
+                                className="sm:text-lg text-sm font-[600] text-[#F1F2FF] cursor-pointer hover:underline">
                                 {course?.courseName}
                             </p>
                             <button onClick={removeItemHandler}

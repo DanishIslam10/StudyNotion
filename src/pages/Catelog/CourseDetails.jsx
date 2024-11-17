@@ -62,16 +62,16 @@ const CourseDetails = () => {
                         <div className="flex justify-center sm:flex-row flex-col gap-4 py-5 px-3 sm:px-5 md:px-6 lg:px-8">
                             <div className="sm:w-[65%] flex flex-col gap-5">
                                 <div className="flex gap-2 bg-[#161D29] h-fit sm:p-5 p-3 rounded-md">
-                                    <img className="sm:hidden w-[40%] rounded-md" src={courseDetails?.thumbnail || "default-image.jpg"} alt="Course Thumbnail" />
+                                    <img className="sm:hidden w-[40%] rounded-md object-contain h-fit " src={courseDetails?.thumbnail || "default-image.jpg"} alt="Course Thumbnail" />
                                     <div className="flex flex-col justify-between gap-1 md:w-[80%] sm:pt-2 sm:p-0">
                                         <div className="flex flex-col sm:gap-2 gap-1">
-                                            <p className="sm:text-3xl text-lg font-[500] text-[#F1F2FF]">
+                                            <p className="sm:text-3xl text-sm font-[500] text-[#F1F2FF]">
                                                 {courseDetails?.courseName}
                                             </p>
                                             <p className="sm:block hidden text-sm font-[400] text-[#999DAA]">
                                                 {courseDetails?.courseDescription}
                                             </p>
-                                            <p className="sm:hidden block  text-sm font-[400] text-[#999DAA]">
+                                            <p className="sm:hidden block  text-xs font-[400] text-[#999DAA]">
                                                 {
                                                     readMore ? (
                                                         courseDetails?.courseDescription

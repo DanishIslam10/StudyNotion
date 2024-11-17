@@ -209,6 +209,8 @@ const updateUserDetailsInLocalStorage = async () => {
         const response = await apiConnector("GET", profileEndpoints.GET_USER_DETAILS_API)
         const updatedUser = response.data.data
         localStorage.setItem('User', JSON.stringify(updatedUser));
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     } catch (error) {
         console.error('Error updating user details:', error);
     }
@@ -249,7 +251,7 @@ export const useUpdateDisplayPictureHook = () => {
                 withCredentials: true, // If your backend requires credentials like cookies
             });
 
-            updateUserDetailsInLocalStorage()
+            await updateUserDetailsInLocalStorage()
 
             dispatch(setLoading(false))
             dispatch(setDpModal(false))
@@ -460,13 +462,13 @@ export const useCreateSection = () => {
             // console.log("section created successfully")
             console.log("new section api response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message,{id:toastId})
+            toast.success(response.data.message, { id: toastId })
         } catch (error) {
             dispatch(setCourse(null))
             dispatch(setStep(1))
             console.log(error)
             // console.log("cannot create new section")
-            toast.error(error.data.message,{id:toastId})
+            toast.error(error.data.message, { id: toastId })
         }
     }
     return createSection
@@ -516,11 +518,11 @@ export const useUpdateSection = () => {
             // console.log("section updated successfully")
             // console.log("update section response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message,{id:toastId})
+            toast.success(response.data.message, { id: toastId })
         } catch (error) {
             console.log(error)
             // console.log("cant update section")
-            toast.error(error.data.message,{id:toastId})
+            toast.error(error.data.message, { id: toastId })
         }
     }
     return updateSection
@@ -536,9 +538,9 @@ export const useDeleteSection = () => {
             // console.log("section deleted successfully")
             // console.log("delete section api response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message,{id:toastId})
+            toast.success(response.data.message, { id: toastId })
         } catch (error) {
-            toast.success(error.data.message,{id:toastId})
+            toast.success(error.data.message, { id: toastId })
             console.log(error)
             // console.log("cant delete section")
         }
@@ -589,12 +591,12 @@ export const useUpdateSubSection = () => {
             // console.log("sub section is updated successfully")
             // console.log("sub section updation api response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message,{id:toastId})
+            toast.success(response.data.message, { id: toastId })
 
         } catch (error) {
             console.log(error)
             // console.log("cant update sub section")
-            toast.error(error.data.message,{id:toastId})
+            toast.error(error.data.message, { id: toastId })
         }
     }
     return updateSubSection
@@ -610,14 +612,14 @@ export const useSetCourseStatus = () => {
             const response = await apiConnector("PUT", courseEndpoints.SET_COURSE_STATUS_API, { courseId, status })
             // console.log("course status is set successfully")
             // console.log("set course status api response: ", response)
-            toast.success(response.data.message,{id:toastId})
+            toast.success(response.data.message, { id: toastId })
             dispatch(setCourse(null))
             dispatch(setStep(1))
             navigate("/profile/instructor-courses")
         } catch (error) {
             console.log(error)
             // console.log("cant publish course")
-            toast.error(error.data.message,{id:toastId})
+            toast.error(error.data.message, { id: toastId })
             dispatch(setCourse(null))
             dispatch(setStep(1))
         }

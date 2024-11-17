@@ -64,11 +64,11 @@ const Profile = (props) => {
           </div>
         }
 
-        <div className="w-[100%] flex flex-col gap-4 bg-[#161D29] px-5 py-6 rounded-md ">
+        <div className="w-[100%] flex flex-col gap-4 bg-[#161D29] sm:px-5 sm:py-6 p-2 rounded-md ">
           <div className="flex justify-between items-center p-2">
             <p className="text-base font-[600] text-[#F1F2FF] ">Personal Details</p>
           </div>
-          <div className="flex md:flex-col flex-row">
+          <div className="flex md:flex-col flex-row gap-2">
             <PersonalDetailsCard
               tag_1={"First Name"} info_1={user.firstName}
               tag_2={"Last Name"} info_2={user.lastName}
