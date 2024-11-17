@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    enrolledCourses:null,
+    enrolledCourses:localStorage.getItem("enrolledCourses") ? JSON.parse(localStorage.getItem("enrolledCourses")) : null,
+    enrolledCoursesLoading:false
 }
 
 const enrolledCoursesSlice = createSlice({
@@ -10,9 +11,12 @@ const enrolledCoursesSlice = createSlice({
     reducers:{
         setEnrolledCourses(state,action) {
             state.enrolledCourses = action.payload
+        },
+        setEnrolledCoursesLoading(state,action) {
+            state.enrolledCoursesLoading = action.payload
         }
     }
 })
 
-export const {setEnrolledCourses} = enrolledCoursesSlice.actions
+export const {setEnrolledCourses,setEnrolledCoursesLoading} = enrolledCoursesSlice.actions
 export default enrolledCoursesSlice.reducer

@@ -25,18 +25,19 @@ const VideoUpload = ({ register, setValue, errors }) => {
 
     function removeVideoFile() {
         setPreviewUrl("")
-        setValue("videoFile",null)
+        setValue("videoFile", null)
     }
 
     return (
         <div>
             {previewUrl ? (
-                <div>
-                    <video className="mx-auto" src={previewUrl} controls width="300" />
-                    <p 
-                    onClick={removeVideoFile} className="text-[#f58787] text-sm font-[400] ml-14 mt-2 
-                    cursor-pointer hover:underline w-fit "
-                     >Remove Video</p>
+                <div className="flex flex-col justify-center items-center">
+                    <p
+                        onClick={removeVideoFile}
+                        className="text-[#f58787] text-sm font-[400] my-2 cursor-pointer hover:underline w-fit ">
+                        Remove Video
+                    </p>
+                    <video className="mx-auto" src={previewUrl} controls width="400" />
                 </div>
             ) : (
                 <div>

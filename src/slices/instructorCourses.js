@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    instructorCourses: []
+    instructorCourses: [],
+    instructorCoursesLoading:false,
 }
 
 const instructorCoursesSlice = createSlice({
@@ -11,8 +12,11 @@ const instructorCoursesSlice = createSlice({
         setInstructorCourses(state, action) {
             state.instructorCourses = action.payload
         },
+        setInstructorCoursesLoading(state,action) {
+            state.instructorCoursesLoading = action.payload
+        }
     }
 })
 
-export const {setInstructorCourses} = instructorCoursesSlice.actions
+export const {setInstructorCourses,setInstructorCoursesLoading} = instructorCoursesSlice.actions
 export default instructorCoursesSlice.reducer

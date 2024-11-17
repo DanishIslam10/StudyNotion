@@ -4,6 +4,7 @@ const initialState = {
     allPublishedCourses : null,
     courseDetails : localStorage.getItem("courseDetails") ? JSON.parse(localStorage.getItem("courseDetails")) : null,
     alReadyEnrolled : false,
+    detailLoading:false,
 }
 
 const catalogSlice = createSlice({
@@ -18,9 +19,12 @@ const catalogSlice = createSlice({
         },
         setAlreadyEnrolled(state,action) {
             state.alReadyEnrolled = action.payload
+        },
+        setDetailLoading(state,action) {
+            state.detailLoading = action.payload
         }
     }
 })
 
-export const {setAllPublishedCourses,setCourseDetails,setAlreadyEnrolled} = catalogSlice.actions
+export const {setAllPublishedCourses,setCourseDetails,setAlreadyEnrolled,setDetailLoading} = catalogSlice.actions
 export default catalogSlice.reducer

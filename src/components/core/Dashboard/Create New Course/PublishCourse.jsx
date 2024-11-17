@@ -26,7 +26,7 @@ const PublishCourse = (props) => {
   }
 
   function saveAsDraftHandler() {
-    setCourseStatus(course._id,"Draft")
+    setCourseStatus(course._id,"Drafted")
   }
 
   return (

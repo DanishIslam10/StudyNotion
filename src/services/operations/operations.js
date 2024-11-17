@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { setLoading, setToken } from "../../slices/authSlice"
 import { useNavigate } from "react-router"
 import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal, setUser } from "../../slices/profileSlice"
-import { setInstructorCourses } from "../../slices/instructorCourses"
+import { setInstructorCourses, setInstructorCoursesLoading } from "../../slices/instructorCourses"
 import { setCourse, setEditCourse, setStep } from "../../slices/newCourseSlice"
-import { setCourseDetails } from "../../slices/catalogSlice"
-import { setEnrolledCourses } from "../../slices/enrolledCourses"
+import { setCourseDetails, setDetailLoading } from "../../slices/catalogSlice"
+import { setEnrolledCourses, setEnrolledCoursesLoading } from "../../slices/enrolledCourses"
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
 
 export const useGetAllCategoriesHook = () => {
@@ -71,6 +71,9 @@ export const useLoginHook = () => {
     const navigate = useNavigate()
 
     const login = async (formData) => {
+
+        const toastId = toast.loading("loging in...")
+
         try {
             const response = await apiConnector("POST", userEndPoints.LOGIN_API, formData)
             // console.log("Log in response: ", response)
@@ -81,11 +84,11 @@ export const useLoginHook = () => {
             localStorage.setItem("Token", JSON.stringify(response.data.token))
             localStorage.setItem("User", JSON.stringify(response.data.user))
             // console.log("Login Successfull")
-            toast.success("Login Successfull")
+            toast.success("Login Successfull", { id: toastId })
             navigate("/")
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.message, { id: toastId })
         }
     }
 
@@ -97,8 +100,8 @@ export const useLogOutHook = () => {
     const navigate = useNavigate()
     const logOut = () => {
         try {
-            const response = apiConnector("POST",userEndPoints.LOG_OUT_API)
-            console.log("log out api response: ",response)
+            const response = apiConnector("POST", userEndPoints.LOG_OUT_API)
+            console.log("log out api response: ", response)
         } catch (error) {
             console.log(error)
             console.log("error in logout api")
@@ -295,16 +298,18 @@ export const useUpdateProfileInformationHook = () => {
             return;
         }
 
+        const toastId = toast.loading("loading...")
+
         try {
             const response = await apiConnector("PUT", profileEndpoints.UPDATE_PROFILE_DETAILS_API, formData)
-            toast.success(response.data.message)
+            toast.success(response.data.message, { id: toastId })
             updateUserDetailsInLocalStorage()
             console.log("profile info updated")
             console.log("update profile info response: ", response)
         } catch (error) {
             console.log(error)
             console.log("cant update profile info")
-            toast.error(error.data.message)
+            toast.error(error.data.message, { id: toastId })
         }
     }
     return updateProfileInformation
@@ -314,19 +319,19 @@ export const useUpdateProfileInformationHook = () => {
 export const useUpdatePasswordHook = () => {
     const dispatch = useDispatch()
     const updatePassword = async (formData) => {
+        const toastId = toast.loading("loading...")
         try {
-            dispatch(setLoading(true))
+            dispatch(setUpdatePasswordModal(false))
             const response = await apiConnector("PUT", profileEndpoints.UPDATE_PASSWORD_API, formData)
             dispatch(setLoading(false))
-            dispatch(setUpdatePasswordModal(false))
-            toast.success(response.data.message)
+            toast.success(response.data.message, { id: toastId })
             dispatch(setUpdatePasswordInformation(null))
             console.log("password updated successfully")
             console.log("update password response: ", response)
         } catch (error) {
             dispatch(setLoading(false))
             dispatch(setUpdatePasswordModal(false))
-            toast.error(error.response.data.message)
+            toast.error(error.response.data.message, { id: toastId })
             console.log(error)
             console.log("cant update password")
         }
@@ -365,16 +370,19 @@ export const useDeleteAccountHook = () => {
 export const useGetEnrolledCourses = () => {
     const dispatch = useDispatch()
     const getEnrolledCourses = async () => {
+        dispatch(setEnrolledCoursesLoading(true))
         try {
             const response = await apiConnector("GET", courseEndpoints.GET_USER_ENROLLED_COURSES)
             // console.log("user enrolled courses fetched successfully")
             // console.log("user enrolled courses response: ", response)
             localStorage.setItem("enrolledCourses", JSON.stringify(response?.data?.data))
             dispatch(setEnrolledCourses(response?.data?.data))
+            dispatch(setEnrolledCoursesLoading(false))
         } catch (error) {
             console.log(error)
             // console.log("cant fetch user enrolled courses")
             dispatch(setEnrolledCourses(null))
+            dispatch(setEnrolledCoursesLoading(false))
             return
         }
     }
@@ -385,12 +393,15 @@ export const useGetEnrolledCourses = () => {
 export const useGetInstructorCoursesHook = () => {
     const dispatch = useDispatch()
     const getInstructorCourses = async () => {
+        dispatch(setInstructorCoursesLoading(true))
         try {
             const response = await apiConnector("GET", courseEndpoints.GET_INSTRUCTOR_COURSES_API)
             // console.log("instructor courses fetched successfully")
             // console.log("instructor courses response: ",response)
             dispatch(setInstructorCourses(response.data.data))
+            dispatch(setInstructorCoursesLoading(false))
         } catch (error) {
+            dispatch(setInstructorCoursesLoading(false))
             console.log(error)
             console.log("cant fetch instructor courses successfully")
         }
@@ -443,18 +454,19 @@ export const useCreateNewCourseInformation = () => {
 export const useCreateSection = () => {
     const dispatch = useDispatch()
     const createSection = async (data) => {
+        const toastId = toast.loading("Loading...")
         try {
             const response = await apiConnector("POST", courseEndpoints.CREATE_NEW_SECTION_API, data)
             // console.log("section created successfully")
             console.log("new section api response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message)
+            toast.success(response.data.message,{id:toastId})
         } catch (error) {
             dispatch(setCourse(null))
             dispatch(setStep(1))
             console.log(error)
             // console.log("cannot create new section")
-            toast.error(error.data.message)
+            toast.error(error.data.message,{id:toastId})
         }
     }
     return createSection
@@ -498,16 +510,17 @@ export const useCreateSubSection = () => {
 export const useUpdateSection = () => {
     const dispatch = useDispatch()
     const updateSection = async (data) => {
+        const toastId = toast.loading("Loading...")
         try {
             const response = await apiConnector("PUT", courseEndpoints.UPDATE_SECTION_API, data)
             // console.log("section updated successfully")
             // console.log("update section response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message)
+            toast.success(response.data.message,{id:toastId})
         } catch (error) {
             console.log(error)
             // console.log("cant update section")
-            toast.error(error.data.message)
+            toast.error(error.data.message,{id:toastId})
         }
     }
     return updateSection
@@ -517,12 +530,15 @@ export const useUpdateSection = () => {
 export const useDeleteSection = () => {
     const dispatch = useDispatch()
     const deleteSection = async (sectionId) => {
+        const toastId = toast.loading("Loading...")
         try {
             const response = await apiConnector("DELETE", courseEndpoints.DELETE_SECTION_API, { sectionId })
             // console.log("section deleted successfully")
             // console.log("delete section api response: ", response)
             dispatch(setCourse(response.data.data))
+            toast.success(response.data.message,{id:toastId})
         } catch (error) {
+            toast.success(error.data.message,{id:toastId})
             console.log(error)
             // console.log("cant delete section")
         }
@@ -554,6 +570,8 @@ export const useUpdateSubSection = () => {
 
     const updateSubSection = async (data) => {
 
+        const toastId = toast.loading("Loading...")
+
         const formData = new FormData()
 
         if (data?.subSectionId) formData.append("subSectionId", data.subSectionId);
@@ -571,34 +589,35 @@ export const useUpdateSubSection = () => {
             // console.log("sub section is updated successfully")
             // console.log("sub section updation api response: ", response)
             dispatch(setCourse(response.data.data))
-            toast.success(response.data.message)
+            toast.success(response.data.message,{id:toastId})
 
         } catch (error) {
             console.log(error)
             // console.log("cant update sub section")
-            console.log(error.data.message)
+            toast.error(error.data.message,{id:toastId})
         }
     }
     return updateSubSection
 }
 
-//publish course
+//publish course 
 export const useSetCourseStatus = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const setCourseStatus = async (courseId, status) => {
+        const toastId = toast.loading("Loading...")
         try {
             const response = await apiConnector("PUT", courseEndpoints.SET_COURSE_STATUS_API, { courseId, status })
             // console.log("course status is set successfully")
             // console.log("set course status api response: ", response)
-            toast.success(response.data.message)
+            toast.success(response.data.message,{id:toastId})
             dispatch(setCourse(null))
             dispatch(setStep(1))
             navigate("/profile/instructor-courses")
         } catch (error) {
             console.log(error)
             // console.log("cant publish course")
-            toast.error(error.data.message)
+            toast.error(error.data.message,{id:toastId})
             dispatch(setCourse(null))
             dispatch(setStep(1))
         }
@@ -652,13 +671,16 @@ export const useGetCourseDetails = () => {
     const dispatch = useDispatch()
     const getCourseDetails = async (courseId) => {
         try {
+            dispatch(setDetailLoading(true))
             const response = await apiConnector("POST", courseEndpoints.GET_COURSE_DETAILS_API, { courseId })
             // console.log("course details are fetched successfully")
             // console.log("course details api response: ", response)
-            localStorage.setItem("courseDetails", JSON.stringify(response.data.data))
+            localStorage.setItem("courseDetails", JSON.stringify(response?.data?.data))
             dispatch(setCourseDetails(response?.data?.data))
+            dispatch(setDetailLoading(false))
         } catch (error) {
             console.log(error)
+            dispatch(setDetailLoading(false))
             // console.log("cant fetch course details")
         }
     }
@@ -683,7 +705,7 @@ function loadScript(src) {
 }
 
 //initiate the order
-export async function buyCourse(courses, userDetails,token) {
+export async function buyCourse(courses, userDetails, token) {
     const toastId = toast.loading("Loading...");
     try {
         //load the script
