@@ -2,7 +2,7 @@ import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints, paymentEndpoints, profileEndpoints, userEndPoints } from "../apis"
 import { useDispatch, useSelector } from "react-redux"
-import { setLoading, setToken } from "../../slices/authSlice"
+import { setLoading, setResendSignUpOtp, setToken } from "../../slices/authSlice"
 import { useNavigate } from "react-router"
 import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal, setUser } from "../../slices/profileSlice"
 import { setInstructorCourses, setInstructorCoursesLoading } from "../../slices/instructorCourses"
@@ -52,11 +52,12 @@ export const useSendSignUpOtpHook = () => {
 
         try {
             dispatch(setLoading(true))
+            navigate("/otp-verification")
             await apiConnector("POST", userEndPoints.SEND_OTP_API, { email: signUpFormData.email })
             dispatch(setLoading(false))
             toast.success("OTP sent successfully")
+            dispatch(setResendSignUpOtp(false))
             console.log("otp sent successfully")
-            navigate("/otp-verification")
         } catch (error) {
             console.log("cant send otp from front end, ye raha error: ", error)
             toast.error(error.response.data.message)
@@ -174,6 +175,7 @@ export const useSignUpHook = () => {
         try {
             dispatch(setLoading(true))
             await apiConnector("POST", userEndPoints.SIGNUP_API, data)
+            dispatch(setResendSignUpOtp(false))
             dispatch(setLoading(false))
             toast.success("Account Created Successfully")
             // console.log("Account created successfully")
@@ -183,6 +185,7 @@ export const useSignUpHook = () => {
             console.log(error)
             console.log("cant create account")
             toast.error(error.response.data.message)
+            dispatch(setResendSignUpOtp(true))
             dispatch(setLoading(false))
         }
     }

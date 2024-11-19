@@ -51,19 +51,19 @@ const Catalog = () => {
             {
                 catalogLinks?.length > 0 &&
                 <div className="flex flex-col items-center gap-4">
-                    <div className="bg-[#161D29] flex flex-col gap-4 py-6 px-16">
-                        <div className="flex items-center gap-2 bg-[#31363f] py-2 px-2 w-fit rounded">
+                    <div className="bg-[#161D29] flex flex-col gap-4 p-4 sm:py-6 sm:px-16">
+                        <div className="sm:flex items-center gap-2 bg-[#31363f] py-2 px-2 sm:w-fit rounded">
                             {catalogLinks?.map((category) => (
                                 <div key={category._id}>
                                     <button
                                         type="button"
-                                        className={`rounded py-1 px-4 ${category._id === selectedCategory?._id
+                                        className={`w-full rounded py-1 px-4 ${category._id === selectedCategory?._id
                                             ? "text-[#FFD60A] bg-[#151515]"
                                             : "text-[#939393]"
                                             }`}
                                         onClick={() => setSelectedCategory(category)}
                                     >
-                                        {category.name}
+                                        <p>{category.name}</p>
                                     </button>
                                 </div>
                             ))}

@@ -59,10 +59,6 @@ const SignUp = (props) => {
 
   return (
     <div className="flex w-full justify-center my-auto ">
-      {
-        loading ? (
-          <Spinner />
-        ) : (
           <div className="w-[85%] flex md:flex-row flex-col-reverse justify-evenly items-center my-8 md:gap-0 gap-10">
             {/* left side */}
             <div className="md:w-[40%] flex flex-col gap-4 text-white">
@@ -205,8 +201,6 @@ const SignUp = (props) => {
               />
             </div>
           </div>
-        )
-      }
     </div>
   );
 };
