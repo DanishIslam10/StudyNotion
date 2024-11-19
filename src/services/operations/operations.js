@@ -10,6 +10,7 @@ import { setCourse, setEditCourse, setStep } from "../../slices/newCourseSlice"
 import { setCourseDetails, setDetailLoading } from "../../slices/catalogSlice"
 import { setEnrolledCourses, setEnrolledCoursesLoading } from "../../slices/enrolledCourses"
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
+import { resetCart } from "../../slices/cartSlice"
 
 export const useGetAllCategoriesHook = () => {
     const getAllCategories = async () => {
@@ -707,7 +708,7 @@ function loadScript(src) {
 }
 
 //initiate the order
-export async function buyCourse(courses, userDetails, token) {
+export async function buyCourse(courses, userDetails, token,dispatch) {
     const toastId = toast.loading("Loading...");
     try {
         //load the script
@@ -738,6 +739,7 @@ export async function buyCourse(courses, userDetails, token) {
 
                 //verifyPayment
                 verifyPayment({ ...response, courses }, token);
+                dispatch(resetCart())
             }
         }
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import WishlistItem from "./WishlistItem";
 import Btn from "../../../common/Btn";
 import { PiSmileySadBold } from "react-icons/pi";
 import { useForm } from "react-hook-form";
 import { buyCourse } from "../../../../services/operations/operations";
+import { resetCart } from "../../../../slices/cartSlice";
 
 
 const Wishlist = (props) => {
@@ -17,6 +18,8 @@ const Wishlist = (props) => {
 
     const {user} = useSelector((state) => state.profile)
     const {token} = useSelector((state) => state.auth)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const totalAmount = cart.reduce((currentPrice, course) => {
@@ -36,7 +39,7 @@ const Wishlist = (props) => {
 
     function paymentHandler(data) {
         console.log("payment details form data: ", data)
-        buyCourse(cart,user,token)
+        buyCourse(cart,user,token,dispatch)
         reset()
     }
 
