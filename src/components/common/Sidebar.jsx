@@ -64,15 +64,24 @@ const Sidebar = (props) => {
             );
           })}
         </div>
-        <div className="md:hidden w-[90%] h-[1px] mx-auto my-2 bg-[#424854]" ></div>
-        <NavLink to={"/profile/setting"} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2" >
-          <IoSettings className="text-lg" />
-          <p>Setting</p>
-        </NavLink>
-        <button onClick={() => dispatch(setLogoutModal(true))} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2">
-          <MdOutlineLogout className="text-lg" />
-          <p>Logout</p>
-        </button>
+        {
+          token &&
+          <div className="md:hidden w-[90%] h-[1px] mx-auto my-2 bg-[#424854]" ></div>
+        }
+        {
+          token &&
+          <NavLink to={"/profile/setting"} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2" >
+            <IoSettings className="text-lg" />
+            <p>Setting</p>
+          </NavLink>
+        }
+        {
+          token &&
+          <button onClick={() => dispatch(setLogoutModal(true))} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2">
+            <MdOutlineLogout className="text-lg" />
+            <p>Logout</p>
+          </button>
+        }
       </div>
     </div>
   )
