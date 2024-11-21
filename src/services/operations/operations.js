@@ -108,10 +108,7 @@ export const useLogOutHook = () => {
             console.log(error)
             console.log("error in logout api")
         }
-        dispatch(setToken(null))
-        dispatch(setUser(null))
-        // localStorage.removeItem("Token")
-        // localStorage.removeItem("User")
+        dispatch({ type: "RESET_STORE" })
         localStorage.clear()
         console.log("logout successfull")
         toast.success("Logged Out")
@@ -662,7 +659,7 @@ export const useGetAllCourses = () => {
         try {
             const response = await apiConnector("GET", courseEndpoints.GET_ALL_COURSES_API)
             // console.log("all courses are fetched successfully")
-            console.log("get all courses api response : ", response)
+            // console.log("get all courses api response : ", response)
             return response
         } catch (error) {
             console.log(error)
@@ -711,7 +708,7 @@ function loadScript(src) {
 }
 
 //initiate the order
-export async function buyCourse(courses, userDetails, token,dispatch) {
+export async function buyCourse(courses, userDetails, token, dispatch) {
     const toastId = toast.loading("Loading...");
     try {
         //load the script

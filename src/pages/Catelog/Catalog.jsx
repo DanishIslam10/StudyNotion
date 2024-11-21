@@ -7,6 +7,9 @@ import { setAllPublishedCourses } from "../../slices/catalogSlice";
 import Spinner from "../.././components/common/Spinner"
 
 const Catalog = () => {
+
+    const { token } = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.profile)
     const [catalogLinks, setCatalogLinks] = useState([]);
     const getAllCategories = useGetAllCategoriesHook();
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -18,7 +21,8 @@ const Catalog = () => {
     // console.log("all published courses: ",allPublishedCourses)
 
     useEffect(() => {
-        getEnrolledCourses()
+        token && user?.accountType === "Student" &&
+            getEnrolledCourses()
     }, [])
 
     useEffect(() => {
