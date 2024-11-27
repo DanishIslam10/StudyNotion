@@ -37,7 +37,7 @@ const Navbar = (props) => {
         <Link to={"/"}>
           <img src={Logo} className="w-36"></img>
         </Link>
-        <div className="md:flex hidden gap-4 font-[600] text-[rgba(153,157,170,1)] ">
+        <div className="invisible md:visible flex gap-4 font-[600] text-[rgba(153,157,170,1)] ">
           {NavbarLinks.map((link, index) => {
             return (
               <div key={index}>
