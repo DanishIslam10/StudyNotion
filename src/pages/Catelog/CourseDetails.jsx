@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CourseContent from "./CourseContent";
 import Footer from "../../components/core/HomePage/Footer";
 import moment from "moment";
-import { setAlreadyEnrolled, setCourseDetails } from "../../slices/catalogSlice";
+import { setAlreadyEnrolled } from "../../slices/catalogSlice";
 import ProcedeToBuy from "./ProcedeToBuy"
 import AlReadyEnrolled from "./AlreadyEnrolled";
 import Spinner from "../../components/common/Spinner"

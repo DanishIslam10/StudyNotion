@@ -1,13 +1,10 @@
-import React, { useState } from "react";
 import Logo from "../../assets/Logo/Logo-Full-Light.png";
 import { Link, NavLink } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
-import { IoSearch } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { RxHamburgerMenu } from "react-icons/rx";
-import Sidebar from "./Sidebar";
 import { setShowSideBar } from "../../slices/profileSlice";
 
 const Navbar = (props) => {
@@ -37,7 +34,7 @@ const Navbar = (props) => {
         <Link to={"/"}>
           <img src={Logo} className="w-36"></img>
         </Link>
-        <div className="invisible md:visible flex gap-4 font-[600] text-[rgba(153,157,170,1)] ">
+        <div className="hidden md:flex gap-4 font-[600] text-[rgba(153,157,170,1)] ">
           {NavbarLinks.map((link, index) => {
             return (
               <div key={index}>
