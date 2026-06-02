@@ -178,15 +178,6 @@ Frontend runs on `http://localhost:3000`, backend on `http://localhost:4000`.
 
 ## Screenshots
 
-> Add screenshots here — Home page, Course catalog, Course builder, Video player, Dashboard
-
----
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
 
 ## Author
 
