@@ -1,70 +1,195 @@
-# Getting Started with Create React App
+# StudyNotion — Ed-Tech Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack ed-tech web application where instructors can create and publish courses, and students can browse, purchase, and consume them. Built with the MERN stack and integrated with Razorpay for payments and Cloudinary for media storage.
 
-## Available Scripts
+**Live Demo:** [studynotion.netlify.app]([https://studynotion.netlify.app](https://study-notion-iota-three.vercel.app/)) &nbsp;|&nbsp; **GitHub:** [DanishIslam10/StudyNotion](https://github.com/DanishIslam10/StudyNotion)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**For Students**
+- Browse and filter courses by category
+- Add courses to cart and purchase via Razorpay payment gateway
+- Stream enrolled course videos directly in the browser
+- Track enrolled courses with section-level progress view
+- OTP-based email verification on signup
+- Password reset via secure tokenized email link
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**For Instructors**
+- Multi-step course creation: Course Info → Section/Lecture Builder → Publish Settings
+- Upload course thumbnail images and lecture videos (stored on Cloudinary)
+- Video duration auto-calculated via ffmpeg on the backend
+- Publish or save as draft — control course visibility
+- Manage and delete courses from instructor dashboard
 
-### `npm test`
+**General**
+- JWT-based authentication with role-based access control (Student / Instructor / Admin)
+- Secure HTTP-only cookies for token storage
+- Profile management — update name, bio, contact, display picture
+- Responsive UI across mobile, tablet, and desktop
+- Contact form with dual-email notification (user + admin)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Layer | Technology |
+|---|---|
+| Frontend | React.js, Redux Toolkit, React Router v6, Tailwind CSS |
+| Backend | Node.js, Express.js |
+| Database | MongoDB with Mongoose ODM |
+| Authentication | JWT, bcrypt, HTTP-only cookies |
+| File Storage | Cloudinary (images + videos) |
+| Payments | Razorpay |
+| Email | Nodemailer |
+| Video Processing | fluent-ffmpeg |
+| Deployment | Netlify (frontend), backend hosted separately |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project Structure
 
-### `npm run eject`
+```
+studynotion/
+├── src/                        # React frontend
+│   ├── components/
+│   │   ├── common/             # Navbar, Sidebar, Spinner, shared inputs
+│   │   └── core/
+│   │       ├── Auth/           # Profile dropdown
+│   │       ├── Dashboard/      # Profile, Settings, Enrolled & Instructor course views
+│   │       └── HomePage/       # Landing page sections, Footer
+│   ├── pages/                  # Route-level pages (Home, Login, SignUp, Catalog, etc.)
+│   ├── slices/                 # Redux state slices (auth, profile, cart, catalog, courses)
+│   ├── services/               # Axios instance, API endpoint constants, operation hooks
+│   └── data/                   # Static data (navbar links, footer links, homepage explore)
+│
+└── server/                     # Express backend
+    ├── controllers/            # Auth, Course, Section, SubSection, Payment, Profile, etc.
+    ├── model/                  # Mongoose schemas (User, Course, Section, SubSection, OTP, etc.)
+    ├── routes/                 # Route definitions (User, Course, Payment, Profile, ContactUs)
+    ├── middlewares/            # JWT auth, role guards (isStudent, isInstructor, isAdmin)
+    ├── config/                 # Cloudinary, MongoDB, Razorpay setup
+    ├── mail/templates/         # HTML email templates
+    └── utils/                  # mailSender, mediaUploader
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Prerequisites
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Node.js v18+
+- MongoDB (local or Atlas URI)
+- Cloudinary account
+- Razorpay account (test keys work fine)
+- SMTP credentials (e.g. Gmail App Password)
 
-## Learn More
+### 1. Clone the repository
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+git clone https://github.com/DanishIslam10/StudyNotion.git
+cd StudyNotion
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2. Set up environment variables
 
-### Code Splitting
+Create `.env` in the root (frontend):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```env
+REACT_APP_BACKEND_URL=http://localhost:4000/api/v1
+REACT_APP_BASE_URL=http://localhost:4000/api/v1
+```
 
-### Analyzing the Bundle Size
+Create `server/.env`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```env
+PORT=4000
+DATABASE_URL=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
 
-### Making a Progressive Web App
+CLOUD_NAME=your_cloudinary_cloud_name
+API_KEY=your_cloudinary_api_key
+API_SECRET=your_cloudinary_api_secret
+FOLDER_NAME=studynotion
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+RAZORPAY_KEY=your_razorpay_key_id
+RAZORPAY_SECRET=your_razorpay_secret
 
-### Advanced Configuration
+MAIL_HOST=smtp.gmail.com
+MAIL_USER=your_email@gmail.com
+MAIL_PASS=your_app_password
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+FRONT_END_URL=http://localhost:3000
+```
 
-### Deployment
+### 3. Install dependencies and run
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+# Install all dependencies (root + server)
+npm install
+cd server && npm install && cd ..
 
-### `npm run build` fails to minify
+# Run both frontend and backend concurrently
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Frontend runs on `http://localhost:3000`, backend on `http://localhost:4000`.
+
+---
+
+## API Overview
+
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/api/v1/auth/user/sendotp` | Send OTP to email | Public |
+| POST | `/api/v1/auth/user/signup` | Register new user | Public |
+| POST | `/api/v1/auth/user/login` | Login user | Public |
+| POST | `/api/v1/auth/user/logout` | Logout user | Auth |
+| POST | `/api/v1/auth/user/resetPasswordUrl` | Send password reset link | Public |
+| POST | `/api/v1/auth/user/resetPassword` | Reset password with token | Public |
+| GET | `/api/v1/course/showAllCourses` | Fetch all courses | Public |
+| POST | `/api/v1/course/createCourse` | Create a new course | Instructor |
+| POST | `/api/v1/course/createSection` | Add section to course | Instructor |
+| POST | `/api/v1/course/createSubSection` | Add lecture to section | Instructor |
+| GET | `/api/v1/course/getEnrolledCourses` | Get student's enrolled courses | Student |
+| POST | `/api/v1/payment/capturePayment` | Initiate Razorpay order | Student |
+| POST | `/api/v1/payment/verifyPayment` | Verify payment & enroll | Student |
+| PUT | `/api/v1/profile/updateProfileDetails` | Update profile info | Auth |
+| PUT | `/api/v1/profile/updateDisplayPicture` | Change profile picture | Auth |
+| DELETE | `/api/v1/profile/deleteAccount` | Delete account | Auth |
+
+---
+
+## Key Implementation Details
+
+**OTP Flow** — OTPs are generated, stored in MongoDB with a 5-minute TTL index, and emailed via Nodemailer. A Mongoose `pre("save")` hook on the OTP model triggers the email automatically.
+
+**Razorpay Integration** — Frontend loads the Razorpay checkout SDK dynamically, initiates an order via `/capturePayment`, and on success calls `/verifyPayment` which uses HMAC-SHA256 signature verification before enrolling the student.
+
+**Video Duration** — On subsection creation, the uploaded video URL is passed to `fluent-ffmpeg`'s `ffprobe` to extract duration in seconds, which is stored and aggregated at the section level for display.
+
+**Cloudinary Upload** — All media (thumbnails, profile pictures, lecture videos) uses `express-fileupload` with temp files, uploaded to Cloudinary with `resource_type: "auto"` to handle both image and video.
+
+**Redux State Architecture** — Application state is split into 7 slices: `auth`, `profile`, `cart`, `catalog`, `newCourse`, `instructorCourses`, `enrolledCourses`. A custom `RESET_STORE` action resets all slices on logout.
+
+---
+
+## Screenshots
+
+> Add screenshots here — Home page, Course catalog, Course builder, Video player, Dashboard
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## Author
+
+**Danish Islam** — Full Stack & Generative AI Developer
+
+[LinkedIn](https://www.linkedin.com/in/danish-islam-85a127291/) &nbsp;|&nbsp; [GitHub](https://github.com/DanishIslam10) &nbsp;|&nbsp; danishislam328@gmail.com
