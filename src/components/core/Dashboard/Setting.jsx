@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { IoChevronBackSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import Btn from "../../common/Btn";
 import PhoneNumberInput from '../../common/PhoneNumberInput';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal } from '../../../slices/profileSlice';
-import { useUpdatePasswordHook, useUpdateProfileInformationHook } from '../../../services/operations/operations';
+import { useUpdateProfileInformationHook } from '../../../services/operations/operations';
 import toast from 'react-hot-toast';
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";

@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
-import signUpImage from "../assets/Images/signup.webp";
-import signUpImageFrame from "../assets/Images/frame.png";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignUpData } from "../slices/authSlice";
 import { useSendSignUpOtpHook } from "../services/operations/operations"
-import Spinner from "../components/common/Spinner"
 import DobInput from "../components/common/DobInput";
 import GenderInput from "../components/common/GenderInput"
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { useNavigate } from "react-router";
 
 const SignUp = (props) => {
 
-  const { signUpData, loading } = useSelector((state) => state.auth);
+  const { signUpData } = useSelector((state) => state.auth);
 
   console.log("Sign Up Data in Sign up component: ", signUpData)
 

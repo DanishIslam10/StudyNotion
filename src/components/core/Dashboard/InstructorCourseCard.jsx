@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { TiTick } from "react-icons/ti";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegEdit } from "react-icons/fa";
 import { useDeleteCourse } from "../../../services/operations/operations";
 import { FaClock } from "react-icons/fa";
 

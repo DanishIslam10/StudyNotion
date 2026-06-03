@@ -1,24 +1,10 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import CTAButton from "../components/core/HomePage/CTAButton";
-import Banner from "../assets/Images/banner.mp4"
-import SectionBlock from "../components/core/HomePage/SectionBlock";
-import HighlightedText from "../components/core/HomePage/HighlightedText";
-import bghome from "../assets/Images/bghome.svg"
-import TimeLineSection from "../components/core/HomePage/TimeLineSection";
-import KnowYourProgress from "../assets/Images/Know_your_progress.svg"
-import CompareWithOthers from "../assets/Images/Compare_with_others.svg"
-import PlanYourLessons from "../assets/Images/Plan_your_lessons.svg"
-import Instructor from "../assets/Images/Instructor.png"
 import Footer from "../components/core/HomePage/Footer";
-import ExploreMore from "../components/core/HomePage/ExploreMore";
-import { useSelector } from "react-redux";
 
 
 const Home = (props) => {
-
-    const { token } = useSelector((state) => state.auth)
 
     return (
 

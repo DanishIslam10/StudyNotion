@@ -1,7 +1,7 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints, paymentEndpoints, profileEndpoints, userEndPoints } from "../apis"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setLoading, setResendSignUpOtp, setToken } from "../../slices/authSlice"
 import { useNavigate } from "react-router"
 import { setDeleteAccountModal, setDpModal, setRemoveDpModal, setUpdatePasswordInformation, setUpdatePasswordModal, setUser } from "../../slices/profileSlice"

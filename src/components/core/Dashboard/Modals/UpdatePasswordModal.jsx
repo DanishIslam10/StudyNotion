@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUpdatePasswordModal, setUpdatePasswordInformation } from "../../../../slices/profileSlice";
+import { setUpdatePasswordModal } from "../../../../slices/profileSlice";
 import { Modal, Box, Typography, CircularProgress } from "@mui/material";
 import Btn from "../../../common/Btn"; // Import the custom Btn component
 import { useUpdatePasswordHook } from "../../../../services/operations/operations";

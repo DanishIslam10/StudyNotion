@@ -1,6 +1,5 @@
 import React from "react"
 import { Modal, Box } from "@mui/material"
-import Btn from "../../../../common/Btn"
 import { IoMdClose } from "react-icons/io";
 
 const ViewSubSectionModal = ({ viewSubSectionModal, setViewSubSectionModal, subSection }) => {

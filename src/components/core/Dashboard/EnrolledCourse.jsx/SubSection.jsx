@@ -1,11 +1,9 @@
 import React from "react"
 import { IoIosTv } from "react-icons/io";
 import { FaPlay } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 
 const SubSection = ({ subSection, getViewingLectureDataForLg, getViewingLectureDataForSm }) => {
 
-    const dispatch = useDispatch()
 
     function playLectureHandlerForLg() {
         //    dispatch(setViewinglectureData(subSection))

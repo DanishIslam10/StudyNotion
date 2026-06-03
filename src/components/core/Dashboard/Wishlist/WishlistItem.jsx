@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react"
 import StarRatings from "react-star-ratings";
-import Btn from "../../../common/Btn";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../../slices/cartSlice";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
 // import { setCourseDetails } from "../../../../slices/catalogSlice";
 
 const WishlistItem = ({ course }) => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     function removeItemHandler() {
         dispatch(removeFromCart(course._id))

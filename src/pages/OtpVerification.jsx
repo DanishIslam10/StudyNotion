@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import OTPInput from "react-otp-input";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useSendSignUpOtpHook, useSignUpHook } from "../services/operations/operations";
 import { Navigate } from "react-router";
-import { setUser } from "../slices/profileSlice";
 import Spinner from "../components/common/Spinner";
 
 const OtpVerification = (props) => {

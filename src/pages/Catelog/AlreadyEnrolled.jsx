@@ -1,12 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import Btn from "../../components/common/Btn";
-import { FaRegClock, FaMobileAlt, FaGlobe } from "react-icons/fa";
+import { FaRegClock, FaMobileAlt } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 const AlReadyEnrolled = ({ courseDetails }) => {
 
-    const { user } = useSelector((state) => state.profile)
 
     return (
         <div>

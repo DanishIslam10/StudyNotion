@@ -1,8 +1,6 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux";
 import Section from "./Section";
 import ReactPlayer from "react-player";
-import Btn from "../../../common/Btn";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 
 const ViewEnrolledCourse = (props) => {

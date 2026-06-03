@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Btn from "../../components/common/Btn";
-import { FaRegClock, FaMobileAlt, FaGlobe } from "react-icons/fa";
+import { FaRegClock, FaMobileAlt } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";

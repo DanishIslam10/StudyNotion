@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useGetEnrolledCourses } from "../../../../services/operations/operations";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import EnrolledCourseCard from "./EnrolledCourseCard";
 import { useSelector } from "react-redux";
 import Spinner from "../../../common/Spinner"

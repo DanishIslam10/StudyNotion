@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import RenderSteps from "./RenderSteps";
 import { IoChevronBackOutline } from "react-icons/io5";
 

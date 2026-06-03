@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDriveFolderUpload } from "react-icons/md";
-import { Box, Modal, Typography, CircularProgress } from "@mui/material";
+import { Box, Modal, CircularProgress } from "@mui/material";
 import { setDpModal } from "../../../../slices/profileSlice";
 import { useUpdateDisplayPictureHook } from "../../../../services/operations/operations";
 import Btn from "../../../common/Btn"; // Importing the custom Btn component

@@ -1,15 +1,10 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux";
-import { IoMdAdd } from "react-icons/io";
-import SubSectionModal from "./modals/CreateSubSection";
-import Btn from "../../../common/Btn";
 import SectionEntry from "./SectionEntry";
 
 const NestedView = ({editSectionName,setEditSectionName,getSectionId}) => {
 
   const { course } = useSelector((state) => state.newCourse)
-  const [subSectionModal, setSubSectionModal] = useState(false)
-  const [sectionId, setSectionId] = useState("")
   // console.log("subsection modal: ", subSectionModal)
   // console.log("sectionId: ", sectionId)
 

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import React from "react"
+import {  useSelector } from "react-redux";
+import {  NavLink } from "react-router-dom";
 import Btn from "../../common/Btn";
 import { FiEdit } from "react-icons/fi";
-import { setDpModal, setLogoutModal } from "../../../slices/profileSlice";
 import PersonalDetailsCard from "./PersonalDetailsCard";
 
 const Profile = (props) => {

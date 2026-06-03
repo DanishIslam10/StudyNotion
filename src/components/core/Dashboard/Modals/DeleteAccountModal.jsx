@@ -3,7 +3,7 @@ import { Modal, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDeleteAccountModal } from '../../../../slices/profileSlice';
 import Btn from '../../../common/Btn'; // Import your custom Btn component
-import { useDeleteAccountHook, useLogOutHook } from '../../../../services/operations/operations';
+import { useDeleteAccountHook} from '../../../../services/operations/operations';
 import Spinner from "../../../common/Spinner"
 import { RiDeleteBin6Line } from "react-icons/ri";
 

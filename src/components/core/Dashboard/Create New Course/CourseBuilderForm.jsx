@@ -16,7 +16,6 @@ const CourseBuilderForm = (props) => {
   const {
     register,
     setValue,
-    getValues,
     handleSubmit,
     reset,
     formState: { errors }

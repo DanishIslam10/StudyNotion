@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useCreateNewCourseInformation, useDeleteCourse, useGetAllCategoriesHook } from "../../../../services/operations/operations";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import CourseThumbnail from "./CourseThumbnail";
 import Btn from "../../../common/Btn";
-import { setCourse, setStep } from "../../../../slices/newCourseSlice";
 
 const CourseInformationForm = (props) => {
 

@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-import loginImage from "../assets/Images/login.webp"
-import signUpImageFrame from "../assets/Images/frame.png"
 import { Link } from "react-router-dom";
 import { useLoginHook } from "../services/operations/operations";
 import { IoEyeOutline } from "react-icons/io5";

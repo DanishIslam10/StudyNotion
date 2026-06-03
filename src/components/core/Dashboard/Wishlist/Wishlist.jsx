@@ -6,7 +6,6 @@ import Btn from "../../../common/Btn";
 import { PiSmileySadBold } from "react-icons/pi";
 import { useForm } from "react-hook-form";
 import { buyCourse } from "../../../../services/operations/operations";
-import { resetCart } from "../../../../slices/cartSlice";
 
 
 const Wishlist = (props) => {

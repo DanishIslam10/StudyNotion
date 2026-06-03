@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { VscCloudUpload } from "react-icons/vsc";
-import Btn from "../../../common/Btn"
 import { useDispatch, useSelector } from "react-redux";
 import { setCourse } from "../../../../slices/newCourseSlice";
 

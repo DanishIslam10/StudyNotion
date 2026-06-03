@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router";
 import moment from "moment";
-import { useDispatch } from "react-redux";
 
 const EnrolledCourseCard = ({ course }) => {
 
@@ -10,7 +9,6 @@ const EnrolledCourseCard = ({ course }) => {
     const [readMore, setReadMore] = useState(false)
     const [courseDuration, setCourseDuration] = useState(0)
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
     function getCourseDuration() {
         let courseDuration = 0
