@@ -80,7 +80,7 @@ const Home = (props) => {
                             <div className="overflow-x-auto p-8">
 
                                 <pre className="text-left text-sm sm:text-base leading-8 text-[#D1D5DB]">
-                                    {`const future = await StudyNotion.learn({
+                                    {`const future = await LearnSpace.learn({
   skills: ["React", "Node.js", "AI"],
   projects: true,
   mentorship: true,
@@ -103,7 +103,7 @@ const Home = (props) => {
                     <div className="mb-16 text-center">
 
                         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
-                            Why StudyNotion
+                            Why LearnSpace
                         </p>
 
                         <h2 className="text-4xl sm:text-6xl font-bold text-white">
@@ -223,7 +223,7 @@ const Home = (props) => {
                     </h2>
 
                     <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#9CA3AF]">
-                        Join thousands of learners building real-world coding skills with StudyNotion.
+                        Join thousands of learners building real-world coding skills with LearnSpace.
                     </p>
 
                     <div className="mt-10">

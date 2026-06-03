@@ -4,10 +4,8 @@
 |-- package-lock.json
 |-- package.json
 |-- public
-    |-- favicon.ico
+    |-- favicon.svg
     |-- index.html
-    |-- logo192.png
-    |-- logo512.png
     |-- manifest.json
     |-- robots.txt
 |-- README.md
@@ -95,6 +93,7 @@
             |-- signup.webp
             |-- TimelineImage.png
         |-- Logo
+            |-- LearnSpace.png
             |-- Logo-Full-Dark.png
             |-- Logo-Full-Light.png
             |-- Logo-Small-Dark.png

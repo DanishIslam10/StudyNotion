@@ -77,7 +77,7 @@ exports.categoryPageDetails = async (req, res) => {
 
         //get top 10 selling courses (homework)
         //create a controller for contact us page (homework)
-        // --> male the student that his message is recieved and mail the studynotion of data send my student
+        // --> male the student that his message is recieved and mail the LearnSpace of data send my student
         //     in the contact us page
 
         //return success response

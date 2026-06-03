@@ -37,7 +37,7 @@ export const gridSectionData = [
     {
         boxPosition: -1,
         heading: "World-Class Learning for Anyone, Anywhere",
-        description: "Studynotion partners with over 275 leading universities and companies to deliver high-quality, flexible, and affordable online education. We empower learners globally with the skills they need to succeed in today’s dynamic workforce."
+        description: "LearnSpace partners with over 275 leading universities and companies to deliver high-quality, flexible, and affordable online education. We empower learners globally with the skills they need to succeed in today’s dynamic workforce."
     },
     {
         boxPosition: 1,

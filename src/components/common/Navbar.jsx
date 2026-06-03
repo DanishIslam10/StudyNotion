@@ -1,4 +1,4 @@
-import Logo from "../../assets/Logo/Logo-Full-Light.png";
+import Logo from "../../assets/Logo/LearnSpace.png";
 import { Link, NavLink } from "react-router-dom";
 import { NavbarLinks } from "../../data/navbar-links";
 import { LuShoppingCart } from "react-icons/lu";
@@ -43,7 +43,7 @@ const Navbar = (props) => {
           <Link to={"/"} className="group">
             <img
               src={Logo}
-              className="w-32 sm:w-36 transition-all duration-300 group-hover:scale-[1.03]"
+              className="w-32 sm:w-60 transition-all duration-300 group-hover:scale-[1.03]"
               alt="Logo"
             />
           </Link>

@@ -28,7 +28,7 @@ const About = (props) => {
                         <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse"></div>
 
                         <p className="text-sm font-medium text-indigo-300">
-                            About StudyNotion
+                            About LearnSpace
                         </p>
                     </div>
 
@@ -42,7 +42,7 @@ const About = (props) => {
 
                     {/* Description */}
                     <p className="mt-8 max-w-3xl text-base sm:text-lg leading-relaxed text-[#9CA3AF]">
-                        StudyNotion is redefining modern education by combining technology,
+                        LearnSpace is redefining modern education by combining technology,
                         community, and practical learning experiences to help students and
                         instructors grow together.
                     </p>
@@ -177,7 +177,7 @@ const About = (props) => {
                 <div className="mb-12 text-center">
 
                     <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
-                        Why StudyNotion
+                        Why LearnSpace
                     </p>
 
                     <h2 className="text-4xl sm:text-5xl font-bold text-white">

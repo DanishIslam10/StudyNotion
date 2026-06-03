@@ -81,7 +81,7 @@ const SignUp = (props) => {
               {/* Heading */}
               <div className="space-y-3">
                 <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
-                  Join millions learning to code with StudyNotion
+                  Join millions learning to code with LearnSpace
                 </h1>
 
                 <p className="text-sm sm:text-base leading-relaxed text-[#9CA3AF]">
