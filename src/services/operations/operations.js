@@ -349,7 +349,7 @@ export const useDeleteAccountHook = () => {
     const deleteAccount = async () => {
         try {
             dispatch(setLoading(true))
-            const response = await apiConnector("DELETE", profileEndpoints.DELETE_ACCOUNT_API)
+            await apiConnector("DELETE", profileEndpoints.DELETE_ACCOUNT_API)
             // console.log("account deleted successfully")
             // console.log("account deletion response: ",response)
             dispatch(setDeleteAccountModal(false))
