@@ -22,65 +22,175 @@ const Sidebar = (props) => {
   }
 
   return (
-    <div className={`z-50 flex flex-col`}>
-      <div className="w-full flex justify-end">
+    <div
+      className="
+    z-50 flex h-full w-full flex-col
+    border-r border-white/10
+    bg-[#111827]/90
+    backdrop-blur-2xl
+    text-white
+  "
+    >
+
+      {/* Mobile Close Button */}
+      <div className="flex w-full justify-end p-3 md:hidden">
         {
-          showSideBar &&
-          <CiSquareRemove
-            className="text-3xl md:hidden m-1 "
-            onClick={closeSideBarHandler}
-          />
+          showSideBar && (
+            <button
+              onClick={closeSideBarHandler}
+              className="
+            rounded-xl border border-white/10
+            bg-white/5 p-2
+            transition-all duration-300
+            hover:bg-white/10
+          "
+            >
+              <CiSquareRemove className="text-2xl text-[#CBD5E1]" />
+            </button>
+          )
         }
       </div>
-      <div className="flex flex-col justify-start my-2">
+
+      {/* Main Navigation */}
+      <div className="flex flex-col gap-2 px-3 py-2">
+
+        {/* Instructor Label */}
         {
-          accountType === "Instructor" &&
-          <p className="text-sm font-[600] text-[#C5C7D4] mx-5 my-2 ">Instructor</p>
+          accountType === "Instructor" && (
+            <div className="px-3 pb-2 pt-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#838894]">
+                Instructor Panel
+              </p>
+            </div>
+          )
         }
+
+        {/* Sidebar Links */}
         {
           sidebarLinks.map((item, index) => (
-            item.type.includes(accountType) &&
-            <NavLink key={index} to={item.path} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2" >
-              <p className="text-lg">{item.icon}</p>
-              <p> {item.name} </p>
-            </NavLink>
+            item.type.includes(accountType) && (
+              <NavLink
+                key={index}
+                to={item.path}
+                className={({ isActive }) =>
+                  `
+                group flex items-center gap-3
+                rounded-xl px-4 py-3
+                text-sm font-medium
+                transition-all duration-300
+
+                ${isActive
+                    ? "bg-gradient-to-r from-yellow-300/20 to-orange-400/10 text-yellow-300 border border-yellow-400/20"
+                    : "text-[#AAB0C0] hover:bg-white/5 hover:text-white"
+                  }
+              `
+                }
+              >
+                <span className="text-lg">
+                  {item.icon}
+                </span>
+
+                <span>
+                  {item.name}
+                </span>
+              </NavLink>
+            )
           ))
         }
       </div>
+
+      {/* Divider */}
       {
-        token &&
-        <div className="w-[90%] h-[1px] mx-auto bg-[#424854]"></div>
+        token && (
+          <div className="mx-4 my-4 h-[1px] bg-white/10"></div>
+        )
       }
-      <div className="flex flex-col justify-start">
-        <div className="md:hidden flex flex-col font-[600] text-[rgba(153,157,170,1)] ">
-          {NavbarLinks.map((link, index) => {
-            return (
-              <div key={index}>
-                <NavLink to={link.path} className="flex gap-2 items-center px-2 py-2">
-                  <p className="text-lg">{link.icon}</p>
-                  <p> {link.title} </p>
-                </NavLink>
-              </div>
-            );
-          })}
+
+      {/* Mobile Navigation */}
+      <div className="flex flex-col gap-2 px-3">
+
+        <div className="md:hidden flex flex-col gap-1">
+
+          {
+            NavbarLinks.map((link, index) => (
+              <NavLink
+                key={index}
+                to={link.path}
+                className={({ isActive }) =>
+                  `
+                flex items-center gap-3
+                rounded-xl px-4 py-3
+                text-sm font-medium
+                transition-all duration-300
+
+                ${isActive
+                    ? "bg-white/10 text-white"
+                    : "text-[#AAB0C0] hover:bg-white/5 hover:text-white"
+                  }
+              `
+                }
+              >
+                <span className="text-lg">
+                  {link.icon}
+                </span>
+
+                <span>
+                  {link.title}
+                </span>
+              </NavLink>
+            ))
+          }
         </div>
+
+        {/* Divider */}
         {
-          token &&
-          <div className="md:hidden w-[90%] h-[1px] mx-auto my-2 bg-[#424854]" ></div>
+          token && (
+            <div className="md:hidden mx-1 my-4 h-[1px] bg-white/10"></div>
+          )
         }
+
+        {/* Settings */}
         {
-          token &&
-          <NavLink to={"/profile/setting"} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2" >
-            <IoSettings className="text-lg" />
-            <p>Setting</p>
-          </NavLink>
+          token && (
+            <NavLink
+              to={"/profile/setting"}
+              className={({ isActive }) =>
+                `
+              flex items-center gap-3
+              rounded-xl px-4 py-3
+              text-sm font-medium
+              transition-all duration-300
+
+              ${isActive
+                  ? "bg-white/10 text-white"
+                  : "text-[#AAB0C0] hover:bg-white/5 hover:text-white"
+                }
+            `
+              }
+            >
+              <IoSettings className="text-lg" />
+              <span>Settings</span>
+            </NavLink>
+          )
         }
+
+        {/* Logout */}
         {
-          token &&
-          <button onClick={() => dispatch(setLogoutModal(true))} className="font-[600] text-[rgba(153,157,170,1)] flex items-center pl-3 py-2 gap-2">
-            <MdOutlineLogout className="text-lg" />
-            <p>Logout</p>
-          </button>
+          token && (
+            <button
+              onClick={() => dispatch(setLogoutModal(true))}
+              className="
+            flex items-center gap-3
+            rounded-xl px-4 py-3
+            text-sm font-medium text-[#FF8FA3]
+            transition-all duration-300
+            hover:bg-[#EF476F]/10
+          "
+            >
+              <MdOutlineLogout className="text-lg" />
+              <span>Logout</span>
+            </button>
+          )
         }
       </div>
     </div>

@@ -68,7 +68,7 @@ exports.changePassword = async (req, res) => {
     try {
         //fetch data
         const { oldPassword, newPassword, confirmNewPassword } = req.body
-        console.log("Body : ", req.body)
+        // console.log("Body : ", req.body)
         //apply validation
         if (!oldPassword || !newPassword || !confirmNewPassword) {
             return res.status(400).json({
@@ -78,7 +78,7 @@ exports.changePassword = async (req, res) => {
         }
         //fetch token
         const { token } = req.cookies
-        console.log(token)
+        // console.log(token)
         if (!token) {
             return res.status(404).json({
                 success: false,
@@ -89,7 +89,7 @@ exports.changePassword = async (req, res) => {
         //decode the token to obtain user details
         try {
             decode = jwt.verify(token, process.env.JWT_SECRET)
-            console.log(decode)
+            // console.log(decode)
         } catch (error) {
             return res.status(500).json({
                 success: false,
@@ -98,7 +98,7 @@ exports.changePassword = async (req, res) => {
         }
         //fetch id from decode
         const { id } = decode
-        console.log(id)
+        // console.log(id)
         const user = await User.findById(id)
         if(!await bcrypt.compare(oldPassword, user.password)){
            return res.status(402).json({
@@ -120,7 +120,7 @@ exports.changePassword = async (req, res) => {
             { $set: { password: hashedNewPassword } },
             { new: true }
         )
-        console.log(updatedUser)
+        // console.log(updatedUser)
 
         //send mail of password updation
         await mailSender(decode.email, "Accound Password Updated", "isn't that you ?")
@@ -208,7 +208,7 @@ exports.updateDisplayPicture = async (req, res) => {
                 message: "User not authenticated",
             });
         }
-        console.log("User id: ", id)
+        // console.log("User id: ", id)
 
         if (!req.files || !req.files.imageFile) {
             return res.status(400).json({
@@ -218,7 +218,7 @@ exports.updateDisplayPicture = async (req, res) => {
         }
 
         const { imageFile } = req.files
-        console.log("imageFileObject", imageFile)
+        // console.log("imageFileObject", imageFile)
 
         const imageDetails = await uploadMediaToCloudinary(
             imageFile,
@@ -226,7 +226,7 @@ exports.updateDisplayPicture = async (req, res) => {
             1000,
             1000
         )
-        console.log("image details : ", imageDetails)
+        // console.log("image details : ", imageDetails)
         const updatedProfile = await User.findByIdAndUpdate(
             id,
             { $set: { image: imageDetails.secure_url } },

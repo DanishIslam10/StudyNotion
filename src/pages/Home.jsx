@@ -18,181 +18,241 @@ import { useSelector } from "react-redux";
 
 const Home = (props) => {
 
-    const {token} = useSelector((state) => state.auth)
+    const { token } = useSelector((state) => state.auth)
 
     return (
-        <div className="flex flex-col items-center justify-center text-white">
-            <div className="flex flex-col items-center lg:w-[50vw] w-[80vw] gap-9 mt-10">
-                <Link to={`${token ? ("/profile/my-profile") : ("/signup")}`}>
-                    <div className="flex justify-center items-center">
-                        <div className="flex justify-center items-center gap-2 bg-[#161D29] shadow-md shadow-[#FFFFFF2E] py-2 px-6 
-                        rounded-full text-[#999DAA] cursor-pointer transition-all duration-200 hover:scale-105
-                        w-fit hover:bg-[black]">
-                            <p className="font-[500]">Become an Instructor</p>
-                            <FaArrowRight />
-                        </div>
-                    </div>
-                </Link>
-                <div>
-                    <p className="text-3xl font-[600] text-center">Empower Your Future with <HighlightedText text={"Coding Skills"} color={"#1FA2FF"} /> </p>
-                </div>
-                <div>
-                    <p className="text-[16px] font-[500] text-[#838894] text-center">With our online coding courses, you can learn at your own pace, from anywhere in
-                        the world, and get access to a wealth of resources, including hands-on projects,
-                        quizzes, and personalized feedback from instructors. </p>
-                </div>
-                <div className="flex gap-4 justify-center items-center">
-                    <CTAButton active={true} children={"Learn More"} />
-                    <CTAButton active={false} children={"Book a Demo"} />
-                </div>
-                <div>
-                    <div className="w-[75vw] shadow-[-100px_-100px_150px_-140px_rgb(0,120,153)] my-6">
-                        <video muted loop autoPlay className="shadow-[22px_22px_0_-10px_rgb(255,255,255)]">
-                            <source src={Banner} type="video/mp4" />
-                        </video>
-                    </div>
-                </div>
-            </div> 
 
-            {/* Section 1 */}
-            <SectionBlock
-                direction={"flex-row"}
-                heading={<>Unlock your {<HighlightedText text={"coding potential"} color={"#1FA2FF"} />} with our online courses.</>}
-                subHeading={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."}
-                ctaButton1={"Try it Yourself"}
-                ctaButton2={"Learn More"}
-                codeBlock={
-                    `<!Doctype html>
-<html>
-<head>
-<link rel="stylesheet" href="styles.css">
-<title>Your Title</title>
-</head>
-<body>
-<h1>Heading</h1>
-</body>
-</html>`}
-                codeColor="rgb(255,255,255)"
-                backgroundGradient="rgba(255,255,0,0.5)"
-            />
-            <SectionBlock
-                direction={"flex-row-reverse"}
-                heading={<>start {<HighlightedText text={"coding in seconds"} color={"#1FA2FF"} />} </>}
-                subHeading={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."}
-                ctaButton1={"Continue Lesson"}
-                ctaButton2={"Learn More"}
-                codeBlock={
-                    `<!Doctype html>
-<html>
-<head>
-<link rel="stylesheet" href="styles.css">
-<title>Your Title</title>
-</head>
-<body>
-<h1>Heading</h1>
-</body>
-</html>`}
-                codeColor="rgb(255,255,255)"
-                backgroundGradient="rgb(4,119,174,0.5)"
-            />
-            <ExploreMore/>
-            {/* Section 2 */}
-            <div className="w-full h-60 bg-white flex justify-center items-center"
-                style={{
-                    backgroundImage: `url(${bghome})`, // Replace with the path to your image
-                    backgroundSize: '20%', // Adjust size as needed
-                    backgroundPosition: 'center', // Center the image
-                    backgroundRepeat: "repeat"
-                }}>
-                <div className="flex gap-6">
-                    <CTAButton active={true} linkTo={"/signup"}>
-                        <div className="flex justify-center items-center gap-2">
-                            <p>Explore Full Catelog</p>
-                            <FaArrowRight />
-                        </div>
-                    </CTAButton>
-                    <CTAButton active={false} children={"Learn More"} linkTo={"/signup"} />
-                </div>
+        <div className="relative flex flex-col overflow-hidden text-white">
+
+            {/* BACKGROUND GLOWS */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+                <div className="absolute top-[-200px] left-[-120px] h-[420px] w-[420px] rounded-full bg-indigo-500/10 blur-3xl"></div>
+
+                <div className="absolute top-[35%] right-[-150px] h-[380px] w-[380px] rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+                <div className="absolute bottom-[-150px] left-[20%] h-[320px] w-[320px] rounded-full bg-purple-500/10 blur-3xl"></div>
             </div>
 
-            <div className="bg-[#f3f1f1] w-full flex flex-col justify-center items-center gap-12 py-12">
-                <div className="flex flex-wrap sm:flex-nowrap lg:w-[90%] px-10 gap-10">
-                    <div>
-                        <p className="text-black text-4xl font-[600]">
-                            Get the skills you need for a <HighlightedText text={"job that is in demand"} color={"#20BDFF"} />
-                        </p>
+            {/* HERO SECTION */}
+            <section className="relative z-10 flex min-h-screen items-center justify-center px-4">
+
+                <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
+
+
+                    {/* MAIN HEADING */}
+                    <h1 className="max-w-5xl text-5xl sm:text-7xl font-bold leading-[1.1] tracking-tight">
+
+                       Learn, Build & Master{" "}
+                        <div className="bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent">
+                            Tech Skills
+                        </div>
+                    </h1>
+
+                    {/* DESCRIPTION */}
+                    <p className="mt-8 max-w-3xl text-base sm:text-xl leading-relaxed text-[#9CA3AF]">
+
+                        Learn modern development skills through interactive lessons,
+                        real-world projects, and AI-powered learning experiences —
+                        all in one platform.
+                    </p>
+
+                    {/* CTA BUTTONS */}
+                    <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+
+                        <CTAButton active={true} linkTo={"/signup"}>
+                            <div className="flex items-center gap-2">
+                                <p>Start Learning</p>
+                                <FaArrowRight />
+                            </div>
+                        </CTAButton>
+
+                        <CTAButton active={false} linkTo={"/catalog"} children={"Explore Courses"} />
                     </div>
-                    <div className="flex flex-col gap-12">
-                        <p className="text-[#2C333F] text-base font-[500]">
-                            The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist
-                            requires more than professional skills.
-                        </p>
-                        <div className="w-fit">
-                            <CTAButton children={"Learn More"} active={true} linkTo={"/signup"} />
+
+                    {/* MODERN CODE WINDOW */}
+                    <div className="mt-20 w-full max-w-5xl">
+
+                        <div
+                            className="overflow-hidden rounded-3xl border border-white/10 bg-[#111827]/80
+            backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]"
+                        >
+
+                            {/* TOP BAR */}
+                            <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
+
+                                <div className="h-3 w-3 rounded-full bg-red-400"></div>
+                                <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
+                                <div className="h-3 w-3 rounded-full bg-green-400"></div>
+
+                                <p className="ml-4 text-sm text-[#9CA3AF]">
+                                    learning.js
+                                </p>
+                            </div>
+
+                            {/* CODE BLOCK */}
+                            <div className="overflow-x-auto p-8">
+
+                                <pre className="text-left text-sm sm:text-base leading-8 text-[#D1D5DB]">
+                                    {`const future = await StudyNotion.learn({
+  skills: ["React", "Node.js", "AI"],
+  projects: true,
+  mentorship: true,
+  careerGrowth: true
+})`}
+                                </pre>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <TimeLineSection />
+            {/* FEATURES SECTION */}
+            <section className="relative z-10 py-28">
 
-            </div>
+                <div className="mx-auto w-[92%] max-w-7xl">
 
-            {/* Section 3 */}
-            <div className="flex flex-col justify-center items-center bg-[#f3f1f1] w-full">
-                <div className="flex flex-col gap-4 sm:w-[55%] w-[90%] my-10">
-                    <div>
-                        <p className="text-black font-[600] text-4xl text-center ">Your swiss knife for <HighlightedText text={"learning any language"} color={"rgba(32,189,255,1)"} /></p>
-                    </div>
-                    <div>
-                        <p className="font-[500] text-center text-base text-[rgba(44,51,63,1)] ">
-                            Using spin making learning multiple languages easy. with 20+ languages realistic voice-over,
-                            progress tracking, custom schedule and more.
+                    {/* SECTION HEADING */}
+                    <div className="mb-16 text-center">
+
+                        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
+                            Why StudyNotion
+                        </p>
+
+                        <h2 className="text-4xl sm:text-6xl font-bold text-white">
+                            Built for Modern Learning
+                        </h2>
+
+                        <p className="mx-auto mt-6 max-w-3xl text-[#9CA3AF] text-lg">
+                            Everything you need to learn, build, and grow —
+                            designed for the next generation of developers.
                         </p>
                     </div>
-                </div>
-                <div className=" bg-[#f3f1f1] flex sm:flex-row flex-col sm:w-[80%] justify-center items-center">
-                    <div className="w-[80%]">
-                        <img className="" src={KnowYourProgress} ></img>
-                    </div>
-                    <div className="w-[80%]">
-                        <img className="" src={CompareWithOthers} ></img>
-                    </div>
-                    <div className="w-[80%]">
-                        <img className="" src={PlanYourLessons} ></img>
-                    </div>
-                </div>
-                <div className="my-10">
-                    <CTAButton active={true} children={"learn More"} linkTo={"/signup"} />
-                </div>
-            </div>
 
-            {/* Section 3 */}
-            <div className="flex w-[90%] sm:flex-nowrap flex-wrap gap-6 sm:gap-0 py-12 justify-evenly items-center">
-                <div className="w-[80%] sm:w-fit shadow-[-14px_-14px_0px_0px_rgba(255,255,255,1)] ">
-                    <img src={Instructor} ></img>
+                    {/* FEATURE GRID */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        {
+                            [
+                                {
+                                    title: "Interactive Learning",
+                                    desc: "Practice with real-world coding exercises and projects."
+                                },
+                                {
+                                    title: "AI-Powered Guidance",
+                                    desc: "Get personalized help and intelligent recommendations."
+                                },
+                                {
+                                    title: "Industry Curriculum",
+                                    desc: "Learn technologies used by top engineering teams."
+                                },
+                                {
+                                    title: "Project-Based Growth",
+                                    desc: "Build portfolio-worthy applications while learning."
+                                },
+                                {
+                                    title: "Flexible Learning",
+                                    desc: "Study at your own pace from anywhere in the world."
+                                },
+                                {
+                                    title: "Career Ready",
+                                    desc: "Develop practical skills for high-demand tech roles."
+                                }
+                            ].map((item, index) => (
+
+                                <div
+                                    key={index}
+                                    className="group rounded-3xl border border-white/10 bg-white/[0.04]
+                p-8 backdrop-blur-2xl transition-all duration-300
+                hover:border-indigo-400/20 hover:bg-white/[0.06]"
+                                >
+
+                                    {/* ICON */}
+                                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500/10">
+
+                                        <div className="h-3 w-3 rounded-full bg-indigo-400"></div>
+                                    </div>
+
+                                    <h3 className="mb-4 text-2xl font-semibold text-white">
+                                        {item.title}
+                                    </h3>
+
+                                    <p className="leading-relaxed text-[#9CA3AF]">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            ))
+                        }
+                    </div>
                 </div>
-                <div className="sm:w-[40%] w-[80%] flex flex-col gap-4 sm:px-10">
-                    <div>
-                        <p className="text-4xl font-[600] ">Become an <HighlightedText text={"instructor"} color={"rgba(18,216,250,1)"} /> </p>
-                    </div>
-                    <div>
-                        <p className="text-[rgba(131,136,148,1)] ">
-                            Instructors from around the world teach millions of students on StudyNotion. We provide
-                            the tools and skills to teach what you love.
-                        </p>
-                    </div>
-                    <div className="w-fit mt-10">
-                        <CTAButton active={"true"} linkTo={"signup"}>
-                            <div className="flex justify-center items-center gap-2">
-                                <p>Start Teaching Today</p>
+            </section>
+
+            {/* STATS SECTION */}
+            <section className="relative z-10 py-20">
+
+                <div className="mx-auto grid w-[92%] max-w-6xl grid-cols-2 gap-4 sm:grid-cols-4">
+
+                    {
+                        [
+                            { number: "50K+", label: "Active Students" },
+                            { number: "120+", label: "Courses" },
+                            { number: "95%", label: "Completion Rate" },
+                            { number: "24/7", label: "Learning Support" },
+                        ].map((item, index) => (
+
+                            <div
+                                key={index}
+                                className="rounded-3xl border border-white/10 bg-white/[0.04]
+              p-8 text-center backdrop-blur-2xl"
+                            >
+
+                                <p className="text-4xl font-bold text-white">
+                                    {item.number}
+                                </p>
+
+                                <p className="mt-3 text-[#9CA3AF]">
+                                    {item.label}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+
+            {/* FINAL CTA */}
+            <section className="relative z-10 py-28">
+
+                <div
+                    className="mx-auto flex w-[92%] max-w-5xl flex-col items-center rounded-[40px]
+        border border-white/10 bg-white/[0.04] px-6 py-20 text-center backdrop-blur-2xl"
+                >
+
+                    <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
+                        Start Today
+                    </p>
+
+                    <h2 className="max-w-3xl text-4xl sm:text-6xl font-bold leading-tight text-white">
+                        Start Building Your Future Today
+                    </h2>
+
+                    <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#9CA3AF]">
+                        Join thousands of learners building real-world coding skills with StudyNotion.
+                    </p>
+
+                    <div className="mt-10">
+                        <CTAButton active={true} linkTo={"/signup"}>
+                            <div className="flex items-center gap-2">
+                                <p>Get Started</p>
                                 <FaArrowRight />
                             </div>
                         </CTAButton>
                     </div>
                 </div>
-            </div>
-            {/* Footer */} 
-                <Footer />
+            </section>
+
+            {/* FOOTER */}
+            <Footer />
         </div>
     )
 };

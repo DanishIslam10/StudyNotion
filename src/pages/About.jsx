@@ -1,10 +1,4 @@
 import React from "react"
-import AboutUs1 from "../assets/Images/aboutus1.webp"
-import AboutUs2 from "../assets/Images/aboutus2.webp"
-import AboutUs3 from "../assets/Images/aboutus3.webp"
-import HighlightedText from "../components/core/HomePage/HighlightedText";
-import { BiSolidQuoteLeft } from "react-icons/bi";
-import { BiSolidQuoteRight } from "react-icons/bi";
 import { ourFoundingStory } from "../data/aboutpage";
 import { ourVision } from "../data/aboutpage";
 import { statsData } from "../data/aboutpage";
@@ -15,122 +9,239 @@ import ContactUsForm from "../components/common/ContactUsForm";
 
 const About = (props) => {
     return (
-        <div className="flex justify-center items-center flex-col">
-            {/* section 1 */}
-            <div className="flex flex-col justify-center items-center bg-[rgba(22,29,41,1)] mb-10">
-                <div className="flex flex-col sm:w-[70%] w-[90%] justify-center items-center">
-                    <div className="flex flex-col gap-4">
-                        <p className=" text-base font-[500] text-[rgba(153,157,170,1)] sm:text-center sm:mt-20 mt-10 sm:mb-8 mb-2 " > About us </p>
-                        <p className=" sm:text-4xl text-3xl font-[600] text-[rgba(241,242,255,1)] sm:text-center" > Driving Innovation
-                            in Online Education for a <HighlightedText text={"Brighter Future"} color={"#1FA2FF"} /> </p>
-                        <p className=" text-base font-[500] text-[rgba(131,136,148,1)] sm:text-center" > Studynotion is at the forefront of driving innovation in online education.
-                            We're passionate about creating a brighter future by offering cutting-edge courses,
-                            leveraging emerging technologies, and nurturing a vibrant learning community.
+        <div className="relative flex flex-col overflow-hidden">
+
+            {/* HERO SECTION */}
+            <section className="relative flex min-h-[70vh] items-center justify-center px-4 py-20">
+
+                {/* Background Glow */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="absolute top-[-150px] left-[-120px] h-[350px] w-[350px] rounded-full bg-indigo-500/10 blur-3xl"></div>
+
+                    <div className="absolute bottom-[-120px] right-[-100px] h-[300px] w-[300px] rounded-full bg-cyan-500/10 blur-3xl"></div>
+                </div>
+
+                <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
+
+                    {/* Badge */}
+                    <div className="mb-6 flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-5 py-2">
+                        <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse"></div>
+
+                        <p className="text-sm font-medium text-indigo-300">
+                            About StudyNotion
                         </p>
                     </div>
-                    <div className="sm:w-[130%] w-full flex lg:flex-row md:flex-row sm:flex-row flex-wrap justify-center items-center gap-4 mt-12 mb-6" >
-                        <img src={AboutUs1} className="sm:w-[30%] w-[40%]" ></img>
-                        <img src={AboutUs2} className="sm:w-[30%] w-[40%]" ></img>
-                        <img src={AboutUs3} className="sm:w-[30%] w-[40%]" ></img>
+
+                    {/* Heading */}
+                    <h1 className="max-w-4xl text-4xl sm:text-6xl font-bold leading-tight text-white">
+                        Driving Innovation in Online Education for a{" "}
+                        <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                            Brighter Future
+                        </span>
+                    </h1>
+
+                    {/* Description */}
+                    <p className="mt-8 max-w-3xl text-base sm:text-lg leading-relaxed text-[#9CA3AF]">
+                        StudyNotion is redefining modern education by combining technology,
+                        community, and practical learning experiences to help students and
+                        instructors grow together.
+                    </p>
+
+                    {/* CTA */}
+                    <div className="mt-10">
+                        <CTAButton
+                            children={"Start Learning"}
+                            active={true}
+                            linkTo={"/signup"}
+                        />
                     </div>
                 </div>
-            </div>
-            {/* Section 2 */}
-            <div className="sm:w-[85%] w-[90%] ">
-                <p className="relative sm:text-4xl text-2xl font-[600] text-[rgba(175,178,191,1)] text-center ">
-                    <BiSolidQuoteLeft className="inline-block text-2xl mb-6 mr-2 " />
-                    We are passionate about revolutionizing the way we learn. Our innovative platform
-                    <HighlightedText text={" combines technology"} color={"#1FA2FF"} /> ,
-                    <HighlightedText text={" expertise"} color={"rgba(240,152,25,1)"} /> , and community to create an
-                    <HighlightedText text={" unparalleled educational experience"} color={"rgba(249,212,35,1)"} />.
-                    <BiSolidQuoteRight className=" mb-6 ml-1 inline-block text-2xl" />
-                </p>
-            </div>
-            {/* page seperator horizontal line */}
-            <div className="w-full h-[1px] bg-[#3e3e3e] my-14" ></div>
-            {/* Section 3 */}
-            <div className="lg:w-full w-[90%] flex flex-col gap-10 justify-center items-center mb-14">
-                {/* our founding story */}
-                <div className="sm:w-[85%] w-full flex lg:flex-row md:flex-col-reverse flex-col-reverse justify-center sm:gap-24 gap-10 ">
-                    <div className="lg:w-[60%] flex flex-col gap-4">
-                        <p className="sm:text-4xl text-3xl font-[600] text-[rgba(252,176,69,1)] mb-2 " > {ourFoundingStory.heading} </p>
-                        <p className="text-base font-[500] text-[rgba(131,136,148,1)] "> {ourFoundingStory.p1} </p>
-                        <p className="text-base font-[500] text-[rgba(131,136,148,1)] "> {ourFoundingStory.p2} </p>
-                    </div>
-                    <img src={ourFoundingStory.image} className="lg:w-[50%] object-contain mx-auto " />
+            </section>
+
+            {/* QUOTE SECTION */}
+            <section className="mx-auto w-[92%] max-w-6xl py-10">
+
+                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-2xl p-8 sm:p-12 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+
+                    <p className="text-center text-2xl sm:text-4xl font-semibold leading-relaxed text-white">
+
+                        <span className="text-indigo-400">“</span>
+
+                        We combine{" "}
+                        <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                            technology
+                        </span>
+                        ,{" "}
+                        <span className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                            expertise
+                        </span>
+                        , and{" "}
+                        <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                            community
+                        </span>{" "}
+                        to create an unparalleled educational experience.
+
+                        <span className="text-indigo-400">”</span>
+                    </p>
                 </div>
-                {/* our vision our mission */}
-                <div className="sm:w-[85%] flex sm:flex-col md:flex-col lg:flex-row flex-col justify-center items-center sm:gap-24 gap-10">
-                    {/* our vision */}
-                    <div className="flex flex-col justify-center gap-2">
-                        <p className="sm:text-4xl text-3xl text-[rgba(230,92,0,1)] font-[600] mb-2"> {ourVision.heading1} </p>
-                        <p className="text-base font-[500] text-[rgba(131,136,148,1)] "> {ourVision.p1} </p>
-                    </div>
-                    {/* our mission */}
-                    <div className="flex flex-col gap-2 justify-center">
-                        <p className="sm:text-4xl text-3xl text-[rgba(18,216,250,1)] font-[600] mb-2"> {ourVision.heading2} </p>
-                        <p className="text-base font-[500] text-[rgba(131,136,148,1)] "> {ourVision.p2} </p>
+            </section>
+
+            {/* STORY / VISION / MISSION */}
+            <section className="mx-auto flex w-[92%] max-w-6xl flex-col gap-8 py-14">
+
+                {/* Story */}
+                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8 sm:p-10">
+
+                    <div className="max-w-4xl">
+
+                        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
+                            Our Story
+                        </p>
+
+                        <h2 className="mb-6 text-3xl sm:text-5xl font-bold text-white">
+                            {ourFoundingStory.heading}
+                        </h2>
+
+                        <div className="space-y-5 text-[#9CA3AF] leading-relaxed text-base sm:text-lg">
+                            <p>{ourFoundingStory.p1}</p>
+                            <p>{ourFoundingStory.p2}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {/* Section 4 */}
-            <div className="w-full bg-[#202530] flex justify-center items-center">
-                <div className="sm:w-[80%] w-[90%] text-white flex justify-between items-center gap-4 py-14">
+
+                {/* Vision + Mission */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                    {/* Vision */}
+                    <div className="rounded-3xl border border-orange-400/10 bg-orange-500/[0.03] backdrop-blur-xl p-8">
+
+                        <div className="mb-4 h-12 w-12 rounded-2xl bg-orange-500/10 flex items-center justify-center">
+                            <div className="h-3 w-3 rounded-full bg-orange-400"></div>
+                        </div>
+
+                        <h3 className="mb-4 text-3xl font-bold text-orange-300">
+                            {ourVision.heading1}
+                        </h3>
+
+                        <p className="leading-relaxed text-[#9CA3AF]">
+                            {ourVision.p1}
+                        </p>
+                    </div>
+
+                    {/* Mission */}
+                    <div className="rounded-3xl border border-cyan-400/10 bg-cyan-500/[0.03] backdrop-blur-xl p-8">
+
+                        <div className="mb-4 h-12 w-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center">
+                            <div className="h-3 w-3 rounded-full bg-cyan-400"></div>
+                        </div>
+
+                        <h3 className="mb-4 text-3xl font-bold text-cyan-300">
+                            {ourVision.heading2}
+                        </h3>
+
+                        <p className="leading-relaxed text-[#9CA3AF]">
+                            {ourVision.p2}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* STATS */}
+            <section className="py-16">
+
+                <div className="mx-auto grid w-[92%] max-w-6xl grid-cols-2 gap-4 sm:grid-cols-4">
+
                     {
-                        statsData.map((item,index) => (
-                            <div key={index} className="flex flex-col justify-center items-center w-fit">
-                                <p className="sm:text-3xl text-xl font-[700] text-[rgba(241,242,255,1)] ">{item.number}</p>
-                                <p className="sm:text-base text-sm font-[600] text-[rgba(88,93,105,1)] sm:w-fit">{item.description}</p>
+                        statsData.map((item, index) => (
+                            <div
+                                key={index}
+                                className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6 text-center transition-all duration-300 hover:border-indigo-400/20 hover:bg-white/[0.06]"
+                            >
+
+                                <p className="text-3xl sm:text-4xl font-bold text-white">
+                                    {item.number}
+                                </p>
+
+                                <p className="mt-2 text-sm sm:text-base text-[#9CA3AF]">
+                                    {item.description}
+                                </p>
                             </div>
                         ))
                     }
                 </div>
-            </div>
-            {/* Section 5 (grid) */}
-            <div className="sm:w-[85%] w-[95%]  grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 sm:gap-2 gap-1 justify-center my-14">
-                {
-                    gridSectionData.map((item,index) => (
-                        <div key={index} className={`
-                    ${item.boxPosition === 3 && "lg:col-start-2"} 
-                    ${item.boxPosition < 0 && "col-span-2"}`}>
-                            {
-                                item.boxPosition === -1 ? (
-                                    <div className="flex flex-col h-full gap-2 px-2 my-8 sm:my-5">
-                                        <p className="sm:text-4xl text-3xl font-[600] text-[rgba(241,242,255,1)] ">
-                                            {item.heading.split("for")[0]} <span>for</span>
-                                            <HighlightedText text={`${item.heading.split("for")[1]}`} color={"#357cde"} />
-                                        </p>
-                                        <p className="text-base font-[500] text-[rgba(131,136,148,1)] "> {item.description} </p>
-                                        <div className="w-fit mt-4">
-                                            <CTAButton className="w-fit" children={"Learn More"} active={true} linkTo={"/signup"} />
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className={`flex flex-col h-full justify-between gap-2 sm:p-4 p-2
-                                     ${item.boxPosition % 2 !== 0 ? "bg-[rgba(44,51,63,1)]" : "bg-[rgba(22,29,41,1)]"}`}>
-                                        <p className="sm:text-xl text-base font-[600] text-[rgba(241,242,255,1)] "> {item.heading} </p>
-                                        <div className="h-full flex items-center">
-                                            <p className="text-sm font-[500] text-[rgba(131,136,148,1)] "> {item.description} </p>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        </div>
-                    ))
-                }
-            </div>
-             {/* Section 6 (form) */}
-             <div className="flex flex-col justify-between gap-5 items-center my-5">
-                <div className="flex flex-col gap-2">
-                    <p className="text-4xl font-[600] text-[rgba(241,242,255,1)] text-center ">Get in Touch</p>
-                    <p className="text-base font-[500] text-[rgba(131,136,148,1)]  text-center">We'd love to here for you, Please fill out this form.</p>
+            </section>
+
+            {/* FEATURES GRID */}
+            <section className="mx-auto w-[92%] max-w-6xl py-10">
+
+                <div className="mb-12 text-center">
+
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
+                        Why StudyNotion
+                    </p>
+
+                    <h2 className="text-4xl sm:text-5xl font-bold text-white">
+                        Built for Modern Learning
+                    </h2>
                 </div>
-                <ContactUsForm/>
-            </div>
-            {/* Section 7 (footer) */}
-            <Footer/>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    {
+                        gridSectionData.map((item, index) => (
+
+                            item.boxPosition !== -1 && (
+
+                                <div
+                                    key={index}
+                                    className="group rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8 transition-all duration-300 hover:border-indigo-400/20 hover:bg-white/[0.06]"
+                                >
+
+                                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10">
+                                        <div className="h-3 w-3 rounded-full bg-indigo-400"></div>
+                                    </div>
+
+                                    <h3 className="mb-4 text-2xl font-semibold text-white">
+                                        {item.heading}
+                                    </h3>
+
+                                    <p className="leading-relaxed text-[#9CA3AF]">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            )
+                        ))
+                    }
+                </div>
+            </section>
+
+            {/* CONTACT SECTION */}
+            <section className="mx-auto flex w-[92%] max-w-4xl flex-col items-center py-20">
+
+                <div className="mb-10 text-center">
+
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400">
+                        Contact Us
+                    </p>
+
+                    <h2 className="text-4xl sm:text-5xl font-bold text-white">
+                        Get in Touch
+                    </h2>
+
+                    <p className="mt-4 text-[#9CA3AF]">
+                        We'd love to hear from you. Please fill out the form below.
+                    </p>
+                </div>
+
+                <div className="w-full rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-2xl p-6 sm:p-10">
+                    <ContactUsForm />
+                </div>
+            </section>
+
+            {/* FOOTER */}
+            <Footer />
         </div>
-    ) 
+    )
 };
 
 export default About;

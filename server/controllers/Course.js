@@ -12,7 +12,7 @@ exports.createCourse = async (req, res) => {
     try {
         //fetch data
         const { courseName, courseDescription, whatWillYouLearn, price, category, tag, status = "Pending" } = req.body
-        console.log("Request Body:",req.body)
+        // console.log("Request Body:",req.body)
         //fetch thumbnail image
         const { thumbnail } = req.files
         //apply validation
@@ -34,7 +34,7 @@ exports.createCourse = async (req, res) => {
         //fetch instructor details (will be used later)
         const userId = req.user.id //we had inserted the user object inside req in auth middleware
         const instructorDetails = await User.findById(userId)
-        console.log("Instructor Details: ", instructorDetails)
+        // console.log("Instructor Details: ", instructorDetails)
 
         //if instructor details could not be fetched for some reason
         if (!instructorDetails) {
@@ -51,7 +51,7 @@ exports.createCourse = async (req, res) => {
 
         // !!! line-42 to line 51 ---> did not understand properly
         const categoryDetails = await Category.findById(category)
-        console.log("Category Details : ",categoryDetails)
+        // console.log("Category Details : ",categoryDetails)
         //category (req.body wala) is an id so we can directly apply findById() query
         //'category is an id' to understand this, go to User schema 
         if (!categoryDetails) {

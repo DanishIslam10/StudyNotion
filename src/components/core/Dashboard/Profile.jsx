@@ -16,75 +16,207 @@ const Profile = (props) => {
   const gender = user?.additionalDetails?.gender
 
   return (
-    <div className={`relative text-white flex flex-col ${logoutModal && "blur-sm"}`}>
+    <div className={`relative min-h-screen bg-[#0B1120] text-white ${logoutModal && "blur-sm"}`}>
 
-      <div className="flex flex-col gap-2 m-4">
-        <div className="flex gap-2 text-sm font-[400] text-[#838894] ">
-          <NavLink to={"/"} >
-            <p>Home /</p>
-          </NavLink>
-          <NavLink>
-            <p>Profile</p>
-          </NavLink>
-        </div>
-        <div>
-          <p className="text-3xl font-[500] text-[#F1F2FF] ">My Profile</p>
-        </div>
-      </div>
+      {/* Page Container */}
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-8">
 
-      <div className="relative lg:w-[70%] w-[85%] mx-auto sm:my-10 my-5 flex flex-col gap-5 z-0">
+        {/* Breadcrumb */}
+        <div className="mb-8 flex flex-col gap-3">
 
-        <div className="flex sm:items-center justify-between gap-4 bg-[#161D29] px-5 py-6 rounded-md ">
-          <div className="flex gap-4 items-center sm:flex-nowrap flex-wrap p-2 ">
-            <div className="bg-[black] rounded-full">
-              <img className="w-[4rem] h-[4rem] object-cover object-top rounded-full " src={user?.image} alt="profile picture" />
-            </div>
-            <div className="flex flex-col">
-              <div className="flex gap-1 text-base font-[600] text-[#F1F2FF] ">
-                <p> {user.firstName} </p>
-                <p> {user.lastName} </p>
-              </div>
-              <p className="text-sm font-[400] text-[#838894]"> {user.email} </p>
-            </div>
+          <div className="flex items-center gap-2 text-sm text-[#838894]">
+
+            <NavLink
+              to={"/"}
+              className="transition-colors hover:text-white"
+            >
+              Home
+            </NavLink>
+
+            <span>/</span>
+
+            <p className="text-[#CBD5E1]">
+              Profile
+            </p>
           </div>
+
+          {/* Heading */}
           <div>
-            <Btn color={"#FFD60A"} linkTo={"/profile/setting"} textColor={"#000814"}>
-              <div className="flex items-center gap-1">
-                <FiEdit />
-                <p>Edit</p>
+            <h1 className="text-4xl font-bold tracking-tight text-white">
+              My Profile
+            </h1>
+
+            <p className="mt-2 text-sm text-[#838894]">
+              Manage your personal information and account settings
+            </p>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col gap-6">
+
+          {/* Profile Card */}
+          <div
+            className="
+            rounded-3xl border border-white/10
+            bg-[#161D29]/80
+            p-6 backdrop-blur-xl
+            shadow-2xl shadow-black/20
+          "
+          >
+
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+
+              {/* User Info */}
+              <div className="flex flex-wrap items-center gap-5">
+
+                {/* Avatar */}
+                <div className="relative">
+                  <div className="overflow-hidden rounded-full border-2 border-yellow-300/20">
+                    <img
+                      className="h-20 w-20 object-cover object-top"
+                      src={user?.image}
+                      alt="profile picture"
+                    />
+                  </div>
+
+                  {/* Online Indicator */}
+                  <div className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-[#161D29] bg-green-400"></div>
+                </div>
+
+                {/* Name & Email */}
+                <div>
+
+                  <h2 className="text-2xl font-bold text-white">
+                    {user.firstName} {user.lastName}
+                  </h2>
+
+                  <p className="mt-1 text-sm text-[#94A3B8]">
+                    {user.email}
+                  </p>
+
+                  <div className="mt-3 flex w-fit items-center gap-2 rounded-full border border-yellow-400/10 bg-yellow-400/10 px-3 py-1 text-xs font-medium text-yellow-300">
+                    {user?.accountType}
+                  </div>
+                </div>
               </div>
-            </Btn>
+
+              {/* Edit Button */}
+              <div>
+                <Btn
+                  color={"#FFD60A"}
+                  linkTo={"/profile/setting"}
+                  textColor={"#000814"}
+                >
+                  <div className="flex items-center gap-2">
+                    <FiEdit />
+                    <p>Edit Profile</p>
+                  </div>
+                </Btn>
+              </div>
+            </div>
+          </div>
+
+          {/* About Section */}
+          {
+            user?.additionalDetails?.about && (
+              <div
+                className="
+                rounded-3xl border border-white/10
+                bg-[#161D29]/80
+                p-6 backdrop-blur-xl
+                shadow-xl shadow-black/10
+              "
+              >
+
+                <div className="flex flex-col gap-4">
+
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-semibold text-white">
+                      About
+                    </h3>
+
+                    <div className="h-[1px] flex-1 bg-white/10 ml-4"></div>
+                  </div>
+
+                  <p className="leading-7 text-[#CBD5E1]">
+                    {user.additionalDetails.about}
+                  </p>
+                </div>
+              </div>
+            )
+          }
+
+          {/* Personal Details */}
+          <div
+            className="
+            rounded-3xl border border-white/10
+            bg-[#161D29]/80
+            p-6 backdrop-blur-xl
+            shadow-xl shadow-black/10
+          "
+          >
+
+            {/* Header */}
+            <div className="mb-6 flex items-center justify-between">
+
+              <div>
+                <h3 className="text-xl font-semibold text-white">
+                  Personal Details
+                </h3>
+
+                <p className="mt-1 text-sm text-[#838894]">
+                  Your account information and personal data
+                </p>
+              </div>
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+
+              <div
+                className="
+                rounded-2xl border border-white/5
+                bg-[#0F172A]/60
+                p-5
+              "
+              >
+                <PersonalDetailsCard
+                  tag_1={"First Name"}
+                  info_1={user.firstName}
+
+                  tag_2={"Last Name"}
+                  info_2={user.lastName}
+
+                  tag_3={"Email"}
+                  info_3={user.email}
+                />
+              </div>
+
+              <div
+                className="
+                rounded-2xl border border-white/5
+                bg-[#0F172A]/60
+                p-5
+              "
+              >
+                <PersonalDetailsCard
+                  tag_1={"Phone Number"}
+                  info_1={phoneNumber ? phoneNumber : "Not Added"}
+
+                  tag_2={"Date of Birth"}
+                  info_2={dob ? dob : "Not Added"}
+
+                  tag_3={"Gender"}
+                  info_3={gender ? gender : "Not Added"}
+                />
+              </div>
+
+            </div>
           </div>
         </div>
-
-        {user?.additionalDetails?.about &&
-          <div className="flex flex-col gap-4 bg-[#161D29] px-5 py-6 rounded-md ">
-            <p className="text-base font-[600] text-[#F1F2FF] ">About</p>
-            <p> {user.additionalDetails.about} </p>
-          </div>
-        }
-
-        <div className="w-[100%] flex flex-col gap-4 bg-[#161D29] sm:px-5 sm:py-6 p-2 rounded-md ">
-          <div className="flex justify-between items-center p-2">
-            <p className="text-base font-[600] text-[#F1F2FF] ">Personal Details</p>
-          </div>
-          <div className="flex md:flex-col flex-row gap-2">
-            <PersonalDetailsCard
-              tag_1={"First Name"} info_1={user.firstName}
-              tag_2={"Last Name"} info_2={user.lastName}
-              tag_3={"Email"} info_3={user.email}
-            />
-            <PersonalDetailsCard
-              tag_1={"Phone Number"} info_1={phoneNumber ? phoneNumber : "not added"}
-              tag_2={"Date of Birth"} info_2={dob ? dob : "not added"}
-              tag_3={"Gender"} info_3={gender ? gender : "not added"}
-            />
-          </div>
-        </div>
-
       </div>
-
-    </div >
+    </div>
   )
 };
 

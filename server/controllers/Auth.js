@@ -42,7 +42,7 @@ exports.sendOTP = async (req, res) => {
             lowerCaseAlphabets: false,
             specialChars: false,
         })
-        console.log("OTP is : ", otp)
+        // console.log("OTP is : ", otp)
 
         //check otp is unique or not
         //line no: 36 - line no: 43 tak ka code boht khrab hai because of brute force approach
@@ -65,7 +65,7 @@ exports.sendOTP = async (req, res) => {
         // store otp in db
         const otpDoc = await OTP.create(otpPayload)
 
-        console.log("OTP Doc: ", otpDoc)
+        // console.log("OTP Doc: ", otpDoc)
 
         res.status(200).json({
             success: true,
@@ -96,7 +96,7 @@ exports.signUp = async (req, res) => {
             otp
         } = req.body
 
-        console.log("user sign up data in the backend: ", req.body)
+        // console.log("user sign up data in the backend: ", req.body)
 
         //apply validation
         //account type isliye add nahi kiya bcz uski kuch na kch default value hogi hi 
@@ -129,18 +129,18 @@ exports.signUp = async (req, res) => {
 
         //find most recent otp stored for the user
         const recentOtp = await OTP.findOne({ email: email }).sort({ createdAt: -1 }).limit(1) //go to imp notes
-        console.log("Recent OTP: ", recentOtp)
-        console.log("input OTP: ", otp)
+        // console.log("Recent OTP: ", recentOtp)
+        // console.log("input OTP: ", otp)
 
         //validate otp
-        if (recentOtp.length === 0) {
+        if (recentOtp?.length === 0) {
             //otp not found
             return res.status(400).json({
                 success: false,
                 message: "OTP not found"
             })
         }
-        else if (recentOtp.otp !== otp) {
+        else if (recentOtp?.otp !== otp) {
             //otp did not match with provided otp from req.body
             return res.status(400).json({
                 success: false,

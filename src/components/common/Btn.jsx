@@ -4,31 +4,78 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const Btn = ({
-  textColor,
+  textColor = "#000814",
   linkTo,
-  color,
+  color = "#FFD60A",
   children,
-  disabled,
+  disabled = false,
   onClickFunction,
   type = "button",
-  style = {}, // Default style prop to an empty object
+  style = {},
+  variant = "primary",
+  fullWidth = false,
 }) => {
-  // Define common styles for the button
-  const buttonStyles = {
-    backgroundColor: color,
-    color: textColor,
-    py: 1,
-    px: 2,
-    borderRadius: "0.4rem",
-    fontWeight: 500,
-    transition: "transform 0.3s",
-    "&:hover": {
-      transform: "scale(1.05)",
+
+  const variants = {
+    primary: {
+      background: `linear-gradient(135deg, ${color}, #ffb703)`,
+      color: textColor,
+      boxShadow: "0 10px 30px rgba(255, 214, 10, 0.25)",
+      border: "1px solid rgba(255,255,255,0.08)",
     },
-    ...style, // Merge parent-provided styles with existing styles
+
+    secondary: {
+      background: "rgba(255,255,255,0.05)",
+      color: "#F1F2FF",
+      border: "1px solid rgba(255,255,255,0.08)",
+      backdropFilter: "blur(12px)",
+      boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+    },
+
+    danger: {
+      background: "linear-gradient(135deg, #EF476F, #ff6b8a)",
+      color: "#fff",
+      boxShadow: "0 10px 25px rgba(239, 71, 111, 0.25)",
+      border: "1px solid rgba(255,255,255,0.08)",
+    },
   };
 
-  // Use Material UI Button with conditional Link
+  const selectedVariant = variants[variant] || variants.primary;
+
+  const buttonStyles = {
+    px: 3,
+    py: 1.4,
+    borderRadius: "14px",
+    fontWeight: 600,
+    fontSize: "0.95rem",
+    textTransform: "none",
+    letterSpacing: "0.3px",
+    transition: "all 0.3s ease",
+    overflow: "hidden",
+    position: "relative",
+    width: fullWidth ? "100%" : "fit-content",
+
+    ...selectedVariant,
+
+    "&:hover": {
+      transform: "translateY(-2px) scale(1.02)",
+      filter: "brightness(1.05)",
+      boxShadow: selectedVariant.boxShadow,
+    },
+
+    "&:active": {
+      transform: "scale(0.98)",
+    },
+
+    "&.Mui-disabled": {
+      opacity: 0.5,
+      color: "#9CA3AF",
+      background: "#2C333F",
+    },
+
+    ...style,
+  };
+
   const buttonElement = (
     <Button
       onClick={onClickFunction}
@@ -49,15 +96,17 @@ const Btn = ({
   );
 };
 
-// PropTypes for type checking
 Btn.propTypes = {
-  textColor: PropTypes.string.isRequired,
+  textColor: PropTypes.string,
   linkTo: PropTypes.string,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
   onClickFunction: PropTypes.func,
   type: PropTypes.string,
-  style: PropTypes.object, // Accept style prop as an object
+  style: PropTypes.object,
+  variant: PropTypes.oneOf(["primary", "secondary", "danger"]),
+  fullWidth: PropTypes.bool,
 };
 
 export default Btn;

@@ -7,7 +7,7 @@ exports.auth = async (req, res, next) => {
     try {
         const token = req.cookies.token 
 
-        console.log("Cookie ka Token: ", req.cookies.token)
+        // console.log("Cookie ka Token: ", req.cookies.token)
 
         if (!token) {
             return res.status(401).json({
@@ -77,6 +77,9 @@ exports.isInstructor = async (req, res, next) => {
 }
 
 exports.isAdmin = async (req, res, next) => {
+
+    // console.log("user role: ",req.user.accountType)
+
     try {
         if (req.user.accountType !== "Admin") {
             return res.status(401).json({

@@ -44,7 +44,7 @@ exports.createSubSection = async (req, res) => {
             })
         }
 
-        console.log("Video Duration is: ",duration)
+        // console.log("Video Duration is: ",duration)
 
         const course = await Course.findOne({ courseContent: sectionId })
 
@@ -71,7 +71,7 @@ exports.createSubSection = async (req, res) => {
         updatedSection.totalDuration = totalDuration
         await updatedSection.save()
 
-        console.log("total duration of section: ", totalDuration)
+        // console.log("total duration of section: ", totalDuration)
 
         const updatedCourse = await Course.findOne({ courseContent: sectionId })
             .populate(

@@ -24,69 +24,122 @@ const WishlistItem = ({ course }) => {
     // }
 
     return (
-        <div className="w-fit flex gap-4 ">
-            <div className="relative w-fit flex gap-2 py-2 ">
+        <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#161D29]/70 p-4 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-[#1b2433] hover:shadow-2xl hover:shadow-black/20">
 
-                <div className="w-[25%] sm:w-[50%] flex items-start " >
-                    <img src={course?.thumbnail} className="object-contain rounded-md " />
-                </div>
+            <div className="flex flex-col gap-4 sm:flex-row">
 
-                <div className="w-[70%] flex flex-col justify-between sm:px-2 ">
-                    <div className="flex flex-col sm:gap-2 gap-1 " >
-                        <div className="flex justify-between ">
-                            <p
-                                // onClick={seeDetails}
-                                className="sm:text-lg text-sm font-[600] text-[#F1F2FF] cursor-pointer hover:underline">
-                                {course?.courseName}
-                            </p>
-                            <button onClick={removeItemHandler}
-                                className="sm:hidden text-[#EF476F] text-xs sm:text-base bg-[#161D29] p-2 mx-2 rounded-md h-fit
-                                hover:scale-105">
-                                <div className="flex gap-1 items-center">
-                                    <RiDeleteBin6Line />
-                                    <p>Remove</p>
-                                </div>
-                            </button>
-                        </div>
-                        {/* this is responsive description */}
-                        {/* screen size greater than md */}
-                        <p className="md:block hidden sm:text-sm text-xs font-[400] text-[#999DAA]"> {course?.courseDescription} </p>
-                        {/* screen size greater than sm and less than md */}
-                        <p className="md:hidden hidden sm:block  sm:text-sm text-xs font-[400] text-[#999DAA]">
-                            {`${course?.courseDescription.split(" ").slice(0, 12).join(" ")}....`}
+                {/* Thumbnail */}
+                <div className="relative sm:w-[240px] overflow-hidden rounded-xl">
+                    <img
+                        src={course?.thumbnail}
+                        alt={course?.courseName}
+                        className="h-[170px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+
+                    {/* Rating Badge */}
+                    <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full bg-black/60 px-3 py-1 backdrop-blur-md">
+                        <p className="text-sm font-semibold text-yellow-300">
+                            3.5
                         </p>
-                        {/* screen size less than md */}
-                        <p className="sm:hidden block sm:text-sm text-xs font-[400] text-[#999DAA]">
-                            {`${course?.courseDescription?.split(" ").slice(0, 7).join(" ")}....`}
-                        </p>
-                        <div className="flex gap-2 items-center">
-                            <p className="font-[400] sm:text-base text-xs text-[#DBDDEA]">Instructor: {course?.instructor?.firstName} {course?.instructor?.lastName}</p>
-                            <img src={course?.instructor?.image || "default-avatar.jpg"} className="sm:w-8 sm:h-8 w-5 h-5 object-cover object-top rounded-full" alt="Instructor" />
-                        </div>
-                    </div>
 
-                    <div className="flex gap-2 items-center sm:py-2">
-                        <p className="sm:text-sm text-xs pt-1 text-[#E7C009] ">3.5</p> {/* Smaller font and centered alignment */}
                         <StarRatings
                             rating={3.5}
                             starRatedColor="gold"
-                            changeRating={(newRating) => console.log(newRating)}
                             numberOfStars={5}
                             name="rating"
                             starDimension="12px"
-                            starSpacing="2px"
+                            starSpacing="1px"
                         />
-                        <p className="sm:text-sm text-xs pt-1 text-[#6E727F] font-[400] ">(10k)</p> {/* Same adjustments for balance */}
+
+                        <p className="text-xs text-[#CBD5E1]">
+                            (10k)
+                        </p>
                     </div>
                 </div>
-                <button onClick={removeItemHandler}
-                    className="hidden sm:block absolute bottom-2 right-4 text-[#EF476F] text-xs sm:text-base bg-[#161D29] p-2 rounded-md h-fit
-                                hover:scale-105">
-                    <div className="flex gap-1 items-center">
-                        <RiDeleteBin6Line />
-                        <p>Remove</p>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col justify-between gap-5">
+
+                    {/* Top */}
+                    <div className="flex flex-col gap-3">
+
+                        {/* Title + Remove */}
+                        <div className="flex items-start justify-between gap-4">
+
+                            <div>
+                                <h2
+                                    className="cursor-pointer text-xl font-bold tracking-tight text-white transition-colors hover:text-yellow-300"
+                                // onClick={seeDetails}
+                                >
+                                    {course?.courseName}
+                                </h2>
+
+                                <p className="mt-1 text-sm text-[#838894]">
+                                    Premium Development Course
+                                </p>
+                            </div>
+
+                            {/* Desktop Remove */}
+                            <button
+                                onClick={removeItemHandler}
+                                className="hidden items-center gap-2 rounded-xl border border-[#EF476F]/20 bg-[#EF476F]/10 px-4 py-2 text-sm font-medium text-[#FF7B94] transition-all duration-300 hover:scale-105 hover:bg-[#EF476F]/20 sm:flex"
+                            >
+                                <RiDeleteBin6Line />
+                                Remove
+                            </button>
+                        </div>
+
+                        {/* Description */}
+                        <p className="line-clamp-2 text-sm leading-6 text-[#AAB0C0]">
+                            {course?.courseDescription}
+                        </p>
+
+                        {/* Instructor */}
+                        <div className="flex items-center gap-3 pt-1">
+
+                            <img
+                                src={course?.instructor?.image || "default-avatar.jpg"}
+                                className="h-10 w-10 rounded-full border border-white/10 object-cover object-top"
+                                alt="Instructor"
+                            />
+
+                            <div>
+                                <p className="text-sm text-[#838894]">
+                                    Instructor
+                                </p>
+
+                                <p className="font-medium text-white">
+                                    {course?.instructor?.firstName}{" "}
+                                    {course?.instructor?.lastName}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </button>
+
+                    {/* Bottom */}
+                    <div className="flex items-center justify-between">
+
+                        {/* Price */}
+                        <div>
+                            <p className="text-xs uppercase tracking-widest text-[#838894]">
+                                Price
+                            </p>
+
+                            <h3 className="mt-1 text-2xl font-bold text-yellow-300">
+                                ₹ {course?.price || "499"}
+                            </h3>
+                        </div>
+
+                        {/* Mobile Remove */}
+                        <button
+                            onClick={removeItemHandler}
+                            className="flex items-center gap-2 rounded-xl border border-[#EF476F]/20 bg-[#EF476F]/10 px-4 py-2 text-sm font-medium text-[#FF7B94] transition-all duration-300 hover:scale-105 hover:bg-[#EF476F]/20 sm:hidden"
+                        >
+                            <RiDeleteBin6Line />
+                            Remove
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     )

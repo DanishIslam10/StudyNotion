@@ -5,24 +5,13 @@ const cors = require("cors");
 const fileUpload = require('express-fileupload');
 require("dotenv").config();
 
-// CORS configuration to allow multiple origins
-const allowedOrigins = [
-    process.env.FRONT_END_URL,  // Automatically use the updated URL
-];
-
 //middlewares
 app.use(cookieParser());
 app.use(express.json());
 app.use(
     cors({
-        origin: (origin, callback) => {
-            if (allowedOrigins.includes(origin) || !origin) {
-                callback(null, true);  // Allow the origin
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        credentials: true, // Important for cookies and authentication
+        origin: [process.env.FRONT_END_URL, "http://localhost:3000"],
+        credentials: true,
     })
 );
 

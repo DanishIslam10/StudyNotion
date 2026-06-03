@@ -5,32 +5,59 @@ import { Box } from '@mui/material';
 
 const PhoneNumberInput = ({ label, placeholder, onChange, value, name }) => {
   return (
-    <Box sx={{ margin: '0 0' }}> {/* Margin for spacing */}
+    <Box sx={{ margin: "0 0" }}>
       <InputMask
-        mask="9999999999" // Mask format for the phone number
-        maskChar="X" // Character for empty spaces
-        value={value} // Controlled component value
-        onChange={onChange} // Handler for input change
+        mask="9999999999"
+        maskChar="X"
+        value={value}
+        onChange={onChange}
       >
         {({ inputRef, ...rest }) => (
           <TextField
             {...rest}
-            inputRef={inputRef} // Pass the ref to the input
+            inputRef={inputRef}
             variant="outlined"
             fullWidth
-            label={label} // Dynamic label prop
-            placeholder={placeholder} // Dynamic placeholder prop
+            label={label}
+            placeholder={placeholder}
             name={name}
             sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: '#6c757d', // Custom border color
+              // Input Text Color
+              "& .MuiInputBase-input": {
+                color: "#FFFFFF",
+              },
+
+              // Placeholder Color
+              "& .MuiInputBase-input::placeholder": {
+                color: "#94A3B8",
+                opacity: 1,
+              },
+
+              // Label Color
+              "& .MuiInputLabel-root": {
+                color: "#94A3B8",
+              },
+
+              // Focused Label
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#FFD60A",
+              },
+
+              // Border Styling
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "#0F172A",
+                borderRadius: "14px",
+
+                "& fieldset": {
+                  borderColor: "rgba(255,255,255,0.08)",
                 },
-                '&:hover fieldset': {
-                  borderColor: '#495057', // Border color on hover
+
+                "&:hover fieldset": {
+                  borderColor: "rgba(255,255,255,0.2)",
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#dbd9d9', // Border color when focused
+
+                "&.Mui-focused fieldset": {
+                  borderColor: "#FFD60A",
                 },
               },
             }}
