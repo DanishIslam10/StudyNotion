@@ -4,6 +4,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import toast from "react-hot-toast";
 import { useSetCourseStatus } from "../../../../services/operations/operations";
 import { useDispatch, useSelector } from "react-redux";
+import { setStep } from "../../../../slices/newCourseSlice";
 
 const PublishCourse = (props) => {
 
