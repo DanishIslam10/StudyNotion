@@ -10,7 +10,7 @@ const PublishCourse = (props) => {
 
   const { course } = useSelector((state) => state.newCourse)
   const [confirmPublish, setPublishCourse] = useState(false)
-  console.log(confirmPublish)
+  // console.log(confirmPublish)
 
   const dispatch = useDispatch()
 

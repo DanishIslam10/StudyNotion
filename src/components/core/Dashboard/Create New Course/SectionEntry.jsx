@@ -19,9 +19,9 @@ const SectionEntry = ({ section, editSectionName, setEditSectionName, getSection
     const [subSection, setSubSection] = useState(null) //needed to view sub section
     const [subSectionId, setSubSectionId] = useState(null) //needed to edit sub section
 
-    console.log("view sub section : ", viewSubSectionModal)
-    console.log("section data : ", section)
-    console.log("sub section data : ", subSection)
+    // console.log("view sub section : ", viewSubSectionModal)
+    // console.log("section data : ", section)
+    // console.log("sub section data : ", subSection)
     // const {course} = useSelector((state) => state.newCourse)
 
     const deleteSection = useDeleteSection()

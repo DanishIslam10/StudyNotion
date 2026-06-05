@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const mailSender = require('../utils/mailSender')
+const { otpEmail } = require("../mail/templates/otpEmail")
 
 const OTPSchema = new mongoose.Schema({
     email: {
@@ -19,7 +20,7 @@ const OTPSchema = new mongoose.Schema({
 
 async function sendVerificationEmail(email, otp) {
     try {
-        const mailResponse = await mailSender(email, "Verification Email", otp)
+        await mailSender(email, "Verify your LearnSpace account",otpEmail(otp) )
         // console.log("Verification Email sent successfully : ", mailResponse)
     } catch (error) {
         console.log("Error in sending Verification Email")

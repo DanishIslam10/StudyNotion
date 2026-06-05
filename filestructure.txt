@@ -31,6 +31,8 @@
         |-- templates
             |-- contactFormEmail.js
             |-- courseEnrollmentEmail.js
+            |-- otpEmail.js
+            |-- resetPasswordEmail.js
     |-- middlewares
         |-- auth.js
     |-- model

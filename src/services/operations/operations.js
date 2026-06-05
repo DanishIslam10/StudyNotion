@@ -57,9 +57,8 @@ export const useSendSignUpOtpHook = () => {
             dispatch(setLoading(false))
             toast.success("OTP sent successfully")
             dispatch(setResendSignUpOtp(false))
-            console.log("otp sent successfully")
+            // console.log("otp sent successfully")
         } catch (error) {
-            console.log("cant send otp from front end, ye raha error: ", error)
             toast.error(error.response.data.message)
             dispatch(setLoading(false))
         }
@@ -102,11 +101,11 @@ export const useLogOutHook = () => {
     const navigate = useNavigate()
     const logOut = () => {
         try {
-            const response = apiConnector("POST", userEndPoints.LOG_OUT_API)
-            console.log("log out api response: ", response)
+            apiConnector("POST", userEndPoints.LOG_OUT_API)
+            // console.log("log out api response: ", response)
         } catch (error) {
             console.log(error)
-            console.log("error in logout api")
+            // console.log("error in logout api")
         }
         dispatch({ type: "RESET_STORE" })
         localStorage.clear()
@@ -133,11 +132,11 @@ export const useResetPasswordUrlHook = () => {
             dispatch(setLoading(false))
             toast.success("Reset password link sent successfully")
             setEmailSent(true)
-            console.log("Reset password link send on mail successfully")
+            // console.log("Reset password link send on mail successfully")
         } catch (error) {
             toast.error(error.response.data.message)
             console.log(error)
-            console.log("cant send the reset password link")
+            // console.log("cant send the reset password link")
             dispatch(setLoading(false))
         }
     }
@@ -156,8 +155,8 @@ export const useResetYourPasswordHook = () => {
             navigate("/login")
         } catch (error) {
             toast.error(error.response.data.message)
-            console.log(error)
-            console.log("cant reset the password")
+            // console.log(error)
+            // console.log("cant reset the password")
         }
     }
     return resetYourPassword;
@@ -180,7 +179,7 @@ export const useSignUpHook = () => {
 
         } catch (error) {
             console.log(error)
-            console.log("cant create account")
+            // console.log("cant create account")
             toast.error(error.response.data.message)
             dispatch(setResendSignUpOtp(true))
             dispatch(setLoading(false))
@@ -275,14 +274,14 @@ export const useRemoveDisplayPictureHook = () => {
         try {
             dispatch(setLoading(true))
             const response = await apiConnector("PUT", profileEndpoints.REMOVE_DISPLAY_PICTURE_API)
-            console.log(response)
+            // console.log(response)
             updateUserDetailsInLocalStorage()
             dispatch(setLoading(false))
             dispatch(setRemoveDpModal(false))
             toast.success(response.data.message)
         } catch (error) {
             console.log(error)
-            console.log("error in removing dp from front end")
+            // console.log("error in removing dp from front end")
             toast.error(error.data.message)
         }
     }
@@ -307,11 +306,11 @@ export const useUpdateProfileInformationHook = () => {
             const response = await apiConnector("PUT", profileEndpoints.UPDATE_PROFILE_DETAILS_API, formData)
             toast.success(response.data.message, { id: toastId })
             updateUserDetailsInLocalStorage()
-            console.log("profile info updated")
-            console.log("update profile info response: ", response)
+            // console.log("profile info updated")
+            // console.log("update profile info response: ", response)
         } catch (error) {
             console.log(error)
-            console.log("cant update profile info")
+            // console.log("cant update profile info")
             toast.error(error.data.message, { id: toastId })
         }
     }
@@ -329,8 +328,8 @@ export const useUpdatePasswordHook = () => {
             dispatch(setLoading(false))
             toast.success(response.data.message, { id: toastId })
             dispatch(setUpdatePasswordInformation(null))
-            console.log("password updated successfully")
-            console.log("update password response: ", response)
+            // console.log("password updated successfully")
+            // console.log("update password response: ", response)
         } catch (error) {
             dispatch(setLoading(false))
             dispatch(setUpdatePasswordModal(false))
@@ -709,22 +708,30 @@ function loadScript(src) {
 
 //initiate the order
 export async function buyCourse(courses, userDetails, token, dispatch) {
-    const toastId = toast.loading("Loading...");
+
+    // console.log("heloo from buyCoruse")
+
+    const toastId = toast.loading("Loading...")
     try {
-        //load the script
-        const scriptResponse = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+        const scriptResponse = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
 
         if (!scriptResponse) {
-            toast.error("RazorPay SDK failed to load");
-            return;
+            toast.error("RazorPay SDK failed to load")
+            return
         }
 
-        //initiate the order
-        const orderResponse = await apiConnector("POST", paymentEndpoints.CAPTURE_PAYMENT_API, { courses })
-        console.log("PRINTING orderResponse", orderResponse);
-        // options
+        // ✅ Pass auth token
+        const orderResponse = await apiConnector(
+            "POST",
+            paymentEndpoints.CAPTURE_PAYMENT_API,
+            { courses },
+            { Authorization: `Bearer ${token}` }  // ← added
+        )
+
+        // console.log("Order Response:", orderResponse)
+
         const options = {
-            key: process.env.RAZORPAY_KEY,
+            key: process.env.REACT_APP_RAZORPAY_KEY,
             currency: orderResponse.data.data.currency,
             amount: `${orderResponse.data.data.amount}`,
             order_id: orderResponse.data.data.id,
@@ -736,39 +743,47 @@ export async function buyCourse(courses, userDetails, token, dispatch) {
                 email: userDetails.email
             },
             handler: function (response) {
-
-                //verifyPayment
-                verifyPayment({ ...response, courses }, token);
+                verifyPayment({ ...response, courses }, token)  // ← token passed
                 dispatch(resetCart())
             }
         }
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+        // console.log("Key being used:", process.env.REACT_APP_RAZORPAY_KEY)
+        // console.log("Order ID:", orderResponse.data.data.id)
+
+        const paymentObject = new window.Razorpay(options)
+        paymentObject.open()
         paymentObject.on("payment.failed", function (response) {
-            toast.error("oops, payment failed");
-            console.log(response.error);
+            toast.error("Oops, payment failed")
+            console.log(response.error)
         })
 
+    } catch (error) {
+        console.log("PAYMENT API ERROR:", error)
+        toast.error("Could not make Payment")
     }
-    catch (error) {
-        console.log("PAYMENT API ERROR.....", error);
-        toast.error("Could not make Payment");
-    }
-    toast.dismiss(toastId);
+    toast.dismiss(toastId)
 }
 
-//verify payment
-const verifyPayment = async (bodyData) => {
-    const toastId = toast.loading("Verifying Payment....");
+// ✅ token parameter added
+const verifyPayment = async (bodyData, token) => {
+    const toastId = toast.loading("Verifying Payment...")
     try {
-        const response = await apiConnector("POST", paymentEndpoints.VERIFY_PAYMENT_API, bodyData)
+        const response = await apiConnector(
+            "POST",
+            paymentEndpoints.VERIFY_PAYMENT_API,
+            bodyData,
+            { Authorization: `Bearer ${token}` }  // ← added
+        )
+
         if (!response.data.success) {
             throw new Error(response.data.message)
         }
-        toast.success("payment Successful, Course Added", { id: toastId });
+
+        toast.success("Payment Successful, Course Added!", { id: toastId })
+
     } catch (error) {
-        console.log("PAYMENT VERIFY ERROR....", error);
-        toast.error("Could not verify Payment", { id: toastId });
+        console.log("PAYMENT VERIFY ERROR:", error)
+        toast.error("Could not verify Payment", { id: toastId })
     }
 }

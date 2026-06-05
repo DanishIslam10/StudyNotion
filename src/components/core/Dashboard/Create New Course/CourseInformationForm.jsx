@@ -39,8 +39,8 @@ const CourseInformationForm = (props) => {
   };
 
   if (editCourse) {
-    console.log("present data inside course when edit course is true : ", course)
-    console.log("react form data when edit course is true before : ", getValues())
+    // console.log("present data inside course when edit course is true : ", course)
+    // console.log("react form data when edit course is true before : ", getValues())
     setValue("courseName", course?.courseName);
     setValue("courseDescription", course?.courseDescription);
     setValue("price", course?.price);
@@ -48,7 +48,7 @@ const CourseInformationForm = (props) => {
     setValue("tag", course?.tag);
     setValue("thumbnail", course?.thumbnail);
     setValue("whatWillYouLearn", course?.whatWillYouLearn);
-    console.log("react form data when edit course is true after : ", getValues())
+    // console.log("react form data when edit course is true after : ", getValues())
   }
 
   function updateCourseInformationHandler() {

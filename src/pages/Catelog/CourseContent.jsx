@@ -19,104 +19,87 @@ const CourseContent = ({ section }) => {
     }
 
     return (
-        <div className="text-white">
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#1A2233]/80 backdrop-blur-lg shadow-lg transition-all duration-300 hover:border-indigo-500/30 hover:shadow-indigo-500/10">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d1526]
+  transition-all duration-300 hover:border-indigo-500/30">
 
-                {/* HEADER */}
-                <div className="flex items-center justify-between gap-4 px-4 sm:px-6 py-5 bg-gradient-to-r from-[#1E293B] to-[#273449]">
+            {/* HEADER */}
+            <button
+                onClick={() => sectionDropDownHandler(section?.subSection)}
+                className="w-full flex items-center justify-between gap-4 px-4 sm:px-6 py-4 text-left
+      hover:bg-[#111c35] transition-all duration-200"
+            >
+                {/* LEFT */}
+                <div className="flex items-center gap-3 min-w-0">
 
-                    {/* LEFT */}
-                    <div className="flex items-start sm:items-center gap-3">
-
-                        {/* Icon */}
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/15 border border-indigo-500/20">
-                            <IoListOutline className="text-xl text-indigo-300" />
-                        </div>
-
-                        {/* Section Details */}
-                        <div className="flex flex-col">
-                            <p className="text-sm sm:text-lg font-semibold text-[#F8FAFC] leading-snug">
-                                {section?.sectionName}
-                            </p>
-
-                            <div className="flex items-center gap-2 mt-1">
-                                <div className="h-2 w-2 rounded-full bg-green-400"></div>
-
-                                <p className="text-xs sm:text-sm text-[#94A3B8]">
-                                    Structured learning section
-                                </p>
-                            </div>
-                        </div>
+                    {/* Icon box */}
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#111c35]">
+                        <IoListOutline className="text-base text-indigo-400" />
                     </div>
 
-                    {/* RIGHT */}
-                    <div className="flex items-center gap-3 sm:gap-5">
+                    {/* Section name + meta */}
+                    <div className="flex flex-col min-w-0">
+                        <p className="text-sm sm:text-base font-semibold text-white leading-snug truncate">
+                            {section?.sectionName}
+                        </p>
 
-                        {/* Stats */}
-                        <div className="hidden sm:flex items-center gap-3">
+                        <div className="flex items-center gap-3 mt-1">
 
-                            {/* Lectures */}
-                            <div className="rounded-xl bg-yellow-500/10 border border-yellow-400/20 px-3 py-2">
-                                <p className="text-xs text-yellow-300 font-medium whitespace-nowrap">
-                                    {section?.subSection?.length} Lectures
+                            {/* Lectures pill */}
+                            <div className="flex items-center gap-1.5">
+                                <div className="h-1 w-1 rounded-full bg-[#a6ff5e]" />
+                                <p className="text-[11px] text-slate-500">
+                                    {section?.subSection?.length} {section?.subSection?.length === 1 ? "lecture" : "lectures"}
                                 </p>
                             </div>
 
-                            {/* Duration */}
-                            <div className="rounded-xl bg-cyan-500/10 border border-cyan-400/20 px-3 py-2">
-                                <p className="text-xs text-cyan-300 font-medium whitespace-nowrap">
-                                    {
-                                        totalDuration > 60
-                                            ? `${Math.floor(totalDuration / 60)} min`
-                                            : `${totalDuration} sec`
-                                    }
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Mobile Stats */}
-                        <div className="sm:hidden flex flex-col items-end">
-                            <p className="text-[11px] text-yellow-300 font-medium">
-                                {section?.subSection?.length} Lectures
-                            </p>
-
-                            <p className="text-[11px] text-cyan-300">
-                                {
-                                    totalDuration > 60
+                            {/* Duration pill */}
+                            <div className="flex items-center gap-1.5">
+                                <div className="h-1 w-1 rounded-full bg-indigo-400" />
+                                <p className="text-[11px] text-slate-500">
+                                    {totalDuration > 60
                                         ? `${Math.floor(totalDuration / 60)} min`
-                                        : `${totalDuration} sec`
-                                }
-                            </p>
+                                        : `${totalDuration} sec`}
+                                </p>
+                            </div>
                         </div>
-
-                        {/* Toggle Button */}
-                        <button
-                            onClick={() =>
-                                sectionDropDownHandler(section?.subSection)
-                            }
-                            className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 hover:bg-indigo-500/20 hover:border-indigo-400/30 transition-all duration-300"
-                        >
-                            {
-                                seeSubSection ? (
-                                    <FaAngleUp className="text-lg text-[#E2E8F0] transition-transform duration-300 group-hover:scale-125" />
-                                ) : (
-                                    <FaAngleDown className="text-lg text-[#E2E8F0] transition-transform duration-300 group-hover:scale-125" />
-                                )
-                            }
-                        </button>
                     </div>
                 </div>
 
-                {/* SUBSECTION */}
-                <div
-                    className={`transition-all duration-500 overflow-hidden ${seeSubSection
-                            ? "max-h-[1000px] opacity-100"
-                            : "max-h-0 opacity-0"
-                        }`}
-                >
-                    <div className="border-t border-white/5 bg-[#111827]/70">
-                        <SubSection subSection={subSection} />
+                {/* RIGHT — pills (desktop) + chevron */}
+                <div className="flex items-center gap-3 shrink-0">
+
+                    {/* Stats pills — desktop only */}
+                    <div className="hidden sm:flex items-center gap-2">
+                        <div className="rounded-xl border border-white/10 bg-[#111c35] px-3 py-1.5">
+                            <p className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                                {section?.subSection?.length} lectures
+                            </p>
+                        </div>
+                        <div className="rounded-xl border border-white/10 bg-[#111c35] px-3 py-1.5">
+                            <p className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                                {totalDuration > 60
+                                    ? `${Math.floor(totalDuration / 60)} min`
+                                    : `${totalDuration} sec`}
+                            </p>
+                        </div>
                     </div>
+
+                    {/* Chevron */}
+                    <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-[#111c35]
+        transition-colors duration-200 group-hover:border-indigo-500/30">
+                        {seeSubSection
+                            ? <FaAngleUp className="text-sm text-slate-400 transition-transform duration-300" />
+                            : <FaAngleDown className="text-sm text-slate-400 transition-transform duration-300" />
+                        }
+                    </div>
+                </div>
+            </button>
+
+            {/* SUBSECTIONS */}
+            <div className={`overflow-hidden transition-all duration-300 ease-in-out
+    ${seeSubSection ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className="border-t border-white/[0.06] bg-[#060d1a]">
+                    <SubSection subSection={subSection} />
                 </div>
             </div>
         </div>

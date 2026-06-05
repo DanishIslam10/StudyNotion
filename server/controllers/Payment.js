@@ -6,8 +6,6 @@ const { courseEnrollmentEmail } = require("../mail/templates/courseEnrollmentEma
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 
-require("dotenv").config();
-
 
 // ========================================
 // CAPTURE PAYMENT
@@ -67,7 +65,7 @@ exports.capturePayment = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Capture Payment Error:", error);
+        // console.log("Capture Payment Error:", error);
 
         return res.status(500).json({
             success: false,
@@ -131,7 +129,7 @@ exports.verifyPayment = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("Verify Payment Error:", error);
+        // console.log("Verify Payment Error:", error);
 
         return res.status(500).json({
             success: false,
@@ -186,7 +184,7 @@ const enrollStudents = async (courses, userId) => {
                 )
             );
         } catch (mailError) {
-            console.log("Email Error:", mailError);
+            // console.log("Email Error:", mailError);
         }
     }
 };

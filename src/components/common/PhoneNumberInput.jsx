@@ -22,42 +22,53 @@ const PhoneNumberInput = ({ label, placeholder, onChange, value, name }) => {
             placeholder={placeholder}
             name={name}
             sx={{
-              // Input Text Color
+              // Input text
               "& .MuiInputBase-input": {
                 color: "#FFFFFF",
+                fontSize: "14px",
               },
 
-              // Placeholder Color
+              // Placeholder
               "& .MuiInputBase-input::placeholder": {
-                color: "#94A3B8",
+                color: "#475569",
                 opacity: 1,
               },
 
-              // Label Color
+              // Label
               "& .MuiInputLabel-root": {
-                color: "#94A3B8",
+                color: "#64748b",
+                fontSize: "14px",
               },
 
-              // Focused Label
+              // Focused label
               "& .MuiInputLabel-root.Mui-focused": {
-                color: "#FFD60A",
+                color: "#818cf8",
               },
 
-              // Border Styling
+              // Input root
               "& .MuiOutlinedInput-root": {
-                backgroundColor: "#0F172A",
-                borderRadius: "14px",
+                backgroundColor: "#111c35",
+                borderRadius: "16px",
 
+                // Default border
                 "& fieldset": {
-                  borderColor: "rgba(255,255,255,0.08)",
+                  borderColor: "rgba(255,255,255,0.10)",
+                  borderWidth: "1px",
                 },
 
+                // Hover border
                 "&:hover fieldset": {
-                  borderColor: "rgba(255,255,255,0.2)",
+                  borderColor: "rgba(255,255,255,0.18)",
                 },
 
-                "&.Mui-focused fieldset": {
-                  borderColor: "#FFD60A",
+                // Focused border + bg
+                "&.Mui-focused": {
+                  backgroundColor: "#152040",
+                  "& fieldset": {
+                    borderColor: "rgba(99,102,241,0.6)",
+                    borderWidth: "1px",
+                    boxShadow: "0 0 0 3px rgba(99,102,241,0.15)",
+                  },
                 },
               },
             }}

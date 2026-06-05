@@ -1,3 +1,4 @@
+const { resetPasswordEmail } = require('../mail/templates/resetPasswordEmail')
 const User = require('../model/User')
 const mailSender = require('../utils/mailSender')
 const bcrypt = require('bcrypt')
@@ -28,12 +29,12 @@ exports.resetPasswordUrl = async (req, res) => {
         )
         //create url
         //this url will redirect the user to the port on which front end is running (eg:3000)
-        const url = `http://localhost:3000/reset-password/${token}`
+        const url = `${process.env.FRONT_END_URL}/reset-password/${token}`
         //mail this url to the user
         await mailSender(
             email,
-            "Password Reset Link",
-            `Click here to reset your password : ${url}`
+            "Reset your LearnSpace password",
+            resetPasswordEmail(updatedUser?.firstName, url)
         )
         //send success response
         res.status(200).json({
@@ -61,13 +62,13 @@ exports.resetPassword = async (req, res) => {
         //perform validation
         if (newPassword !== confirmNewPassword) {
             return res.status(400).json({
-                success: false, 
+                success: false,
                 message: "Passwords do not match"
             })
         }
 
         //fetch use details from db using token (that token which we had inserted in user model)
-        const user = await User.findOne({ token:token })
+        const user = await User.findOne({ token: token })
 
         if (!user) {
             return res.status(404).json({
@@ -83,14 +84,14 @@ exports.resetPassword = async (req, res) => {
                 message: "Token is expired , please generate your new token"
             })
         }
-        console.log("new password : ",newPassword)
+        // console.log("new password : ",newPassword)
         //hash the password
         const hashedPassword = await bcrypt.hash(newPassword, 10)
 
         //update the password in the db
         const updatedUser = await User.findOneAndUpdate(
             { token },
-            { $set: {password : hashedPassword} },
+            { $set: { password: hashedPassword } },
             { new: true }
         )
 

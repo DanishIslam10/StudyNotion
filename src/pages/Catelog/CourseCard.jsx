@@ -39,118 +39,116 @@ const CourseCard = ({ course }) => {
     return (
         <div
             onClick={showCourseDetailsHandler}
-            className="group bg-[#161D29] border border-[#2C333F] rounded-xl overflow-hidden cursor-pointer
-            transition-all duration-300 hover:-translate-y-1 hover:border-[#FFD60A]
-            hover:shadow-[0px_0px_25px_rgba(255,214,10,0.08)] flex flex-col justify-between"
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0d1526]
+    cursor-pointer flex flex-col transition-all duration-300
+    hover:-translate-y-1 hover:border-indigo-500/40
+    hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)]"
         >
 
-            {/* Thumbnail */}
+            {/* THUMBNAIL */}
             <div className="relative overflow-hidden">
-
                 <img
                     src={course?.thumbnail}
                     alt={course?.courseName}
-                    className="w-full h-[210px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-[200px] object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#000814]/90 via-transparent to-transparent"></div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1526] via-[#0d1526]/30 to-transparent" />
 
-                {/* Enrolled Badge */}
-                {
-                    isEnrolled && (
-                        <div className="absolute top-3 left-3 bg-[#FFD60A] text-[#000814]
-                        text-xs font-semibold px-3 py-1 rounded-full">
-                            Enrolled
-                        </div>
-                    )
-                }
+                {/* ENROLLED BADGE */}
+                {isEnrolled && (
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full
+        bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]
+        px-3 py-1 text-[11px] font-bold text-black shadow-lg">
+                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                        Enrolled
+                    </div>
+                )}
 
+                {/* TOP-RIGHT PRICE PILL — visible on hover */}
+                <div className="absolute top-3 right-3 rounded-xl border border-white/10 bg-[#0d1526]/80
+      px-3 py-1 text-sm font-bold text-white backdrop-blur-sm
+      opacity-0 translate-y-1 transition-all duration-300
+      group-hover:opacity-100 group-hover:translate-y-0">
+                    ₹{course?.price}
+                </div>
             </div>
 
-            {/* Content */}
-            <div className="p-5 flex flex-col justify-between flex-1">
-
+            {/* CONTENT */}
+            <div className="flex flex-1 flex-col justify-between p-5">
                 <div className="flex flex-col gap-3">
 
-                    {/* Title */}
-                    <h2 className="text-[#F1F2FF] text-lg font-semibold line-clamp-2
-                    group-hover:text-[#FFD60A] transition-colors duration-200">
+                    {/* CATEGORY BADGE */}
+                    <div className="flex w-fit items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1">
+                        <div className="h-1 w-1 rounded-full bg-indigo-400" />
+                        <p className="text-[10px] font-medium text-indigo-300 uppercase tracking-wider">Course</p>
+                    </div>
 
+                    {/* TITLE */}
+                    <h2 className="text-base font-semibold leading-snug text-white line-clamp-2
+        transition-colors duration-200 group-hover:text-transparent
+        group-hover:bg-gradient-to-r group-hover:from-[#ecec07] group-hover:via-[#a6ff5e] group-hover:to-[#ffbc57]
+        group-hover:bg-clip-text">
                         {course?.courseName}
-
                     </h2>
 
-                    {/* Description */}
-                    <p className="text-[#B8B8D1] text-sm leading-6">
-
+                    {/* DESCRIPTION */}
+                    <p className="text-sm leading-relaxed text-slate-500">
                         {description}
-
-                        {
-                            course?.courseDescription?.split(" ").length > 14 && (
-                                <span
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setReadMore((prev) => !prev);
-                                    }}
-                                    className="text-[#6E7CF3] ml-1 hover:underline"
-                                >
-                                    {readMore ? "Read Less" : "Read More"}
-                                </span>
-                            )
-                        }
-
+                        {course?.courseDescription?.split(" ").length > 14 && (
+                            <span
+                                onClick={(e) => { e.stopPropagation(); setReadMore(prev => !prev); }}
+                                className="ml-1 font-medium text-indigo-400 hover:text-indigo-300 transition-colors duration-200"
+                            >
+                                {readMore ? "Read less" : "Read more"}
+                            </span>
+                        )}
                     </p>
 
-                    {/* Meta Info */}
-                    <div className="flex items-center gap-4 text-[#838894] text-xs pt-1">
-
-                        <div className="flex items-center gap-1">
-                            <FiClock />
-                            <span>24 Hrs</span>
+                    {/* META */}
+                    <div className="flex items-center gap-4 pt-1">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                            <FiClock className="text-slate-600" />
+                            <span>24 hrs</span>
                         </div>
-
-                        <div className="flex items-center gap-1">
-                            <BsPeople />
-                            <span>1.2k Students</span>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                            <BsPeople className="text-slate-600" />
+                            <span>1.2k students</span>
                         </div>
-
-                        <div className="flex items-center gap-1 text-[#FFD60A]">
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-[#a6ff5e]">
                             <HiOutlineStar />
                             <span>4.8</span>
                         </div>
-
                     </div>
                 </div>
 
-                {/* Bottom */}
-                <div className="flex items-center justify-between mt-6">
+                {/* DIVIDER */}
+                <div className="my-4 border-t border-white/[0.06]" />
 
-                    {/* Price */}
+                {/* BOTTOM ROW */}
+                <div className="flex items-center justify-between">
+
+                    {/* PRICE */}
                     <div className="flex flex-col">
-
-                        <p className="text-[#FFD60A] text-2xl font-bold">
+                        <p className="text-xl font-bold bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent">
                             ₹{course?.price}
                         </p>
-
-                        <p className="text-[#838894] text-xs">
-                            Lifetime Access
-                        </p>
-
+                        <p className="text-[11px] text-slate-600">Lifetime access</p>
                     </div>
 
                     {/* CTA */}
                     <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            showCourseDetailsHandler();
-                        }}
-                        className="bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] text-[#000814] text-sm font-semibold
-                        px-4 py-2 rounded-lg hover:scale-105 transition-all duration-200"
+                        onClick={(e) => { e.stopPropagation(); showCourseDetailsHandler(); }}
+                        className="rounded-xl bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]
+          px-4 py-2 text-xs font-bold text-black shadow-lg
+          transition-all duration-200 hover:scale-[1.05] hover:shadow-[0_4px_20px_rgba(166,255,94,0.25)]
+          active:scale-[0.98]"
                     >
                         View Course
                     </button>
-
                 </div>
             </div>
         </div>

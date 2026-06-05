@@ -33,63 +33,52 @@ const Login = (props) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10">
-
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 text-white">
       <div className="w-full max-w-md">
 
         {/* LOGIN CARD */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
 
-          {/* Gradient Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-cyan-500/10"></div>
+          {/* Subtle top accent line */}
+          <div className="h-[2px] w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
 
-          <div className="relative p-6 sm:p-8">
+          <div className="p-7 sm:p-9">
 
-            {/* TOP CONTENT */}
-            <div className="mb-8 flex flex-col gap-4">
-
-              {/* Small Badge */}
-              <div className="flex w-fit items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-1">
-                <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse"></div>
-
-                <p className="text-xs font-medium text-indigo-300">
-                  Continue your learning journey
-                </p>
-              </div>
-
-              {/* Heading */}
-              <div className="space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                  Welcome Back
-                </h1>
-
-                <p className="text-sm sm:text-base leading-relaxed text-[#9CA3AF]">
-                  Build skills for today, tomorrow, and beyond.
-                  Education to future-proof your career.
-                </p>
-              </div>
+            {/* BADGE */}
+            <div className="mb-5 flex w-fit items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/15 px-4 py-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+              <p className="text-xs font-medium text-indigo-300">
+                Continue your learning journey
+              </p>
             </div>
 
-            {/* ACCOUNT TYPE TOGGLE */}
-            <div className="mb-8 flex rounded-2xl border border-white/10 bg-[#000000] p-1">
+            {/* HEADING */}
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent tracking-tight ">
+              Welcome Back
+            </h1>
+            <p className="mt-2 mb-7 text-sm sm:text-base leading-relaxed text-slate-400">
+              Build skills for today, tomorrow, and beyond.
+              Education to future-proof your career.
+            </p>
 
+            {/* ACCOUNT TYPE TOGGLE */}
+            <div className="mb-7 flex gap-2 rounded-2xl border border-white/10 bg-[#060d1a] p-1">
               <button
                 onClick={() => setAccountType("Student")}
-                className={`flex-1 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300
+                className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200
               ${accountType === "Student"
-                    ? "bg-[#2a2a32] text-white shadow-lg"
-                    : "text-[#9CA3AF] hover:text-white"
+                    ? "bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] text-black shadow-lg"
+                    : "text-slate-400 hover:bg-[#0D1526]"
                   }`}
               >
                 Student
               </button>
-
               <button
                 onClick={() => setAccountType("Instructor")}
-                className={`flex-1 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300
+                className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200
               ${accountType === "Instructor"
-                    ? "bg-[#2a2a32] text-white shadow-lg"
-                    : "text-[#9CA3AF] hover:text-white"
+                    ? "bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] text-black shadow-lg"
+                    : "text-slate-400 hover:bg-[#0D1526]"
                   }`}
               >
                 Instructor
@@ -97,17 +86,13 @@ const Login = (props) => {
             </div>
 
             {/* FORM */}
-            <form
-              onSubmit={formSubmitHandler}
-              className="flex flex-col gap-5"
-            >
+            <form onSubmit={formSubmitHandler} className="flex flex-col gap-5">
 
               {/* EMAIL */}
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-[#E5E7EB]">
+                <label className="text-sm font-medium text-slate-300">
                   Email Address
                 </label>
-
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -115,19 +100,16 @@ const Login = (props) => {
                   value={formData.email}
                   onChange={formDataChangeHandler}
                   required
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none backdrop-blur-lg transition-all duration-300 placeholder:text-[#6B7280] focus:border-indigo-400/40 focus:bg-white/[0.07]"
+                  className="w-full rounded-2xl border border-white/10 bg-[#111c35] px-4 py-3 text-white outline-none transition-all duration-200 placeholder:text-slate-600 focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
                 />
               </div>
 
               {/* PASSWORD */}
               <div className="flex flex-col gap-2">
-
-                <label className="text-sm font-medium text-[#E5E7EB]">
+                <label className="text-sm font-medium text-slate-300">
                   Password
                 </label>
-
                 <div className="relative">
-
                   <input
                     type={seePassword ? "text" : "password"}
                     placeholder="Enter your password"
@@ -135,48 +117,53 @@ const Login = (props) => {
                     name="password"
                     value={formData?.password}
                     onChange={formDataChangeHandler}
-                    className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 pr-12 text-white outline-none backdrop-blur-lg transition-all duration-300 placeholder:text-[#6B7280] focus:border-indigo-400/40 focus:bg-white/[0.07]"
+                    className="w-full rounded-2xl border border-white/10 bg-[#111c35] px-4 py-3 pr-12 text-white outline-none transition-all duration-200 placeholder:text-slate-600 focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
                   />
-
-                  {/* TOGGLE ICON */}
                   <button
                     type="button"
                     onClick={() => setSeePassword((prev) => !prev)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-white transition-colors duration-300"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-200 transition-colors duration-200"
                   >
-                    {
-                      seePassword ? (
-                        <IoEyeOffOutline className="text-xl" />
-                      ) : (
-                        <IoEyeOutline className="text-xl" />
-                      )
+                    {seePassword
+                      ? <IoEyeOffOutline className="text-xl" />
+                      : <IoEyeOutline className="text-xl" />
                     }
                   </button>
                 </div>
 
                 {/* FORGOT PASSWORD */}
-                <div className="flex justify-end">
+                <div className="flex justify-end mt-1">
                   <Link to={"/reset-password"}>
-                    <p className="text-sm font-medium text-cyan-400 transition-colors duration-300 hover:text-cyan-300">
-                      Forgot Password?
+                    <p className="text-sm font-medium text-[#e2e2e2] hover:underline transition-colors duration-200">
+                      Forgot password?
                     </p>
                   </Link>
                 </div>
               </div>
 
-              {/* SIGN IN BUTTON */}
+              {/* SUBMIT */}
               <button
-                className="mt-2 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/30"
+                type="submit"
+                className="mt-1 w-full rounded-2xl bg-[#000814]  py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.99]"
               >
                 Sign In
               </button>
             </form>
 
-            {/* BOTTOM TEXT */}
-            <div className="mt-8 text-center">
-              <p className="text-sm text-[#6B7280]">
-                Secure authentication powered by modern encryption
-              </p>
+            {/* SIGN UP LINK */}
+            <p className="mt-6 text-center text-sm text-slate-500">
+              Don't have an account?{" "}
+              <Link to={"/signup"} className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors duration-200">
+                Sign up
+              </Link>
+            </p>
+
+            {/* FOOTER NOTE */}
+            <div className="mt-6 flex items-center justify-center gap-2 border-t border-white/[0.08] pt-5">
+              <svg className="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <p className="text-xs text-slate-500">Secured with end-to-end encryption</p>
             </div>
           </div>
         </div>

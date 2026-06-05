@@ -51,200 +51,168 @@ const CourseDetails = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#0B1120] via-[#111827] to-[#0F172A] text-white">
-            {
-                detailLoading ? (
-                    <div className="flex w-full h-screen justify-center items-center">
-                        <Spinner />
-                    </div>
-                ) : (
-                    <div>
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        <div className="min-h-screen bg-[#000814] text-white">
+            {detailLoading ? (
+                <div className="flex h-screen w-full items-center justify-center">
+                    <Spinner />
+                </div>
+            ) : (
+                <div>
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col lg:flex-row gap-8">
 
-                            {/* LEFT SECTION */}
-                            <div className="w-full lg:w-[68%] flex flex-col gap-8">
+                        {/* ── LEFT SECTION ── */}
+                        <div className="w-full lg:w-[68%] flex flex-col gap-6">
 
-                                {/* HERO CARD */}
-                                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+                            {/* HERO CARD */}
+                            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
 
-                                    {/* Gradient Glow */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-cyan-500/10"></div>
+                                {/* Top accent */}
+                                <div className="h-[2px] w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
 
-                                    <div className="relative p-5 sm:p-8 flex flex-col md:flex-row gap-6">
+                                <div className="p-5 sm:p-8 flex flex-col md:flex-row gap-6">
 
-                                        {/* Thumbnail */}
-                                        <div className="md:w-[280px] shrink-0">
-                                            <img
-                                                className="w-full h-[180px] md:h-full object-cover rounded-2xl shadow-lg"
-                                                src={courseDetails?.thumbnail || "default-image.jpg"}
-                                                alt="Course Thumbnail"
-                                            />
+                                    {/* THUMBNAIL */}
+                                    <div className="md:w-[260px] shrink-0">
+                                        <img
+                                            src={courseDetails?.thumbnail || "default-image.jpg"}
+                                            alt="Course Thumbnail"
+                                            className="w-full h-[180px] md:h-full object-cover rounded-2xl border border-white/10"
+                                        />
+                                    </div>
+
+                                    {/* COURSE INFO */}
+                                    <div className="flex flex-col justify-between flex-1 gap-5">
+                                        <div className="flex flex-col gap-4">
+
+                                            {/* BADGE */}
+                                            <div className="flex w-fit items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/15 px-4 py-1.5">
+                                                <div className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                                                <p className="text-xs font-medium text-indigo-300">Premium Course</p>
+                                            </div>
+
+                                            {/* TITLE */}
+                                            <h1 className="text-2xl sm:text-4xl font-bold leading-tight bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent tracking-tight">
+                                                {courseDetails?.courseName}
+                                            </h1>
+
+                                            {/* DESCRIPTION */}
+                                            <p className="hidden sm:block text-sm sm:text-base text-slate-400 leading-relaxed">
+                                                {courseDetails?.courseDescription}
+                                            </p>
+                                            <p className="sm:hidden text-sm text-slate-400 leading-relaxed">
+                                                {readMore ? courseDetails?.courseDescription : shortDesc}
+                                                <span
+                                                    onClick={() => setReadMore(prev => !prev)}
+                                                    className="ml-2 font-medium text-indigo-400 hover:text-indigo-300 cursor-pointer transition-colors duration-200"
+                                                >
+                                                    {readMore ? "Read less" : "Read more"}
+                                                </span>
+                                            </p>
                                         </div>
 
-                                        {/* Course Info */}
-                                        <div className="flex flex-col justify-between flex-1 gap-6">
+                                        {/* INSTRUCTOR + LANGUAGE */}
+                                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-white/[0.08] pt-4">
 
-                                            <div className="space-y-4">
-
-                                                {/* Badge */}
-                                                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-indigo-500/20 border border-indigo-400/30 px-4 py-1">
-                                                    <span className="h-2 w-2 rounded-full bg-indigo-400"></span>
-                                                    <p className="text-xs font-medium text-indigo-300">
-                                                        Premium Course
-                                                    </p>
-                                                </div>
-
-                                                {/* Title */}
-                                                <h1 className="text-2xl sm:text-4xl font-bold leading-tight text-white">
-                                                    {courseDetails?.courseName}
-                                                </h1>
-
-                                                {/* Description */}
+                                            <div className="flex items-center gap-3">
+                                                <img
+                                                    src={courseDetails?.instructor?.image}
+                                                    alt="Instructor"
+                                                    className="h-11 w-11 rounded-full object-cover ring-2 ring-indigo-500/40"
+                                                />
                                                 <div>
-                                                    <p className="hidden sm:block text-[#B6BAC5] text-base leading-relaxed">
-                                                        {courseDetails?.courseDescription}
-                                                    </p>
-
-                                                    <p className="sm:hidden text-sm text-[#B6BAC5] leading-relaxed">
-                                                        {
-                                                            readMore
-                                                                ? courseDetails?.courseDescription
-                                                                : shortDesc
-                                                        }
-
-                                                        <span
-                                                            onClick={() => setReadMore((prev) => !prev)}
-                                                            className="ml-2 text-indigo-400 font-medium cursor-pointer"
-                                                        >
-                                                            {readMore ? "Read Less" : "Read More"}
-                                                        </span>
+                                                    <p className="text-xs text-slate-500">Instructor</p>
+                                                    <p className="text-sm font-semibold text-white">
+                                                        {courseDetails?.instructor?.firstName}{" "}
+                                                        {courseDetails?.instructor?.lastName}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            {/* Instructor + Meta */}
-                                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2 border-t border-white/10">
-
-                                                {/* Instructor */}
-                                                <div className="flex items-center gap-3">
-                                                    <img
-                                                        src={courseDetails?.instructor?.image}
-                                                        className="w-12 h-12 rounded-full object-cover ring-2 ring-indigo-500/40"
-                                                        alt="Instructor"
-                                                    />
-
-                                                    <div>
-                                                        <p className="text-sm text-[#9CA3AF]">
-                                                            Instructor
-                                                        </p>
-
-                                                        <p className="font-semibold text-white">
-                                                            {courseDetails?.instructor?.firstName}{" "}
-                                                            {courseDetails?.instructor?.lastName}
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                {/* Language */}
-                                                <div className="flex items-center gap-2 text-[#D1D5DB]">
-                                                    <div className="h-2 w-2 rounded-full bg-green-400"></div>
-                                                    <p className="text-sm font-medium">
-                                                        English
-                                                    </p>
-                                                </div>
+                                            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111c35] px-3 py-1.5 w-fit">
+                                                <div className="h-1.5 w-1.5 rounded-full bg-[#a6ff5e]" />
+                                                <p className="text-xs font-medium text-slate-300">English</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* WHAT YOU'LL LEARN */}
-                                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-lg p-6 sm:p-8 shadow-xl">
-
-                                    <div className="flex items-center gap-3 mb-5">
-                                        <div className="h-10 w-1 rounded-full bg-gradient-to-b from-indigo-400 to-purple-500"></div>
-
-                                        <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                                            What you'll learn
-                                        </h2>
-                                    </div>
-
-                                    <p className="text-[#C5C7D4] leading-relaxed text-base">
-                                        {courseDetails?.whatWillYouLearn ||
-                                            "Description of what you'll learn in this course."}
-                                    </p>
-                                </div>
-
-                                {/* COURSE CONTENT */}
-                                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-lg p-6 sm:p-8 shadow-xl">
-
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-
-                                        <div>
-                                            <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                                                Course Content
-                                            </h2>
-
-                                            <p className="text-[#9CA3AF] mt-2 text-sm sm:text-base">
-                                                {courseDetails?.courseContent?.length} Sections •{" "}
-                                                {lectureCount} Lectures •{" "}
-                                                {courseDuration} Total Length
-                                            </p>
-                                        </div>
-
-                                        {/* Stats Pill */}
-                                        <div className="flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl px-4 py-2 w-fit">
-                                            <div className="h-3 w-3 rounded-full bg-indigo-400 animate-pulse"></div>
-
-                                            <p className="text-sm text-indigo-300 font-medium">
-                                                Structured Learning Path
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        {courseDetails?.courseContent.map((section, index) => (
-                                            <div
-                                                key={index}
-                                                className="rounded-2xl overflow-hidden border border-white/5 bg-[#1E293B]/70 hover:bg-[#243244]/80 transition-all duration-300"
-                                            >
-                                                <CourseContent section={section} />
-                                            </div>
-                                        ))}
                                     </div>
                                 </div>
                             </div>
 
-                            {/* RIGHT SECTION */}
-                            <div className="w-full lg:w-[32%]">
+                            {/* WHAT YOU'LL LEARN */}
+                            <div className="rounded-3xl border border-white/10 bg-[#0d1526] p-6 sm:p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
 
-                                <div className="sticky top-6">
-                                    <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="h-10 w-1 rounded-full bg-gradient-to-b from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]" />
+                                    <h2 className="text-xl sm:text-2xl font-bold text-white">
+                                        What you'll learn
+                                    </h2>
+                                </div>
 
-                                        {/* Decorative Top Gradient */}
-                                        <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500"></div>
+                                <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
+                                    {courseDetails?.whatWillYouLearn || "Description of what you'll learn in this course."}
+                                </p>
+                            </div>
 
-                                        <div className="p-5 sm:p-6">
-                                            {
-                                                alReadyEnrolled ? (
-                                                    <AlReadyEnrolled
-                                                        courseDetails={courseDetails}
-                                                    />
-                                                ) : (
-                                                    <ProcedeToBuy
-                                                        courseDetails={courseDetails}
-                                                    />
-                                                )
-                                            }
+                            {/* COURSE CONTENT */}
+                            <div className="rounded-3xl border border-white/10 bg-[#0d1526] p-6 sm:p-8 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+
+                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="h-8 w-1 rounded-full bg-gradient-to-b from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]" />
+                                            <h2 className="text-xl sm:text-2xl font-bold text-white">
+                                                Course Content
+                                            </h2>
                                         </div>
+                                        <p className="text-slate-500 text-sm ml-4">
+                                            {courseDetails?.courseContent?.length} Sections •{" "}
+                                            {lectureCount} Lectures •{" "}
+                                            {courseDuration} Total Length
+                                        </p>
                                     </div>
+
+                                    {/* BADGE */}
+                                    <div className="flex w-fit items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/15 px-4 py-1.5 shrink-0">
+                                        <div className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                                        <p className="text-xs font-medium text-indigo-300">Structured Learning Path</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-3">
+                                    {courseDetails?.courseContent.map((section, index) => (
+                                        <div
+                                            key={index}
+                                            className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111c35]
+                    hover:border-indigo-500/20 hover:bg-[#152040] transition-all duration-300"
+                                        >
+                                            <CourseContent section={section} />
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
 
-                        <Footer />
+                        {/* ── RIGHT SECTION ── */}
+                        <div className="w-full lg:w-[32%]">
+                            <div className="sticky top-6">
+                               
+                                    {/* Top accent */}
+                        
+                                    <div>
+                                        {alReadyEnrolled ? (
+                                            <AlReadyEnrolled courseDetails={courseDetails} />
+                                        ) : (
+                                            <ProcedeToBuy courseDetails={courseDetails} />
+                                        )}
+                                    </div>
+                                
+                            </div>
+                        </div>
+
                     </div>
-                )
-            }
+
+                    <Footer />
+                </div>
+            )}
         </div>
     );
 };

@@ -77,387 +77,267 @@ const Setting = (props) => {
   }
 
   return (
-    <div
-      className={`
-    min-h-screen bg-[#0B1120] text-white
-    ${(logoutModal || dpModal || removeDpModal || deleteAccountModal) && "blur-sm"}
-  `}
-    >
+    <div className={`min-h-screen bg-[#000814] text-white
+  ${(logoutModal || dpModal || removeDpModal || deleteAccountModal) && "blur-sm"}`}>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
 
-        {/* Header */}
+        {/* HEADER */}
         <div className="flex flex-col gap-3">
-
           <Link
-            to={"/profile/my-profile"}
-            className="
-          flex w-fit items-center gap-2
-          text-sm text-[#94A3B8]
-          transition-all duration-300
-          hover:text-white hover:-translate-x-1
-        "
+            to="/profile/my-profile"
+            className="flex w-fit items-center gap-1.5 text-xs text-slate-600
+          transition-all duration-200 hover:text-slate-400 hover:-translate-x-1"
           >
             <IoChevronBackSharp />
             Back to Profile
           </Link>
 
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white">
-              Edit Profile
-            </h1>
-
-            <p className="mt-2 text-sm text-[#838894]">
-              Manage your personal information and security settings
-            </p>
+          <div className="flex w-fit items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/15 px-4 py-1.5">
+            <div className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            <p className="text-xs font-medium text-indigo-300">Edit Account</p>
           </div>
+
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent tracking-tight">
+            Edit Profile
+          </h1>
+          <p className="text-sm text-slate-500">
+            Manage your personal information and security settings
+          </p>
         </div>
 
-        {/* Main Content */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-5">
 
-          {/* Profile Picture Card */}
-          <div
-            className="
-          rounded-3xl border border-white/10
-          bg-[#161D29]/80
-          p-6 backdrop-blur-xl
-          shadow-2xl shadow-black/20
-        "
-          >
+          {/* ── PROFILE PICTURE ── */}
+          <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+            <div className="h-[2px] w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
 
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-6">
 
-              {/* Left */}
-              <div className="flex flex-wrap items-center gap-5">
-
-                {/* Avatar */}
-                <div className="relative">
-                  <div className="overflow-hidden rounded-full border-2 border-yellow-300/20">
-                    <img
-                      className="h-24 w-24 object-cover object-top"
-                      src={user?.image}
-                      alt="profile picture"
-                    />
-                  </div>
-
-                  <div className="absolute bottom-1 right-1 h-5 w-5 rounded-full border-2 border-[#161D29] bg-green-400"></div>
+              {/* Avatar */}
+              <div className="relative shrink-0">
+                <div className="overflow-hidden rounded-full border-2 border-indigo-500/30 ring-4 ring-indigo-500/10">
+                  <img
+                    src={user?.image}
+                    alt="Profile"
+                    className="h-24 w-24 object-cover object-top"
+                  />
                 </div>
+                <div className="absolute bottom-1 right-1 h-3.5 w-3.5 rounded-full border-2 border-[#0d1526] bg-[#a6ff5e]" />
+              </div>
 
-                {/* Text */}
-                <div>
-                  <h2 className="text-2xl font-bold text-white">
-                    Change Profile Picture
-                  </h2>
+              {/* Text + Actions */}
+              <div className="flex flex-col gap-1.5">
+                <h2 className="text-lg font-bold text-white">Change Profile Picture</h2>
+                <p className="text-sm text-slate-500">Upload a new profile image or remove the current one</p>
 
-                  <p className="mt-1 text-sm text-[#94A3B8]">
-                    Upload a new profile image
-                  </p>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-
-                    <Btn
-                      children={"Upload New"}
-                      color={"#FFD60A"}
-                      textColor={"#000814"}
-                      onClickFunction={() => dispatch(setDpModal(true))}
-                    />
-
-                    <Btn
-                      children={"Remove"}
-                      variant="secondary"
-                      onClickFunction={() => dispatch(setRemoveDpModal(true))}
-                    />
-                  </div>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <button
+                    onClick={() => dispatch(setDpModal(true))}
+                    className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]
+                  px-5 py-2.5 text-sm font-bold text-black shadow-lg transition-all duration-300
+                  hover:opacity-90 hover:scale-[1.02] active:scale-[0.99]"
+                  >
+                    Upload New
+                  </button>
+                  <button
+                    onClick={() => dispatch(setRemoveDpModal(true))}
+                    className="flex items-center gap-2 rounded-2xl border border-white/10 bg-[#111c35]
+                  px-5 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-200
+                  hover:bg-[#152040] hover:text-white"
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Profile Information */}
+          {/* ── PROFILE INFORMATION ── */}
           <form
             onSubmit={updateInformation}
-            className="
-          rounded-3xl border border-white/10
-          bg-[#161D29]/80
-          p-6 backdrop-blur-xl
-          shadow-2xl shadow-black/20
-        "
+            className="overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]"
           >
+            <div className="h-[2px] w-full bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]" />
 
-            {/* Header */}
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="p-6 sm:p-8">
 
-              <div>
-                <h2 className="text-2xl font-bold text-white">
-                  Profile Information
-                </h2>
-
-                <p className="mt-1 text-sm text-[#838894]">
-                  Update your account details
-                </p>
+              {/* Section header */}
+              <div className="mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-1 rounded-full bg-gradient-to-b from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]" />
+                  <div>
+                    <h2 className="text-lg font-bold text-white">Profile Information</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Update your account details</p>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="w-fit rounded-2xl bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]
+                px-5 py-2.5 text-sm font-bold text-black shadow-lg transition-all duration-300
+                hover:opacity-90 hover:scale-[1.02] active:scale-[0.99]"
+                >
+                  Save Changes
+                </button>
               </div>
 
-              <Btn
-                children={"Save Changes"}
-                color={"#FFD60A"}
-                textColor={"#000814"}
-                type='submit'
-              />
-            </div>
+              {/* Fields */}
+              <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
 
-            {/* Inputs */}
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">First Name</label>
+                  <input
+                    type="text"
+                    placeholder={user?.firstName}
+                    name="firstName"
+                    value={formData?.firstName}
+                    onChange={formDataHandler}
+                    className="w-full rounded-2xl border border-white/10 bg-[#111c35] px-4 py-3 text-white
+                  outline-none transition-all duration-200 placeholder:text-slate-600
+                  focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
+                  />
+                </div>
 
-              {/* First Name */}
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-[#CBD5E1]">
-                  First Name
-                </label>
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-slate-300">Last Name</label>
+                  <input
+                    type="text"
+                    placeholder={user?.lastName}
+                    name="lastName"
+                    value={formData?.lastName}
+                    onChange={formDataHandler}
+                    className="w-full rounded-2xl border border-white/10 bg-[#111c35] px-4 py-3 text-white
+                  outline-none transition-all duration-200 placeholder:text-slate-600
+                  focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
+                  />
+                </div>
 
-                <input
-                  className="
-                rounded-2xl border border-white/10
-                bg-[#0F172A]
-                px-4 py-3
-                text-white outline-none
-                transition-all duration-300
-                placeholder:text-[#6B7280]
-                focus:border-yellow-400
-              "
-                  type="text"
-                  placeholder={user?.firstName}
-                  name='firstName'
-                  value={formData?.firstName}
-                  onChange={formDataHandler}
-                />
+                <div className="flex flex-col gap-2 lg:col-span-2">
+                  <label className="text-sm font-medium text-slate-300">Phone Number</label>
+                  <div className="rounded-2xl border border-white/10 bg-[#111c35] 
+                transition-all duration-200 focus-within:border-indigo-500/60 focus-within:bg-[#152040]
+                focus-within:ring-1 focus-within:ring-indigo-500/30">
+                    <PhoneNumberInput
+                      placeholder={user?.additionalDetails?.contactNumber}
+                      name="contactNumber"
+                      value={formData?.contactNumber}
+                      onChange={formDataHandler}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 lg:col-span-2">
+                  <label className="text-sm font-medium text-slate-300">About</label>
+                  <textarea
+                    rows={4}
+                    maxLength={150}
+                    placeholder={user?.additionalDetails?.about}
+                    name="about"
+                    value={formData?.contact}
+                    onChange={formDataHandler}
+                    className="w-full rounded-2xl border border-white/10 bg-[#111c35] p-4 text-white
+                  outline-none transition-all duration-200 placeholder:text-slate-600 resize-none
+                  focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
+                  />
+                </div>
               </div>
-
-              {/* Last Name */}
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-[#CBD5E1]">
-                  Last Name
-                </label>
-
-                <input
-                  className="
-                rounded-2xl border border-white/10
-                bg-[#0F172A]
-                px-4 py-3
-                text-white outline-none
-                transition-all duration-300
-                placeholder:text-[#6B7280]
-                focus:border-yellow-400
-              "
-                  type="text"
-                  placeholder={user?.lastName}
-                  name='lastName'
-                  value={formData?.lastName}
-                  onChange={formDataHandler}
-                />
-              </div>
-
-              {/* Phone */}
-              <div className="flex flex-col gap-2 text-[#CBD5E1] lg:col-span-2">
-                <label className="text-sm font-medium text-[#CBD5E1]">
-                  Phone Number
-                </label>
-
-                <PhoneNumberInput
-                  placeholder={user?.additionalDetails?.contactNumber}
-                  name={"contactNumber"}
-                  value={formData?.contactNumber}
-                  onChange={formDataHandler}
-                />
-              </div>
-
-              {/* About */}
-              <div className="flex flex-col gap-2 lg:col-span-2">
-                <label className="text-sm font-medium text-[#CBD5E1]">
-                  About
-                </label>
-
-                <textarea
-                  rows={5}
-                  maxLength={150}
-                  placeholder={user?.additionalDetails?.about}
-                  name='about'
-                  value={formData?.contact}
-                  onChange={formDataHandler}
-                  className="
-                rounded-2xl border border-white/10
-                bg-[#0F172A]
-                p-4 text-white outline-none
-                transition-all duration-300
-                placeholder:text-[#6B7280]
-                focus:border-yellow-400
-              "
-                />
-              </div>
-
             </div>
           </form>
 
-          {/* Change Password */}
+          {/* ── CHANGE PASSWORD ── */}
           <form
             onSubmit={updateOnClickHandler}
-            className="
-          rounded-3xl border border-white/10
-          bg-[#161D29]/80
-          p-6 backdrop-blur-xl
-          shadow-2xl shadow-black/20
-        "
+            className="overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]"
           >
+            <div className="h-[2px] w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500" />
 
-            {/* Header */}
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="p-6 sm:p-8">
 
-              <div>
-                <h2 className="text-2xl font-bold text-white">
-                  Change Password
-                </h2>
-
-                <p className="mt-1 text-sm text-[#838894]">
-                  Update your account password securely
-                </p>
+              {/* Section header */}
+              <div className="mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-1 rounded-full bg-gradient-to-b from-indigo-400 to-purple-500" />
+                  <div>
+                    <h2 className="text-lg font-bold text-white">Change Password</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Update your account password securely</p>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="w-fit rounded-2xl border border-white/10 bg-[#111c35] px-5 py-2.5
+                text-sm font-semibold text-slate-300 transition-all duration-200
+                hover:bg-[#152040] hover:text-white"
+                >
+                  Update Password
+                </button>
               </div>
 
-              <Btn
-                children={"Update Password"}
-                color={"#FFD60A"}
-                textColor={"#000814"}
-                type='submit'
-              />
-            </div>
-
-            {/* Password Inputs */}
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-
-              {/* Password Field Template */}
-              {
-                [
-                  {
-                    label: "Current Password",
-                    value: updatePasswordData?.oldPassword,
-                    name: "oldPassword",
-                    visible: seeCurrentPassword,
-                    toggle: () => setSeeCurrentPassword((prev) => !prev),
-                  },
-                  {
-                    label: "New Password",
-                    value: updatePasswordData?.newPassword,
-                    name: "newPassword",
-                    visible: seeNewPassword,
-                    toggle: () => setSeeNewPassword((prev) => !prev),
-                  },
-                  {
-                    label: "Confirm Password",
-                    value: updatePasswordData?.confirmNewPassword,
-                    name: "confirmNewPassword",
-                    visible: seeConfirmNewPassword,
-                    toggle: () => setSeeConfirmNewPassword((prev) => !prev),
-                  },
+              {/* Password fields */}
+              <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+                {[
+                  { label: "Current Password", value: updatePasswordData?.oldPassword, name: "oldPassword", visible: seeCurrentPassword, toggle: () => setSeeCurrentPassword(p => !p) },
+                  { label: "New Password", value: updatePasswordData?.newPassword, name: "newPassword", visible: seeNewPassword, toggle: () => setSeeNewPassword(p => !p) },
+                  { label: "Confirm Password", value: updatePasswordData?.confirmNewPassword, name: "confirmNewPassword", visible: seeConfirmNewPassword, toggle: () => setSeeConfirmNewPassword(p => !p) },
                 ].map((field, index) => (
                   <div key={index} className="flex flex-col gap-2">
-
-                    <label className="text-sm font-medium text-[#CBD5E1]">
-                      {field.label}
-                    </label>
-
+                    <label className="text-sm font-medium text-slate-300">{field.label}</label>
                     <div className="relative">
-
                       <input
-                        className="
-                      w-full rounded-2xl border border-white/10
-                      bg-[#0F172A]
-                      px-4 py-3 pr-12
-                      text-white outline-none
-                      transition-all duration-300
-                      focus:border-yellow-400
-                    "
                         type={field.visible ? "text" : "password"}
                         required
                         name={field.name}
                         value={field.value}
                         onChange={updatePasswordDataHandler}
+                        className="w-full rounded-2xl border border-white/10 bg-[#111c35] px-4 py-3 pr-12
+                      text-white outline-none transition-all duration-200
+                      focus:border-indigo-500/60 focus:bg-[#152040] focus:ring-1 focus:ring-indigo-500/30"
                       />
-
                       <button
                         type="button"
                         onClick={field.toggle}
-                        className="
-                      absolute right-4 top-1/2
-                      -translate-y-1/2
-                      text-xl text-[#94A3B8]
-                      hover:text-white
-                    "
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500
+                      hover:text-slate-200 transition-colors duration-200"
                       >
-                        {
-                          field.visible
-                            ? <IoEyeOutline />
-                            : <IoEyeOffOutline />
-                        }
+                        {field.visible ? <IoEyeOutline className="text-xl" /> : <IoEyeOffOutline className="text-xl" />}
                       </button>
-
                     </div>
                   </div>
-                ))
-              }
+                ))}
+              </div>
             </div>
           </form>
 
-          {/* Delete Account */}
-          <div
-            className="
-          rounded-3xl border border-[#EF476F]/20
-          bg-[#2A0D16]/70
-          p-6 backdrop-blur-xl
-          shadow-2xl shadow-black/20
-        "
-          >
+          {/* ── DELETE ACCOUNT ── */}
+          <div className="overflow-hidden rounded-3xl border border-red-500/20 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+            <div className="h-[2px] w-full bg-gradient-to-r from-red-500 via-red-400 to-red-500" />
 
-            <div className="flex flex-col gap-5 sm:flex-row">
+            <div className="p-6 sm:p-8 flex flex-col sm:flex-row gap-5">
 
               {/* Icon */}
-              <div
-                className="
-              flex h-16 w-16 items-center justify-center
-              rounded-2xl bg-[#EF476F]/10
-              text-3xl text-[#FF7B94]
-            "
-              >
-                <RiDeleteBin6Line />
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl
+            border border-red-500/20 bg-red-500/10">
+                <RiDeleteBin6Line className="text-2xl text-red-400" />
               </div>
 
               {/* Content */}
-              <div className="flex flex-1 flex-col gap-3">
-
-                <h2 className="text-2xl font-bold text-white">
-                  Delete Account
-                </h2>
-
-                <p className="max-w-2xl leading-7 text-[#FBC7D1]">
+              <div className="flex flex-col gap-3">
+                <h2 className="text-lg font-bold text-white">Delete Account</h2>
+                <p className="text-sm leading-relaxed text-slate-400 max-w-2xl">
                   Deleting your account will permanently remove all your data,
-                  purchased courses, and profile information.
+                  purchased courses, and profile information. This action cannot be undone.
                 </p>
-
                 <button
                   onClick={() => dispatch(setDeleteAccountModal(true))}
-                  className="
-                mt-2 w-fit rounded-xl
-                border border-[#EF476F]/20
-                bg-[#EF476F]/10
-                px-5 py-3
-                font-medium text-[#FF8FA3]
-                transition-all duration-300
-                hover:bg-[#EF476F]/20
-              "
+                  className="mt-1 w-fit rounded-2xl border border-red-500/20 bg-red-500/10
+                px-5 py-2.5 text-sm font-semibold text-red-400 transition-all duration-200
+                hover:bg-red-500/20 hover:text-red-300"
                 >
                   Delete My Account
                 </button>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

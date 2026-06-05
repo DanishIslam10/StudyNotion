@@ -1,6 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-  <rect width="20" height="20" rx="4" fill="#6C3EF4"/>
-  <rect x="4" y="9" width="5" height="8" rx="1" fill="white" opacity="0.95"/>
-  <rect x="11" y="9" width="5" height="8" rx="1" fill="white" opacity="0.8"/>
-  <rect x="4" y="6" width="11" height="2" rx="0.5" fill="white"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecec07"/>
+      <stop offset="50%" stop-color="#a6ff5e"/>
+      <stop offset="100%" stop-color="#ffbc57"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1526"/>
+      <stop offset="100%" stop-color="#111c35"/>
+    </linearGradient>
+  </defs>
+  <!-- Dark background -->
+  <rect width="20" height="20" rx="4" fill="url(#dark)"/>
+  <!-- Gradient top accent line -->
+  <rect x="0" y="0" width="20" height="2" rx="1" fill="url(#bg)"/>
+  <!-- Two column bars (same shape as original) -->
+  <rect x="4" y="9" width="5" height="8" rx="1" fill="url(#bg)" opacity="0.95"/>
+  <rect x="11" y="9" width="5" height="8" rx="1" fill="url(#bg)" opacity="0.7"/>
+  <!-- Top horizontal bar -->
+  <rect x="4" y="6" width="11" height="2" rx="0.5" fill="url(#bg)"/>
 </svg>

@@ -63,7 +63,7 @@ exports.sendOTP = async (req, res) => {
         const otpPayload = { email, otp }
 
         // store otp in db
-        const otpDoc = await OTP.create(otpPayload)
+        await OTP.create(otpPayload)
 
         // console.log("OTP Doc: ", otpDoc)
 

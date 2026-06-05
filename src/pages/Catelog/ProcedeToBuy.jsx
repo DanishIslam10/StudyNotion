@@ -46,97 +46,108 @@ const ProcedeToBuy = ({ courseDetails }) => {
   }, [])
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#161D29]/80 backdrop-blur-xl shadow-2xl shadow-black/30">
+    <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#0d1526] shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
 
-      {/* Thumbnail */}
-      <div className="overflow-hidden">
+      {/* Top accent */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]" />
+
+      {/* THUMBNAIL */}
+      <div className="relative hidden sm:block overflow-hidden">
         <img
-          className="hidden sm:block h-[220px] w-full object-cover transition-transform duration-500 hover:scale-105"
           src={courseDetails?.thumbnail}
           alt="Course Thumbnail"
+          className="h-[200px] w-full object-cover transition-transform duration-500 hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1526] via-[#0d1526]/30 to-transparent" />
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col gap-6 p-6">
+      <div className="flex flex-col gap-5 p-6">
 
-        {/* Price */}
+        {/* PRICE */}
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-widest text-[#838894]">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
               Course Price
             </p>
-
-            <h2 className="mt-1 text-3xl font-bold text-white">
-              ₹ {courseDetails?.price || "Price"}
+            <h2 className="mt-1 text-3xl font-bold bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57] bg-clip-text text-transparent">
+              ₹{courseDetails?.price || "—"}
             </h2>
           </div>
 
-          <div className="rounded-full border border-[#06D6A0]/20 bg-[#06D6A0]/10 px-3 py-1 text-xs font-semibold text-[#06D6A0]">
-            Lifetime Access
+          <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#111c35] px-3 py-1.5">
+            <div className="h-1.5 w-1.5 rounded-full bg-[#a6ff5e]" />
+            <p className="text-xs font-medium text-slate-300">Lifetime Access</p>
           </div>
         </div>
 
-        {/* Buttons */}
+        {/* BUTTONS */}
         <div className="flex flex-col gap-3">
-          {
-            added ? (
-              <Btn
-                onClickFunction={removeFromCartHandler}
-                children="Remove From Cart"
-                color="#FF5A76"
-                textColor="#1A0006"
-              />
-            ) : (
-              (user?.accountType === "Student" || !token) &&
-              <Btn
-                onClickFunction={addToCartHandler}
-                children="Enroll Now"
-                color="#FFD60A"
-                textColor="#000814"
-              />
-            )
-          }
+          {added ? (
+            <button
+              onClick={removeFromCartHandler}
+              className="w-full rounded-2xl border border-red-500/20 bg-red-500/10 py-3.5 text-sm
+            font-semibold text-red-400 transition-all duration-200
+            hover:bg-red-500/20 hover:text-red-300 active:scale-[0.99]"
+            >
+              Remove from Cart
+            </button>
+          ) : (
+            (user?.accountType === "Student" || !token) && (
 
-          {
-            user?.accountType === "Student" || !token &&
-            <p className="text-center text-sm text-[#AAB0C0]">
-              30-Day Money-Back Guarantee
-            </p>
-          }
+              <button
+                onClick={() => {
+                  addToCartHandler();
+                  navigate("/profile/wishlist");
+                }}
+                className="w-full rounded-2xl bg-gradient-to-r from-[#ecec07] via-[#a6ff5e] to-[#ffbc57]
+              py-3.5 text-sm font-bold text-black shadow-lg transition-all duration-300
+              hover:opacity-90 hover:scale-[1.02] active:scale-[0.99]"
+              >
+                Enroll Now
+              </button>
+            )
+          )}
+
+          {(user?.accountType === "Student" || !token) && (
+            <div className="flex items-center justify-center gap-2">
+              <svg className="h-3.5 w-3.5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
+              <p className="text-xs text-slate-600">30-Day Money-Back Guarantee</p>
+            </div>
+          )}
         </div>
 
-        {/* Divider */}
-        <div className="h-[1px] w-full bg-white/10"></div>
+        {/* DIVIDER */}
+        <div className="border-t border-white/[0.08]" />
 
-        {/* Features */}
-        <div className="flex flex-col gap-4">
-
-          <p className="text-sm font-semibold tracking-wide text-white">
+        {/* COURSE INCLUDES */}
+        <div className="flex flex-col gap-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
             This course includes
           </p>
 
-          <div className="flex flex-col gap-3 text-sm text-[#D1D5DB]">
+          <div className="flex flex-col gap-2.5">
 
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-[#06D6A0]/10 p-2 text-[#06D6A0]">
-                <IoDocumentTextOutline />
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#111c35]">
+                <IoDocumentTextOutline className="text-sm text-indigo-400" />
               </div>
-              <p>Certificate of completion</p>
+              <p className="text-sm text-slate-300">Certificate of completion</p>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-[#3B82F6]/10 p-2 text-[#60A5FA]">
-                <FaMobileAlt />
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#111c35]">
+                <FaMobileAlt className="text-sm text-indigo-400" />
               </div>
-              <p>Access on mobile & TV</p>
+              <p className="text-sm text-slate-300">Access on mobile & TV</p>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-[#F59E0B]/10 p-2 text-[#FBBF24]">
-                <FaRegClock />
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#111c35]">
+                <FaRegClock className="text-sm text-indigo-400" />
               </div>
-              <p>Full lifetime access</p>
+              <p className="text-sm text-slate-300">Full lifetime access</p>
             </div>
 
           </div>
