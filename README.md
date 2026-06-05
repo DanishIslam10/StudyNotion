@@ -32,6 +32,23 @@ A full-stack ed-tech web application where instructors can create and publish co
 
 ---
 
+---
+
+## 💳 Test Payment Details
+
+The app runs in **Razorpay Test Mode** — no real money is charged. Use the following test card to simulate a successful payment:
+
+| Field | Value |
+|---|---|
+| Network | Mastercard |
+| Card Number | `5500 6700 0000 1002` |
+| CVV | Any random 3-digit number (e.g. `123`) |
+| Expiry | Any future date (e.g. `12/26`) |
+
+> **Note:** These credentials only work in test mode. Do not use real card details.
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
