@@ -1,8 +1,8 @@
-# StudyNotion — Ed-Tech Platform
+# LearnSpace — Ed-Tech Platform
 
 A full-stack ed-tech web application where instructors can create and publish courses, and students can browse, purchase, and consume them. Built with the MERN stack and integrated with Razorpay for payments and Cloudinary for media storage.
 
-**Live Demo:** [StudyNotion](https://study-notion-iota-three.vercel.app) &nbsp;|&nbsp; **GitHub:** [DanishIslam10/StudyNotion](https://github.com/DanishIslam10/StudyNotion)
+**Live Demo:** [LearnSpace](https://learn-space-ed-tech.vercel.app/) &nbsp;|&nbsp; **GitHub:** [DanishIslam10/LearnSpace](https://github.com/DanishIslam10/learn-space-ed-tech)
 
 ---
 
@@ -89,8 +89,8 @@ studynotion/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/DanishIslam10/StudyNotion.git
-cd StudyNotion
+git clone https://github.com/DanishIslam10/learn-space-ed-tech.git
+cd learn-space-ed-tech
 ```
 
 ### 2. Set up environment variables
